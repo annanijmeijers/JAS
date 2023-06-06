@@ -6,3 +6,12 @@ Problemen
 
 -	 Stations die voorkomen in meerdere trajecten is niet erg, hoe implementeer je dit? 
 	Lijstje met welke steden niet erg zijn om meerdere keren langs te komen (afhankelijk van aantal verbindingen. Heeft station > x verbindingen>  mag er vaker langs komen) 
+
+Class Railnet:
+-> slaat trajecten op
+-> moet iets met passed stations doen
+-> Hoe bepaal je kritieke stations?
+-> method: target function/quality
+
+Class Route:
+-> maakt een traject aan op basis van doorgegeven stations.
