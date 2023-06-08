@@ -1,13 +1,9 @@
 import pandas as pd
 
-# read data from file
-df = pd.read_csv('ConnectiesHolland.csv')
-
-
 class Station(): 
 
     def __init__(self, station_name): # what parameters when calling this object? 
-        self.station_name = station_name
+        self.name = station_name
         self.connections = None 
         self.coordinates = None 
         self.passed = False
@@ -20,9 +16,9 @@ class Station():
         Takes the name of a station and a general dataframe, returns a dictionary containing all
         the destinations, including distance
         """
-        station_mask = df['station1'] == self.station_name
+        station_mask = df['station1'] == self.name
         station_df_left = df[station_mask]
-        station_mask2 = df['station2'] == self.station_name
+        station_mask2 = df['station2'] == self.name
         station_df_right = df[station_mask2]
 
         swapped_station = station_df_right.rename(columns={'station1': 'station2', 'station2': 'station1'})
@@ -68,13 +64,13 @@ class Station():
         This function helps present the station-object 
         readable. 
         """
-        return f'Station: {self.station_name}, Coords: {self.coordinates}, '\
+        return f'Station: {self.name}, Coords: {self.coordinates}, '\
                f'Passed: {self.passed}, Begin station: {self.check_begin_station}'
 
 
 
-test_station = Station('Amsterdam Sloterdijk')
-test_station.find_connections(df)
-print(test_station.station_name)
-print(test_station.connections)
+# test_station = Station('Amsterdam Sloterdijk')
+# test_station.find_connections(df)
+# print(test_station.station_name)
+# print(test_station.connections)
 

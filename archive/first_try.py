@@ -10,24 +10,18 @@ class Route():
        self.route = []
        self.df = dataframe
 
-   def swap_columns(self, df, column1, column2): # deze functie moet ergens anders, of mergen   
-        """
-        Swaps columns of a dataframe with two columns 
-        """
-        new_df = df.rename(columns={column1: column2, column2:column1})
-        return new_df
-
-   def give_destinations(self, station, dataframe): 
+   def give_destinations(self, station): 
         """
         Takes the name of a station and and a general dataframe, returns a dataframe containing all 
         the destionations, including distance 
         """
-        station_mask = df['station1'] == station
-        station_df_left = df[station_mask]
-        station_mask2 = df['station2'] == station
-        station_df_right = df[station_mask2]
-        
-        swapped_station = swap_columns(station_df_right, 'station1', 'station2')
+        station_mask = self.df['station1'] == station
+        station_df_left = self.df[station_mask]
+        station_mask2 = self.df['station2'] == station
+        station_df_right = self.df[station_mask2]
+
+        swapped_station = self.df.rename(columns={'station1': 'station2', 'station2':'station1'})
+    
         destinations = station_df_left.append(swapped_station).drop('station1', axis=1).reset_index()
 
         return destinations  
