@@ -1,12 +1,39 @@
+import pandas as pd
+
+# read data from file
+df = pd.read_csv('ConnectiesHolland.csv')
+
+
 class Station(): 
 
     def __init__(self, station_name): # what parameters when calling this object? 
         self.station_name = station_name
+        self.connections = None 
         self.coordinates = None 
-        self.check_passed = False
-        self.check_begin_station = False 
-
+        self.passed = False
+        self.begin_station = False 
         pass
+
+    
+    def find_connections(self, df):
+        """
+        Takes the name of a station and a general dataframe, returns a dictionary containing all
+        the destinations, including distance
+        """
+        station_mask = df['station1'] == self.station_name
+        station_df_left = df[station_mask]
+        station_mask2 = df['station2'] == self.station_name
+        station_df_right = df[station_mask2]
+
+        swapped_station = station_df_right.rename(columns={'station1': 'station2', 'station2': 'station1'})
+
+        destinations = station_df_left.append(swapped_station).drop('station1', axis=1).reset_index()
+
+        connections = {}
+        for index, row in destinations.iterrows():
+            connections[row['station2']] = row['distance']
+
+        self.connections = connections
 
     def set_coordinates(self, coordinates): 
         """ 
@@ -14,31 +41,8 @@ class Station():
         This function sets the coordinates of a station
         """
         self.coordinates = coordinates
-
-    def connections(self, connections):
-
-        """ 
-        # determine what form 'connections' will be of
-        # maybe dictionary? Then we would have to write something 
-        # that will transform the connection list into a dictionary! 
-
-        This function takes connections and searches for 
-        the connections of the current station (self.station) 
-        it then creates a dictionary of all 
-        connections of this station with the corresponding 
-        connection durations. The connected stations are 
-        the keys and the duration of the connection to that 
-        station is the value. 
-        """
-        # retrieve the information of this station from 
-        # connections
-        self.connections = connections
-        self.conncections_durations = {}
-
-
-    	# this is just a test piece of code --> not right
-        self.conncections_durations[self.station_name] = self.connections[self.station_name]
         pass 
+
 
     def check_passed(self): 
         """
@@ -46,6 +50,7 @@ class Station():
         has already been passed in a route.
         """
         self.passed = True 
+        pass
 
     def check_begin_station(self): 
         """ 
@@ -55,8 +60,8 @@ class Station():
         it cannot be used as begin station in another 
         route. 
         """
-        self.check_begin_station = True 
-
+        self.begin_station = True 
+        pass
 
     def __str__(self): 
         """
@@ -65,3 +70,11 @@ class Station():
         """
         return f'Station: {self.station_name}, Coords: {self.coordinates}, '\
                f'Passed: {self.passed}, Begin station: {self.check_begin_station}'
+
+
+
+test_station = Station('Amsterdam Sloterdijk')
+test_station.find_connections(df)
+print(test_station.station_name)
+print(test_station.connections)
+
