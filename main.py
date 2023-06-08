@@ -1,11 +1,11 @@
 import pandas as pd 
 from code.classes import station 
 
-if __name__ == __main__:
+if __name__ == "__main__":
     
     # load the data 
     df_connections = pd.read_csv('data/ConnectiesHolland.csv')
-    df_stations = pd.read_csv('data/StationsHolland')
+    df_stations = pd.read_csv('data/StationsHolland.csv')
 
     # instantiating a Station object for all stations
     all_stations = []
