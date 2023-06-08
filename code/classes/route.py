@@ -30,4 +30,6 @@ class Route():
             if (Station(connection_name).passed == False) and (self.timeframe - time > 0):
                 self.route.append(connection_name)
                 Station(connection_name).passed = True
+                self.duration += time
+                self.timeframe -= time
         pass 
