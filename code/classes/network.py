@@ -2,31 +2,29 @@ from .route import Route
 
 class Network(): 
 
-    def __init__(self): 
+    def __init__(self, dataframe, routes): 
 
         self.p = None 
-        self.t = None 
+        self.routes = routes 
         self.min = None 
 
         #  store the different routes 
         self.routes = []
-        
+
+        # storing all the covered tracks
+        self.tracks = []
+
         pass 
-    
-    def total_tracks(sel): 
-        """
-        Calculate total tracks, given a ... of tracks
-        """
-        pass 
+
+    def add_route(self):
+        pass
 
     def covered_tracks(self): 
         """
         Calculates the fraction of covered tracks: p
         """
-        # return covered_tracks / self.total_tracks
+        return len(self.tracks) / len(self.total_tracks) 
         
-
-        pass 
 
     def quality(self):
 
@@ -36,7 +34,9 @@ class Network():
         # p = fractie bereden verbindingen --> we moeten dus ergens bijhouden hoeveel verbindingen 
         # we hebben bereden 
 
-        # return quality 
-        target_function = self.p * 10000 - (self.t*100 + self.min) 
+
+        p = self.covered_tracks
+
+        target_function = p * 10000 - (self.routes*100 + self.min) 
      
         pass 
