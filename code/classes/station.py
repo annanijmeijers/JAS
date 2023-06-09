@@ -67,6 +67,7 @@ class Station():
         return f'Station: {self.name}, Coords: {self.coordinates}, '\
                f'Passed: {self.passed}, Begin station: {self.check_begin_station}'
 
-
+    def __repr__(self):
+        return self.name
 
 
