@@ -11,7 +11,7 @@ class Route():
         self.timeframe = timeframe
 
         self.duration = 0
-        self.route = []
+        self.route = list()
         self.connection_list = set()
 
     def initialise_route(self): 
@@ -51,4 +51,3 @@ class Route():
         for i in range(len(self.route)):
             if i < (len(self.route) - 1):
                 self.connection_list.add((self.route[i].name, self.route[i+1].name))
-    
