@@ -1,5 +1,6 @@
 
 import matplotlib.pyplot as plt
+import networkx as nx
 
 station_list = [
     "Alkmaar,52.63777924,4.739722252",
@@ -26,26 +27,80 @@ station_list = [
     "Zaandam,52.43888855,4.813611031"
 ]
 
-# extract x and longitude values
-x = [float(station.split(',')[1]) for station in station_list]
-y = [float(station.split(',')[2]) for station in station_list]
+# Create a graph object
+G = nx.Graph()
 
-# create the map
+# Extract x, y coordinates, and station names
+x = []
+y = []
+station_names = []
+for station in station_list:
+    name, lon, lat = station.split(',')
+    x.append(float(lat))
+    y.append(float(lon))
+    station_names.append(name)
+
+    # Add nodes to the graph
+    G.add_node(name, pos=(float(lat), float(lon)))
+
+# Define the connections between nodes with distances
+connections = [
+    ("Alkmaar", "Hoorn", 24),
+    ("Alkmaar", "Den Helder", 36),
+    ("Amsterdam Amstel", "Amsterdam Zuid", 10),
+    ("Amsterdam Amstel", "Amsterdam Centraal", 8),
+    ("Amsterdam Centraal", "Amsterdam Sloterdijk", 6),
+    ("Amsterdam Sloterdijk", "Haarlem", 11),
+    ("Amsterdam Sloterdijk", "Zaandam", 6),
+    ("Amsterdam Zuid", "Amsterdam Sloterdijk", 16),
+    ("Amsterdam Zuid", "Schiphol Airport", 6),
+    ("Beverwijk", "Castricum", 13),
+    ("Castricum", "Alkmaar", 9),
+    ("Delft", "Den Haag Centraal", 13),
+    ("Den Haag Centraal", "Gouda", 18),
+    ("Den Haag Centraal", "Leiden Centraal", 12),
+    ("Dordrecht", "Rotterdam Centraal", 17),
+    ("Gouda", "Alphen a/d Rijn", 19),
+    ("Haarlem", "Beverwijk", 16),
+    ("Heemstede-Aerdenhout", "Haarlem", 6),
+    ("Leiden Centraal", "Heemstede-Aerdenhout", 13),
+    ("Leiden Centraal", "Alphen a/d Rijn", 14),
+    ("Leiden Centraal", "Schiphol Airport", 15),
+    ("Rotterdam Alexander", "Gouda", 10),
+    ("Rotterdam Centraal", "Schiedam Centrum", 5),
+    ("Rotterdam Centraal", "Rotterdam Alexander", 8),
+    ("Schiedam Centrum", "Delft", 7),
+    ("Zaandam", "Castricum", 12),
+    ("Zaandam", "Beverwijk", 25),
+    ("Zaandam", "Hoorn", 26)
+]
+
+# Add edges to the graph with distances as weights
+for connection in connections:
+    station1, station2, distance = connection
+    G.add_edge(station1, station2, weight=distance)
+
+# Create the map
 plt.figure(figsize=(10, 8))
-plt.scatter(y, x, c='yellow', edgecolors='black')
 
-# add labels to the stations
-for i, station in enumerate(station_list):
-    name = station.split(',')[0]
-    plt.annotate(name, (y[i], x[i]))
+# Draw the stations as nodes
+pos = {name: (lon, lat) for name, lon, lat in zip(station_names, x, y)}
+nx.draw_networkx_nodes(G, pos, node_color='yellow', node_size=100, edgecolors='black')
 
-# set map boundaries
-plt.xlim(min(y) - 0.03, max(y) + 0.03)
-plt.ylim(min(x) - 0.03, max(x) + 0.03)
+# Draw the connections between stations as edges
+nx.draw_networkx_edges(G, pos, width=1)
 
-# add gridlines and title
+# Add labels to the stations
+labels = {name: name for name in station_names}
+nx.draw_networkx_labels(G, pos, labels, font_size=8)
+
+# Set map boundaries
+plt.xlim(min(x) - 0.03, max(x) + 0.03)
+plt.ylim(min(y) - 0.03, max(y) + 0.03)
+
+# Add gridlines and title
 plt.grid(True)
 plt.title("Stations Map")
 
-# show the map
+# Show the map
 plt.show()
