@@ -1,10 +1,6 @@
-import networkx as nx
-import matplotlib.pyplot as plt 
 
-# create empty graph 
-G = nx.Graph()
+import matplotlib.pyplot as plt
 
-# add all station and coordinates in list 
 station_list = [
     "Alkmaar,52.63777924,4.739722252",
     "Alphen a/d Rijn,52.12444305,4.657777786",
@@ -30,9 +26,26 @@ station_list = [
     "Zaandam,52.43888855,4.813611031"
 ]
 
-# add stations in list as nodes 
-for station in station_list:
-    name, x, y = station.split(",")
-    G.add_node(name, pos=(float(x), float(y)))
+# extract x and longitude values
+x = [float(station.split(',')[1]) for station in station_list]
+y = [float(station.split(',')[2]) for station in station_list]
 
+# create the map
+plt.figure(figsize=(10, 8))
+plt.scatter(y, x, c='yellow', edgecolors='black')
+
+# add labels to the stations
+for i, station in enumerate(station_list):
+    name = station.split(',')[0]
+    plt.annotate(name, (y[i], x[i]))
+
+# set map boundaries
+plt.xlim(min(y) - 0.03, max(y) + 0.03)
+plt.ylim(min(x) - 0.03, max(x) + 0.03)
+
+# add gridlines and title
+plt.grid(True)
+plt.title("Stations Map")
+
+# show the map
 plt.show()
