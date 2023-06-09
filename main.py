@@ -26,6 +26,7 @@ if __name__ == "__main__":
     
     print(route_names)
     print(new_route.duration)
+    print(new_route.connection_list)
 
 
 # writing the results to a csv-file
