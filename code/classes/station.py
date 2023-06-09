@@ -69,8 +69,4 @@ class Station():
 
 
 
-# test_station = Station('Amsterdam Sloterdijk')
-# test_station.find_connections(df)
-# print(test_station.station_name)
-# print(test_station.connections)
 

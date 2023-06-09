@@ -1,5 +1,7 @@
 import pandas as pd 
+import csv 
 from code.classes import station 
+from code.classes import route 
 
 if __name__ == "__main__":
     
@@ -15,3 +17,21 @@ if __name__ == "__main__":
         all_stations.append(new_station)
 
     
+    new_route = route.Route(120, all_stations)
+    new_route.compute_route()
+    
+    route_names = []
+    for sstation in new_route.route: 
+        route_names.append(sstation.name)
+    
+    print(route_names)
+    print(new_route.duration)
+
+
+# writing the results to a csv-file
+with open('rail_network.csv', 'w') as f:
+    writer = csv.writer(f, delimiter=',')
+
+    writer.writerow(['route', 'station'])
+    writer.writerow(['route_1', route_names])
+    writer.writerow(['score', 'somescore'])

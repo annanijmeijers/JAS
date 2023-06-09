@@ -1,5 +1,7 @@
 from .station import Station 
 import random
+
+
 class Route(): 
 
     def __init__(self, timeframe, list_of_stations): 
@@ -18,6 +20,7 @@ class Route():
         self.route.append(starting_station)
 
     def add_connection(self): 
+
         # create instance for current station
         current_station = self.route[-1] # chooses the last station in the route station objects
 
@@ -29,23 +32,12 @@ class Route():
         self.duration += connections[random_connection]
         self.timeframe -= connections[random_connection]
 
-        for station in self.list_of_stations: # is dit handig via een set?
-            if station.name == random_connection: # searches for the station object of the random connection station
+        for station in self.list_of_stations: # is dit handig via een set? Dit is niet super efficient
+            
+            # searches for the station object of the random connection station
+            if station.name == random_connection: 
                 self.route.append(station)
 
-        # wel de keuzes binnen het tijdframe houden 
-        '''       
-        for connection_name, time in connections.items():
-            if (Station(connection_name).passed == False) and (self.timeframe - time > 0):
-                self.route.append(connection_name)
-                Station(connection_name).passed = True
-                self.duration += time
-                self.timeframe -= time
-         
-        # check if the current station is the last station
-        if current_station == self.route[-1]:
-            pass # doorgeven dat de route klaar is
-        '''
     def compute_route(self):
         #  makes a route within the timeframe
         self.initialise_route()
