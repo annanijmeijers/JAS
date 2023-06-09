@@ -7,10 +7,12 @@ class Route():
     def __init__(self, timeframe, list_of_stations): 
         # needs to contain a variable that keeps track of the route, 
         # and the total duration of the route
-        self.route = []
-        self.timeframe = timeframe
-        self.duration = 0
         self.list_of_stations = list_of_stations
+        self.timeframe = timeframe
+
+        self.duration = 0
+        self.route = list()
+        self.connection_list = set()
 
     def initialise_route(self): 
         # get a starting station from dataframe
@@ -44,3 +46,8 @@ class Route():
 
         while self.timeframe > 0: # checken of dit niet aan t begin moet
             self.add_connection()
+
+        # compute unique connections
+        for i in range(len(self.route)):
+            if i < (len(self.route) - 1):
+                self.connection_list.add((self.route[i].name, self.route[i+1].name))
