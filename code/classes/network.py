@@ -2,38 +2,39 @@ from .route import Route
 
 class Network(): 
 
-    def __init__(self):         
+    def __init__(self, total_tracks, ammount_of_routes):         
 
         #  store the different routes 
         self.routes = []
 
         # storing all the covered tracks
-        self.covered_tracks = set()
+        self.covered_tracks = set() 
+        self.unique_tracks  = set() 
 
         # storing the total duration of all routes 
-        self.total_duration = None 
+        self.total_duration = 0 
     
-        self.total_tracks = None 
+        self.total_tracks = total_tracks 
 
-        self.route_number = None 
+        self.ammount_of_routes = ammount_of_routes
 
-    def add_route(self, route_list, route_tracks, route_duration):
+    def add_route(self, route_obj, unique_connections):
         """
         Add the route to a list, add the set of covered tracks for this route
         to the total set of covered tracks 
         """
 
-        self.route.append(route_list)
-        self.covered_tracks = self.covered_tracks + set(route_tracks)
-        self.total_duration = self.total_duration + route_duration
+        self.routes.append(route_obj.route)
+        self.covered_tracks = self.covered_tracks.union(unique_connections)
+        self.total_duration = self.total_duration + route_obj.duration
 
 
-    # def covered_tracks(self): 
-    #     """
-    #     Calculates the fraction of covered tracks: p
-    #     """
-    #     return len(self.total_tracks) / len(self.total_tracks) 
-        
+    def calculate_unique_connections(self):
+
+        for i,j in self.covered_tracks: 
+            if ((i,j) not in self.unique_tracks) and ((j,i) not in self.unique_tracks): 
+                self.unique_tracks.add((i,j))
+                                                      
 
     def quality(self):
         """"
@@ -43,8 +44,8 @@ class Network():
         -total duration of the network 
         """
 
-        p = len(self.covered_tracks) / len(self.total_tracks)
+        p = len(self.unique_tracks) / self.total_tracks
 
-        target_function = p * 10000 - (self.route_number*100 + self.total_duration) 
+        target_function = p * 10000 - (self.ammount_of_routes*100 + self.total_duration) 
      
         return target_function 
