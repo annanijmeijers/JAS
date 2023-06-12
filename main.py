@@ -32,19 +32,9 @@ if __name__ == "__main__":
 
         new_route = route.Route(60, all_stations) # heb dit voor het checken veranderd naar 60 min
         new_route.compute_route()
-
-        # unique connections dit in network implementeren toch?
-        # EERST alle connection sets mergen voordat deze unique wordt gedaan, anders moet dit 2 keer worden gedaan
-        unique_connections = set()
-        for i,j in new_route.connection_list:
-            if unique_connections:
-                if ((i, j) not in unique_connections) and ((j, i) not in unique_connections):
-                    unique_connections.add((i, j))
-            else: 
-                unique_connections.add((i, j))
         
         # add the route and the unique connections to the network 
-        rail_net.add_route(new_route, unique_connections)
+        rail_net.add_route(new_route, new_route.connection_list)
 
         writer.writerow([f'route_{r}', new_route.route])
 
