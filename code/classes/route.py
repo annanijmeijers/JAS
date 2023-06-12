@@ -35,6 +35,10 @@ class Route():
             if station.name in connections.keys():
                 del connections[station.name]
 
+        # quick fix for empty connections dict
+        if connections == {}:
+            connections = current_station.connections
+
         random_connection = random.choice(list(connections.keys())) # picks a random dict key as connection
 
         # increase duration of route and decrease the total timeframe
