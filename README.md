@@ -2,9 +2,9 @@
 Deze case gaat over het maken van een lijnvoering van intercitytreinen door Nederland met als doel de hoogste kwaliteit verkrijgen. De lijnvoering mag uit maximaal 20 trajecten bestaan binnen een tijdsframe van 3 uur. Om tot een optimale oplossing te komen is er eerst gebruik gemaakt van de treinvoering door Noord-Holland en Zuid-Holland.
 
 ### Team: JAS
-* naam Jens van der Weide
-* naam Anna Nijmeijers
-* naam Sebastiaan Smit
+* Jens van der Weide
+* Anna Nijmeijers
+* Sebastiaan Smit
 
 ### Vereisten
 Dit mooi maken
