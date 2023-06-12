@@ -9,6 +9,7 @@ if __name__ == "__main__":
     df_connections = pd.read_csv('data/ConnectiesHolland.csv')
     df_stations = pd.read_csv('data/StationsHolland.csv')
 
+    
     # instantiating a Station object for all stations
     all_stations = []
     for station_name in df_stations['station']:
