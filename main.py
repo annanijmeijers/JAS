@@ -9,7 +9,6 @@ if __name__ == "__main__":
     # load the data 
     df_connections = pd.read_csv('data/ConnectiesHolland.csv')
     df_stations = pd.read_csv('data/StationsHolland.csv')
-
     
     # initialising a csv-file to write the results to 
     f = open('rail_network.csv', 'w')
@@ -26,6 +25,7 @@ if __name__ == "__main__":
         all_stations.append(new_station)
 
     ammount_of_routes = 3
+
     # initialise a network, give it the total ammount of connections  
     rail_net = network.Network(len(df_connections), ammount_of_routes)
 
@@ -48,3 +48,6 @@ if __name__ == "__main__":
 
     writer.writerow(['score', quality])
     f.close()
+
+    # for  visualize: to get the route per Route-object, call: rail_net.routes to get a list of Route-objects.
+    # per object call route.route 
