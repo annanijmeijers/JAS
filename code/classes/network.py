@@ -23,7 +23,7 @@ class Network():
         to the total set of covered tracks 
         """
 
-        self.routes.append(route_obj.route)
+        self.routes.append(route_obj)
         self.covered_tracks = self.covered_tracks.union(unique_connections)
         self.total_duration = self.total_duration + route_obj.duration
 
