@@ -4,20 +4,19 @@ class Network():
 
     def __init__(self, total_tracks, ammount_of_routes):         
 
+        self.total_tracks = total_tracks 
+        self.ammount_of_routes = ammount_of_routes
+
         #  store the different routes 
         self.routes = []
 
-        # storing all the covered tracks
+        # storing all the covered tracks and unique connections 
         self.covered_tracks = set() 
         self.unique_tracks  = set() 
 
         # storing the total duration of all routes 
         self.total_duration = 0 
     
-        self.total_tracks = total_tracks 
-
-        self.ammount_of_routes = ammount_of_routes
-
     def add_route(self, route_obj, unique_connections):
         """
         Add the route to a list, add the set of covered tracks for this route
@@ -30,6 +29,10 @@ class Network():
 
 
     def calculate_unique_connections(self):
+        """
+        Calculate the unique connections used, leveraging the properties of sets.
+        This will result in the ammount of connections covered in the network
+        """ 
 
         for i,j in self.covered_tracks: 
             if ((i,j) not in self.unique_tracks) and ((j,i) not in self.unique_tracks): 

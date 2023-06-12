@@ -30,7 +30,8 @@ if __name__ == "__main__":
 
     for r in range(1,ammount_of_routes+1): 
 
-        new_route = route.Route(60, all_stations) # heb dit voor het checken veranderd naar 60 min
+        # initialise a route-object and computing the route 
+        new_route = route.Route(60, all_stations) 
         new_route.compute_route()
         
         # add the route and the unique connections to the network 
@@ -38,7 +39,10 @@ if __name__ == "__main__":
 
         writer.writerow([f'route_{r}', new_route.route])
 
+    # identify all unique connections in the network 
     rail_net.calculate_unique_connections()
+
+    # calculate the quality of the network 
     quality = rail_net.quality()
 
     writer.writerow(['score', quality])
