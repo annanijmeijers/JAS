@@ -1,6 +1,7 @@
 
 import matplotlib.pyplot as plt
 import networkx as nx
+import csv
 
 station_list = [
     "Alkmaar,52.63777924,4.739722252",

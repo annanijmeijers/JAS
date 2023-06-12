@@ -10,6 +10,7 @@ if __name__ == "__main__":
     df_connections = pd.read_csv('data/ConnectiesHolland.csv')
     df_stations = pd.read_csv('data/StationsHolland.csv')
 
+    
     # initialising a csv-file to write the results to 
     f = open('rail_network.csv', 'w')
     writer = csv.writer(f, delimiter=',')
