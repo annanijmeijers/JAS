@@ -1,5 +1,6 @@
 from .station import Station 
 import random
+import copy
 
 
 class Route(): 
@@ -27,7 +28,13 @@ class Route():
         current_station = self.route[-1] # chooses the last station in the route station objects
 
         # choose random connection
-        connections = current_station.connections # gives connections dictionary
+        connections = copy.deepcopy(current_station.connections) # gives connections dictionary
+        
+        # removes previously visited station(s) from connections
+        for station in self.route:
+            if station.name in connections.keys():
+                del connections[station.name]
+
         random_connection = random.choice(list(connections.keys())) # picks a random dict key as connection
 
         # increase duration of route and decrease the total timeframe
