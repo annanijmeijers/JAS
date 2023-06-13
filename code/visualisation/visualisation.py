@@ -11,17 +11,16 @@ def extract_stations(csv_file):
         for row in reader:
             # Assuming the CSV file has three columns: name, latitude, and longitude
             name = row[0]
-            latitude = row[1]
-            longitude = row[2]
-            station = f"{name},{latitude},{longitude}"
+            longitude = row[1]
+            latitude = row[2]
+            station = f"{name},{longitude},{latitude}"
             stations.append(station)
     return stations
 
-# create list with stations
+# Create list with stations
 csv_file = 'StationsNationaal.csv' 
 station_list = extract_stations(csv_file)
 print(station_list)
-
 
 def read_connections(csv_file):
     connections = []
@@ -34,17 +33,16 @@ def read_connections(csv_file):
             connections.append((station1, station2, distance))
     return connections
 
-# make a list with connections
+# Create list with connections
 csv_file_connections = 'ConnectiesNationaal.csv'
 connections = read_connections(csv_file_connections)
 print(connections)
-
 
   
 import networkx as nx
 import matplotlib.pyplot as plt
 
-def visualize(station_list, connections):
+def visualise(station_list, connections):
     """ 
     This function accepts a list of stations and a 
     list of connections made. It then proceeds to 
@@ -59,17 +57,18 @@ def visualize(station_list, connections):
     station_names = []
     for station in station_list:
         name, lon, lat = station.split(',')
-        x.append(float(lat))
-        y.append(float(lon))
+        x.append(float(lon))
+        y.append(float(lat))
         station_names.append(name)
 
         # Add nodes to the graph
-        G.add_node(name, pos=(float(lat), float(lon)))
+        G.add_node(name, pos=(float(lon), float(lat)))
 
     # Change the way connection list is given
     new_connections = []
     for connection in connections:
         connection = connection.strip('[]').split(', ')
+
         for i in range(len(connection) - 1):
             station1 = next(station for station in station_list if station.startswith(connection[i]))
             station2 = next(station for station in station_list if station.startswith(connection[i + 1]))
@@ -85,7 +84,7 @@ def visualize(station_list, connections):
     plt.figure(figsize=(10, 8))
 
     # Draw the stations as nodes
-    pos = nx.get_node_attributes(G, 'pos')
+    pos = nx.spring_layout(G)
     nx.draw_networkx_nodes(G, pos, node_color='yellow', node_size=100, edgecolors='black')
 
     # Draw the connections between stations as edges
@@ -107,13 +106,17 @@ def visualize(station_list, connections):
 
 
 
+
+
+
+
 route_1 = "[Schiedam Centrum, Delft, Den Haag Centraal, Gouda, Rotterdam Alexander, Rotterdam Centraal, Dordrecht]"
 route_2 = "[Beverwijk, Haarlem, Heemstede-Aerdenhout, Leiden Centraal, Schiphol Airport, Amsterdam Zuid, Amsterdam Sloterdijk]"
 route_3 = "[Amsterdam Zuid, Schiphol Airport, Leiden Centraal, Alphen a/d Rijn, Gouda, Den Haag Centraal]"
 
 connections = [route_1, route_2, route_3]
 
-print(visualize(station_list, connections))
+print(visualise(station_list, connections))
 
 
 
