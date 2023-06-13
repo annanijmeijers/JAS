@@ -23,7 +23,7 @@ class Station():
 
         swapped_station = station_df_right.rename(columns={'station1': 'station2', 'station2': 'station1'})
 
-        destinations = station_df_left.append(swapped_station).drop('station1', axis=1).reset_index()
+        destinations = pd.concat([station_df_left, swapped_station]).drop('station1', axis=1).reset_index()
 
         connections = {}
         for index, row in destinations.iterrows():
