@@ -19,6 +19,7 @@ class Network():
     
     def add_route(self, route_obj, unique_connections):
         """
+        IN: Route-object, a list of connections covered by the route 
         Add the route to a list, add the set of covered tracks for this route
         to the total set of covered tracks 
         """
@@ -45,6 +46,7 @@ class Network():
         -fraction of covered tracks
         -ammount of routes 
         -total duration of the network 
+        OUT: a value for the target function K 
         """
 
         p = len(self.unique_tracks) / self.total_tracks
