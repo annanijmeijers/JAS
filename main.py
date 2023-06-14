@@ -3,6 +3,7 @@ import csv
 from code.classes import station 
 from code.classes import route 
 from code.classes import network 
+from code.algorithms import randomised 
 
 if __name__ == "__main__":
     
@@ -33,7 +34,7 @@ if __name__ == "__main__":
 
         # initialise a route-object and computing the route 
         new_route = route.Route(60, all_stations) 
-        new_route.compute_route()
+        randomised.build_route(new_route)
         
         # add the route and the unique connections to the network 
         rail_net.add_route(new_route, new_route.connection_list)

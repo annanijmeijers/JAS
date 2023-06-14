@@ -41,7 +41,7 @@ class Route():
     def add_connection(self, connection_key, connections): 
         # increase duration of route and decrease the total timeframe
         self.duration += connections[connection_key]
-        self.timeframe -= connections[connection_key]
+        
 
         stations_list = set(self.list_of_stations)
         for station in self.list_of_stations: # is dit handig via een set? Dit is niet super efficient
