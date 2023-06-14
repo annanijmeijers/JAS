@@ -28,7 +28,7 @@ def random_connection(route_obj):
 def build_route(route_obj): 
     """
     IN: Route-object 
-    Implemts random_initialise to initialise the route and implements 
+    Implements random_initialise to initialise the route and implements 
     random_connection until the duration surpasses the timeframe given to the route
     """
     random_initialise(route_obj)
