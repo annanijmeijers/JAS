@@ -41,12 +41,8 @@ def read_connections(csv_file):
 
 
 
-def visualise(station_list, connections):
-    """ 
-    This function accepts a list of stations and a 
-    list of connections made. It then proceeds to 
-    map the connections made between the stations. 
-    """
+def visualise(station_list, network_object):
+        
     # Create a graph object
     G = nx.Graph()
 
@@ -54,69 +50,53 @@ def visualise(station_list, connections):
     x = []
     y = []
     station_names = []
-
-
+    
     for station in station_list:
         name, lon, lat = station.split(',')
-        x.append(float(lon))
-        y.append(float(lat))
+        x.append(float(lat))
+        y.append(float(lon))
         station_names.append(name)
 
         # Add nodes to the graph
-        G.add_node(name, pos=(float(lon), float(lat)), name=name) # add 'name' attribute
+        G.add_node(name, pos=(float(lat), float(lon)))
 
-    
-    # Convert connections to list of tuples
-    new_connections = []
 
-    for route in connections:
+    # route_1 = ["Schiedam Centrum", "Delft", "Den Haag Centraal", "Gouda", "Rotterdam Alexander", "Rotterdam Centraal", "Dordrecht"]
 
-        # Create pattern 
-        pattern = r'\[()\]'
+    all_routes = network_object.routes 
 
-        # extract station names that are enclosed in square brackets
-        station_names = re.findall(pattern, route)
+    for route in all_routes: 
+        new_route = route.route 
 
-        # remove leading spaces from station names
-        station_list = [name.strip() for name in station_names]
-        
-        for i in range(len(station_list) - 1):
-            new_connections.append((station_list[i], station_list[i + 1]))
-            G.add_edge(station_list[i], station_list[i + 1])
-    
-    # # Add edges to the graph
-    # for connection in new_connections:
-    #     station1, station2, distance = connection
-    #     G.add_edge(station1, station2, weight=distance)
+        for a, b in zip(new_route, new_route[1:]):
+            G.add_edge(a, b)
 
     # Create the map
-    plt.figure(figsize=(8, 10))
+    plt.figure(figsize=(8, 20))
 
     # Draw the stations as nodes
-    # pos = nx.spring_layout(G)
     pos = {name: (lon, lat) for name, lon, lat in zip(station_names, x, y)}
-
-    nx.draw_networkx_nodes(G, pos, node_color='yellow', node_size=100, edgecolors='black')
+    nx.draw_networkx_nodes(G, pos, node_color='blue', node_size=100, edgecolors='black')
 
     # Draw the connections between stations as edges
-    nx.draw_networkx_edges(G, pos, width=1)
+    nx.draw_networkx_edges(G, pos, width=4, edge_color='red')
 
     # Add labels to the stations
     labels = {name: name for name in station_names}
     nx.draw_networkx_labels(G, pos, labels, font_size=8)
 
-    plt.show()
-
     # Set map boundaries
-    plt.xlim(min(x) - 0.03, max(y) + 0.03)
-    plt.ylim(min(x) - 0.03, max(y) + 0.03)
+    plt.xlim(min(x) - 0.05, max(x) + 0.05)
+    plt.ylim(min(y) - 0.03, max(y) + 0.03)
 
     # Add gridlines and title
     plt.grid(True)
     plt.title("Stations Map")
-    # plt.show()
 
-    return 
+    # Show the map
+    plt.show()
+
+
 
 
 # Create list with stations
@@ -127,12 +107,4 @@ station_list = extract_stations(csv_file)
 csv_file_connections = 'ConnectiesNationaal.csv'
 connections = read_connections(csv_file_connections)
 
-
-route_1 = "[Schiedam Centrum, Delft, Den Haag Centraal, Gouda, Rotterdam Alexander, Rotterdam Centraal, Dordrecht]"
-route_2 = "[Beverwijk, Haarlem, Heemstede-Aerdenhout, Leiden Centraal, Schiphol Airport, Amsterdam Zuid, Amsterdam Sloterdijk]"
-route_3 = "[Amsterdam Zuid, Schiphol Airport, Leiden Centraal, Alphen a/d Rijn, Gouda, Den Haag Centraal]"
-
-connections_made = [route_1, route_2, route_3] 
-
 visualise(station_list, connections)
-

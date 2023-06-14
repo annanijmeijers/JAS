@@ -41,7 +41,7 @@ def read_connections(csv_file):
 
 
 
-def visualise(station_list, connections):
+def visualise(station_list, network_object):
         
     # Create a graph object
     G = nx.Graph()
@@ -60,15 +60,15 @@ def visualise(station_list, connections):
         G.add_node(name, pos=(float(lat), float(lon)))
 
 
-    # Add edges to the graph with distances as weights
-    # for connection in connections:
-    #     station1, station2, distance = connection
-    #     G.add_edge(station1, station2, weight=distance)
+    # route_1 = ["Schiedam Centrum", "Delft", "Den Haag Centraal", "Gouda", "Rotterdam Alexander", "Rotterdam Centraal", "Dordrecht"]
 
+    all_routes = network_object.routes 
 
-    route_1 = ["Schiedam Centrum", "Delft", "Den Haag Centraal", "Gouda", "Rotterdam Alexander", "Rotterdam Centraal", "Dordrecht"]
-    for a, b in zip(route_1, route_1[1:]):
-        G.add_edge(a, b)
+    for route in all_routes: 
+        new_route = route.route 
+
+        for a, b in zip(new_route, new_route[1:]):
+            G.add_edge(a, b)
 
     # Create the map
     plt.figure(figsize=(8, 20))

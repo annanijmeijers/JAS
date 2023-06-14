@@ -4,7 +4,9 @@ import copy
 from code.classes import station 
 from code.classes import route 
 from code.classes import network 
-from code.algorithms import randomised 
+from code.algorithms import randomised
+from code.visualisation import visualise
+
 
 if __name__ == "__main__":
     
@@ -63,10 +65,12 @@ if __name__ == "__main__":
 
 print(k_values[:10])
 print(best_k)
-#----------------- EXPDERIMENT VISUALISATION -----------------
+#----------------- EXPERIMENT VISUALISATION -----------------
 
 
 
 #----------------- NETWORK VISUALISATION -----------------
-    # for  visualize: to get the route per Route-object, call: rail_net.routes to get a list of Route-objects.
+    # for  visualise: to get the route per Route-object, call: rail_net.routes to get a list of Route-objects.
     # per object call route.route 
+
+visualise.visualisation 
