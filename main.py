@@ -5,8 +5,9 @@ from code.classes import station
 from code.classes import route 
 from code.classes import network 
 from code.algorithms import randomised
-from code.visualisation import visualise
-
+from code.visualisation.visualisation import *
+# from code.visualisation import extract_stations
+# from code.visualisation import read_connections
 
 if __name__ == "__main__":
     
@@ -26,7 +27,7 @@ if __name__ == "__main__":
 #----------------- EXPERIMENT -----------------
     best_ks = list()
 
-    for i in range(1, 8):
+    for i in range(7, 8):
         # initialising parameters for experiment 
         runs = 10000
         k_values = []
@@ -76,3 +77,12 @@ print(best_k)
     # for  visualise: to get the route per Route-object, call: rail_net.routes to get a list of Route-objects.
     # per object call route.route 
 
+# Create list with stations
+csv_file = 'data/StationsHolland.csv' 
+station_list_holland = extract_stations(csv_file)
+
+# Create list with connections
+csv_file_connections = 'data/ConnectiesHolland.csv'
+connections_holland = read_connections(csv_file_connections)
+
+visualise(station_list_holland, connections_holland, best_network)

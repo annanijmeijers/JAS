@@ -60,15 +60,15 @@ def visualise(station_list, network_object):
         G.add_node(name, pos=(float(lat), float(lon)))
 
 
-    # route_1 = ["Schiedam Centrum", "Delft", "Den Haag Centraal", "Gouda", "Rotterdam Alexander", "Rotterdam Centraal", "Dordrecht"]
+    route_1 = ["Schiedam Centrum", "Delft", "Den Haag Centraal", "Gouda", "Rotterdam Alexander", "Rotterdam Centraal", "Dordrecht"]
 
-    all_routes = network_object.routes 
+    # all_routes = network_object.routes 
 
-    for route in all_routes: 
-        new_route = route.route 
+    # for route in all_routes: 
+    #     new_route = route.route 
 
-        for a, b in zip(new_route, new_route[1:]):
-            G.add_edge(a, b)
+    for a, b in zip(route_1, route_1[1:]):
+        G.add_edge(a, b)
 
     # Create the map
     plt.figure(figsize=(8, 20))
