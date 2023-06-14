@@ -35,9 +35,10 @@ if __name__ == "__main__":
         # initialise a route-object and computing the route 
         new_route = route.Route(60, all_stations) 
         randomised.build_route(new_route)
+        new_route.compute_covered_connections()
         
         # add the route and the unique connections to the network 
-        rail_net.add_route(new_route, new_route.connection_list)
+        rail_net.add_route(new_route, new_route.connection_set)
 
         writer.writerow([f'route_{r}', new_route.route])
 
