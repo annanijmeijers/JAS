@@ -98,6 +98,7 @@ def visualise(station_list, connections, network_object):
     # Add gridlines and title
     plt.grid(True)
     plt.title("Stations Map")
+    plt.savefig('code/visualisation/plots/map.png')
 
     # Show the map
     plt.show()
