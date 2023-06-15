@@ -4,7 +4,7 @@ import copy
 from code.classes import station 
 from code.classes import route 
 from code.classes import network 
-from code.algorithms import randomised
+from code.algorithms.randomised import RandomRoute
 from code.visualisation.visualisation import *
 # from code.visualisation import extract_stations
 # from code.visualisation import read_connections
@@ -25,10 +25,12 @@ if __name__ == "__main__":
         new_station.find_connections(df_connections)
         all_stations.append(new_station)
 
-#----------------- EXPERIMENT -----------------
+#----------------- EXPERIMENT: RANDOMIZED -----------------
     best_ks = list()
 
+    # varying number of routes (default=7)
     for i in range(7, 8):
+
         # initialising parameters for experiment 
         runs = 100000
         k_values = []
@@ -47,7 +49,7 @@ if __name__ == "__main__":
 
                 # initialise a route-object and computing the route 
                 new_route = route.Route(120, all_stations) 
-                randomised.build_route(new_route)
+                RandomRoute(new_route).build_route()
                 new_route.compute_covered_connections()
                 
                 # add the route and the unique connections to the network 
@@ -68,16 +70,15 @@ if __name__ == "__main__":
         best_ks.append(f"With {i} route(s) the best K is: {best_k}")
 
 
-#----------------- EXPDERIMENT VISUALISATION -----------------
+#----------------- EXPERIMENT VISUALISATION -----------------
 plt.hist(k_values, bins = 1000)
+plt.xlabel('Value for K')
+plt.ylabel('Ammount')
+plt.title('Values for K using the Randomized algorithm')
 plt.savefig('Histogram.png') # maar 1 keer gebruiken denk ik?
 plt.show
 
-
 #----------------- NETWORK VISUALISATION -----------------
-    # for  visualise: to get the route per Route-object, call: rail_net.routes to get a list of Route-objects.
-    # per object call route.route 
-
 # Create list with stations
 csv_file = 'data/StationsHolland.csv' 
 station_list_holland = extract_stations(csv_file)
@@ -87,3 +88,7 @@ csv_file_connections = 'data/ConnectiesHolland.csv'
 connections_holland = read_connections(csv_file_connections)
 
 visualise(station_list_holland, connections_holland, best_network)
+
+some_routes = best_network.routes
+for rroute in some_routes: 
+    print(rroute.duration)
