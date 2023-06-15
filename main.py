@@ -25,10 +25,12 @@ if __name__ == "__main__":
         new_station.find_connections(df_connections)
         all_stations.append(new_station)
 
-#----------------- EXPERIMENT -----------------
+#----------------- EXPERIMENT: RANDOMIZED -----------------
     best_ks = list()
 
+    # varying number of routes (default=7)
     for i in range(7, 8):
+
         # initialising parameters for experiment 
         runs = 100000
         k_values = []
@@ -68,16 +70,15 @@ if __name__ == "__main__":
         best_ks.append(f"With {i} route(s) the best K is: {best_k}")
 
 
-#----------------- EXPDERIMENT VISUALISATION -----------------
+#----------------- EXPERIMENT VISUALISATION -----------------
 plt.hist(k_values, bins = 1000)
+plt.xlabel('Value for K')
+plt.ylabel('Ammount')
+plt.title('Values for K using the Randomized algorithm')
 plt.savefig('Histogram.png') # maar 1 keer gebruiken denk ik?
 plt.show
 
-
 #----------------- NETWORK VISUALISATION -----------------
-    # for  visualise: to get the route per Route-object, call: rail_net.routes to get a list of Route-objects.
-    # per object call route.route 
-
 # Create list with stations
 csv_file = 'data/StationsHolland.csv' 
 station_list_holland = extract_stations(csv_file)
