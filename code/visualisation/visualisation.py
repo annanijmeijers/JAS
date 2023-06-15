@@ -67,17 +67,6 @@ def visualise(station_list, connections, network_object):
 
     print(G.nodes)
 
-    # Add edges to the graph
-    # for connection in connections:
-    #     station1, station2, distance = connection
-    #     G.add_edge(station1, station2, weight=distance)
-
-    # nx.draw_networkx_edges(G, pos, width=2, edge_color='black')
-
-
-    # route_1 = ["Schiedam Centrum", "Delft", "Den Haag Centraal", "Gouda", "Rotterdam Alexander", "Rotterdam Centraal", "Dordrecht"]
-
-   
     # Create the map
     plt.figure(figsize=(8, 20))
 
@@ -88,10 +77,8 @@ def visualise(station_list, connections, network_object):
     all_routes = network_object.routes 
     colors = ['b', 'g', 'r', 'c', 'm', 'y', 'k', 'w', '0.5', '0.75', '0.25', '0.1', '0.9', '0.3', '0.7', '0.2', '0.8', '0.4', '0.6', '0.0']
 
-    for route in all_routes: 
-        for color in colors: 
+    for route in all_routes:  
             new_route = route.route 
-            route_color = color
 
             for a, b in zip(new_route, new_route[1:]):
                 G.add_edge(a.name, b.name)
@@ -115,13 +102,4 @@ def visualise(station_list, connections, network_object):
     # Show the map
     plt.show()
 
-# # Create list with stations
-# csv_file = 'StationsNationaal.csv' 
-# station_list = extract_stations(csv_file)
-
-# # Create list with connections
-# csv_file_connections = 'ConnectiesNationaal.csv'
-# connections = read_connections(csv_file_connections)
-
-# visualise(station_list, connections, route_object)
 
