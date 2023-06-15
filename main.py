@@ -75,7 +75,7 @@ plt.hist(k_values, bins = 1000)
 plt.xlabel('Value for K')
 plt.ylabel('Ammount')
 plt.title('Values for K using the Randomized algorithm')
-plt.savefig('Histogram.png') # maar 1 keer gebruiken denk ik?
+plt.savefig('code/visualisation/plots/Histogram.png') # maar 1 keer gebruiken denk ik?
 plt.show
 
 #----------------- NETWORK VISUALISATION -----------------
