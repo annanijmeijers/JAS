@@ -67,7 +67,7 @@ def visualise(station_list, connections, network_object):
 
     print(G.nodes)
 
-     # Add edges to the graph
+    # Add edges to the graph
     # for connection in connections:
     #     station1, station2, distance = connection
     #     G.add_edge(station1, station2, weight=distance)
@@ -77,16 +77,7 @@ def visualise(station_list, connections, network_object):
 
     # route_1 = ["Schiedam Centrum", "Delft", "Den Haag Centraal", "Gouda", "Rotterdam Alexander", "Rotterdam Centraal", "Dordrecht"]
 
-    all_routes = network_object.routes 
-
-    for route in all_routes: 
-        new_route = route.route 
-
-        for a, b in zip(new_route, new_route[1:]):
-            G.add_edge(a.name, b.name)
-
    
-
     # Create the map
     plt.figure(figsize=(8, 20))
 
@@ -94,12 +85,24 @@ def visualise(station_list, connections, network_object):
     pos = {name: (lon, lat) for name, lon, lat in zip(station_names, x, y)}
     nx.draw_networkx_nodes(G, pos, node_color='yellow', node_size=100, edgecolors='black')
 
-    # Draw the connections between stations as edges
-    nx.draw_networkx_edges(G, pos, width=2, edge_color='blue')
+    all_routes = network_object.routes 
+    colors = ['b', 'g', 'r', 'c', 'm', 'y', 'k', 'w', '0.5', '0.75', '0.25', '0.1', '0.9', '0.3', '0.7', '0.2', '0.8', '0.4', '0.6', '0.0']
+
+    for route in all_routes: 
+        for color in colors: 
+            new_route = route.route 
+            route_color = color
+
+            for a, b in zip(new_route, new_route[1:]):
+                G.add_edge(a.name, b.name)
+
 
     # Add labels to the stations
     labels = {name: name for name in station_names}
     nx.draw_networkx_labels(G, pos, labels, font_size=8)
+
+    # Draw the connections between stations as edges
+    nx.draw_networkx_edges(G, pos, width=2, edge_color=colors)
 
     # Set map boundaries
     plt.xlim(min(x) - 0.05, max(x) + 0.05)
