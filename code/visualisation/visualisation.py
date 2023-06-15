@@ -72,11 +72,10 @@ def visualise(station_list, connections, network_object):
 
     # Draw the stations as nodes
     pos = {name: (lon, lat) for name, lon, lat in zip(station_names, x, y)}
-    nx.draw_networkx_nodes(G, pos, node_color='yellow', node_size=100, edgecolors='black')
+    nx.draw_networkx_nodes(G, pos, node_size=80, node_color='skyblue', node_shape='s', linewidths=20)
 
     all_routes = network_object.routes 
-    colors = ['b', 'g', 'r', 'c', 'm', 'y', 'k', 'w', '0.5', '0.75', '0.25', '0.1', '0.9', '0.3', '0.7', '0.2', '0.8', '0.4', '0.6', '0.0']
-
+    colors = ['b', 'g', 'r', 'c', 'm', 'y', 'k']
     for route in all_routes:  
             new_route = route.route 
 
