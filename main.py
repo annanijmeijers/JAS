@@ -29,7 +29,7 @@ if __name__ == "__main__":
     best_ks = list()
 
     # varying number of routes (default=7)
-    for i in range(7, 8):
+    for i in range(7,8):
 
         # initialising parameters for experiment 
         runs = 100000
@@ -88,7 +88,3 @@ csv_file_connections = 'data/ConnectiesHolland.csv'
 connections_holland = read_connections(csv_file_connections)
 
 visualise(station_list_holland, connections_holland, best_network)
-
-some_routes = best_network.routes
-for rroute in some_routes: 
-    print(rroute.duration)
