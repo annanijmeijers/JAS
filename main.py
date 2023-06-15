@@ -8,6 +8,7 @@ from code.algorithms import randomised
 from code.visualisation.visualisation import *
 # from code.visualisation import extract_stations
 # from code.visualisation import read_connections
+import matplotlib.pyplot as plt
 
 if __name__ == "__main__":
     
@@ -29,7 +30,7 @@ if __name__ == "__main__":
 
     for i in range(7, 8):
         # initialising parameters for experiment 
-        runs = 10000
+        runs = 100000
         k_values = []
         best_k = 0 
         best_network = None 
@@ -67,10 +68,10 @@ if __name__ == "__main__":
         best_ks.append(f"With {i} route(s) the best K is: {best_k}")
 
 
-print(k_values[:10])
-print(best_k)
 #----------------- EXPDERIMENT VISUALISATION -----------------
-
+plt.hist(k_values, bins = 1000)
+plt.savefig('Histogram.png') # maar 1 keer gebruiken denk ik?
+plt.show
 
 
 #----------------- NETWORK VISUALISATION -----------------
