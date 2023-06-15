@@ -4,7 +4,7 @@ import copy
 from code.classes import station 
 from code.classes import route 
 from code.classes import network 
-from code.algorithms import randomised
+from code.algorithms.randomised import RandomRoute
 from code.visualisation.visualisation import *
 # from code.visualisation import extract_stations
 # from code.visualisation import read_connections
@@ -49,7 +49,7 @@ if __name__ == "__main__":
 
                 # initialise a route-object and computing the route 
                 new_route = route.Route(120, all_stations) 
-                randomised.build_route(new_route)
+                RandomRoute(new_route).build_route()
                 new_route.compute_covered_connections()
                 
                 # add the route and the unique connections to the network 
@@ -88,3 +88,7 @@ csv_file_connections = 'data/ConnectiesHolland.csv'
 connections_holland = read_connections(csv_file_connections)
 
 visualise(station_list_holland, connections_holland, best_network)
+
+some_routes = best_network.routes
+for rroute in some_routes: 
+    print(rroute.duration)
