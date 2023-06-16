@@ -30,13 +30,6 @@ class Route():
         """
         current_station = self.route[-1] 
         connections = copy.deepcopy(current_station.connections)
-        
-        for station in self.route:
-            if station.name in connections.keys():
-                del connections[station.name]
-
-        if connections == {}:
-            connections = current_station.connections
 
         return connections
     
