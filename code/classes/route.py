@@ -1,5 +1,5 @@
-from .station import Station 
 import copy
+from code.algorithms.randomised import RandomRoute 
 
 class Route(): 
 
@@ -54,3 +54,21 @@ class Route():
         for i in range(len(self.route)):
             if i < (len(self.route) - 1):
                 self.connection_set.add((self.route[i].name, self.route[i+1].name))
+
+    def delete_station(self, station_name): 
+        """
+        IN: name of a station (string)
+        Deletes a station and any stations that follow in the route 
+        """
+
+        # finding the station in the route-list
+        for i in range(len(self.route)): 
+            if self.route[i].name == station_name:
+
+                # make a copy of the route until (not including) the station to delete
+                new_route = copy.deepcopy(self.route[:i])
+        
+        # set the route to be the copied route 
+        self.route = new_route
+
+

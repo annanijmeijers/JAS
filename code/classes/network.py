@@ -54,3 +54,6 @@ class Network():
         target_function = p * 10000 - (self.ammount_of_routes*100 + self.total_duration) 
      
         return target_function 
+    
+    def replace_route():
+        pass 
