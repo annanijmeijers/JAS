@@ -1,10 +1,9 @@
 import random
-from .heuristics.heuristics import choice_heuristic
+
 class RandomRoute(): 
 
-    def __init__(self, route_object, network_object): 
+    def __init__(self, route_object): 
         self.route_object = route_object
-        self.network_object = network_object
         self.end_route = False 
 
     def random_initialise(self):
@@ -26,13 +25,13 @@ class RandomRoute():
         and picks a random new connection and adds it to the route 
         """
         connection_options = self.route_object.check_connection()
-        new_connections = choice_heuristic(connection_options, heuristic,
-                                           self.route_object, self.network_object)
-        if not new_connections:
+
+        if not connection_options:
+            print('no connections left')
             self.end_route = True 
             return 
         
-        next_connection = random.choice(new_connections)
+        next_connection = random.choice(connection_options)
 
         # only add the connection if it does not surpass the timeframe 
         if connection_options[next_connection] + self.route_object.duration <= self.route_object.timeframe: 
@@ -43,7 +42,7 @@ class RandomRoute():
 
         return 
 
-    def build_route(self, heuristic='station_based'): 
+    def build_route(self): 
         """
         IN: Route-object 
         Implements random_initialise to initialise the route and implements 
@@ -51,6 +50,6 @@ class RandomRoute():
         """
         self.random_initialise()
         while self.route_object.duration < self.route_object.timeframe and self.end_route == False:
-            self.random_connection(heuristic)
+            self.random_connection()
 
         return  

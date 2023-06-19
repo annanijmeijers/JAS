@@ -32,7 +32,7 @@ if __name__ == "__main__":
     for i in range(7,8):
 
         # initialising parameters for experiment 
-        runs = 100000
+        runs = 1000
         k_values = []
         best_k = 0 
         best_network = None 
