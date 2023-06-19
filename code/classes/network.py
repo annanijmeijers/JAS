@@ -1,4 +1,5 @@
 from .route import Route
+import copy 
 
 class Network(): 
 
@@ -55,5 +56,18 @@ class Network():
      
         return target_function 
     
-    def replace_route():
-        pass 
+    def replace_route(self, r, new_route):
+         """
+         IN: the number of the Route to delete, and the new Route to insert.
+
+         Replaces a given Route in the Network
+         """ 
+
+         new_routes = copy.deepcopy(self.routes)
+         for i in range(len(self.routes)): 
+             if self.routes[i].number == r:
+                 new_routes[i] = new_route # gaat dit goed met de copy? 
+                 new_route.number = i
+                 
+                 
+
