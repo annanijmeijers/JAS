@@ -28,6 +28,10 @@ class RandomRoute():
         connection_options = self.route_object.check_connection()
         new_connections = choice_heuristic(connection_options, heuristic,
                                            self.route_object, self.network_object)
+        if not new_connections:
+            self.end_route = True 
+            return 
+        
         next_connection = random.choice(new_connections)
 
         # only add the connection if it does not surpass the timeframe 

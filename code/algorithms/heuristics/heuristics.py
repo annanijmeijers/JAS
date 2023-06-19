@@ -24,6 +24,6 @@ def choice_heuristic(dictionary, heuristic, route_obj, network_obj):
                 choices.append(station_name)
 
     if not choices:
-        choices = list(dictionary.keys())
+        return False
 
     return choices
