@@ -18,7 +18,7 @@ class RandomRoute():
 
         return 
 
-    def random_connection(self, heuristic): 
+    def random_connection(self): 
         """
         IN: Route-object 
         Checks possible connections for the last station in the route 
@@ -31,7 +31,7 @@ class RandomRoute():
             self.end_route = True 
             return 
         
-        next_connection = random.choice(connection_options)
+        next_connection = random.choice(list(connection_options.keys()))
 
         # only add the connection if it does not surpass the timeframe 
         if connection_options[next_connection] + self.route_object.duration <= self.route_object.timeframe: 

@@ -3,9 +3,10 @@ from code.algorithms.randomised import RandomRoute
 
 class Route(): 
 
-    def __init__(self, timeframe, list_of_stations): 
+    def __init__(self, timeframe, list_of_stations, number): 
         self.list_of_stations = list_of_stations
         self.timeframe = timeframe
+        self.number = number 
 
         self.duration = 0
         self.route = list()
