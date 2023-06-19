@@ -48,7 +48,7 @@ if __name__ == "__main__":
             for r in range(1,ammount_of_routes+1): 
 
                 # initialise a route-object and computing the route 
-                new_route = route.Route(120, all_stations) 
+                new_route = route.Route(120, all_stations, r) 
                 RandomRoute(new_route).build_route()
                 new_route.compute_covered_connections()
                 
