@@ -1,13 +1,13 @@
 from code.classes import route
-from classes import network
-from visualisation.visualisation import *
+from code.classes import network
+from code.visualisation.visualisation import *
 import copy
 import matplotlib.pyplot as plt
-from algorithms.randomised import RandomRoute
+from code.algorithms.randomised import RandomRoute
 from tqdm import tqdm
 
 def run_random(all_stations, connections, ammount_of_routes=7,
-                   runs=10000, hist_view=False, vis = False):
+                   runs=10000, hist_view=False, vis=False):
     '''
     IN: - all_stations: list of Station objects
         - connections: connections DataFrame
@@ -23,8 +23,10 @@ def run_random(all_stations, connections, ammount_of_routes=7,
 #----------------- EXPERIMENT: RANDOMIZED -----------------
     if ammount_of_routes == 7:
         timeframe = 120
+        file = 'Holland'
     elif ammount_of_routes == 20:
         timeframe = 180
+        file = 'Nationaal'
 
     # initialising parameters for experiment 
     k_values = []
@@ -39,7 +41,7 @@ def run_random(all_stations, connections, ammount_of_routes=7,
         for r in range(1,ammount_of_routes+1): 
 
             # initialise a route-object and computing the route 
-            new_route = route.Route(timeframe, all_stations) 
+            new_route = route.Route(timeframe, all_stations, r) 
             RandomRoute(new_route).build_route()
             new_route.compute_covered_connections()
             
@@ -71,18 +73,18 @@ def run_random(all_stations, connections, ammount_of_routes=7,
         plt.hist(k_values, bins = 1000)
         plt.xlabel('Value for K')
         plt.ylabel('Ammount')
-        plt.title('Values for K using the Randomized algorithm')
-        plt.savefig(f'code/visualisation/plots/Histogram_{ammount_of_routes}.png') # maar 1 keer gebruiken denk ik?
-        plt.show
-    
+        plt.title('Values for K using the Randomized algorithm') 
+        plt.savefig(f'code/visualisation/plots/Histogram_Random_{ammount_of_routes}_routes.png')
+        plt.show()
+            
     if vis:
         #----------------- NETWORK VISUALISATION -----------------
         # Create list with stations
-        csv_file = 'data/StationsHolland.csv' 
-        station_list_holland = extract_stations(csv_file)
+        csv_file = f'data/Stations{file}.csv' 
+        stations_list = extract_stations(csv_file)
 
         # Create list with connections
-        csv_file_connections = 'data/ConnectiesHolland.csv'
-        connections_holland = read_connections(csv_file_connections)
+        csv_file_connections = f'data/Connecties{file}.csv'
+        connections_list = read_connections(csv_file_connections)
 
-        visualise(station_list_holland, connections_holland, best_network)
+        visualise(stations_list, connections_list, best_network)

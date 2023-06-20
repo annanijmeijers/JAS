@@ -9,6 +9,7 @@ from code.visualisation.visualisation import *
 # from code.visualisation import extract_stations
 # from code.visualisation import read_connections
 import matplotlib.pyplot as plt
+from code.run.run import run_random
 
 if __name__ == "__main__":
     
@@ -41,78 +42,5 @@ if __name__ == "__main__":
         all_stations.append(new_station)
 
 #----------------- EXPERIMENT: RANDOMIZED -----------------
-    best_ks = list()
-
-
-    # initialising parameters for experiment 
-    runs = 1000
-    k_values = []
-    best_k = 0 
-    best_network = None 
-
-    # ammount of routes per network 
-    ammount_of_routes = 20
-
-    for t in tqdm(range(runs)):
-
-        # initialise a network, give it the total ammount of connections  
-        rail_net = network.Network(len(df_connections), ammount_of_routes)
-
-        for r in range(1,ammount_of_routes+1): 
-
-            # initialise a route-object and computing the route 
-            new_route = route.Route(180, all_stations, r) 
-            RandomRoute(new_route).build_route()
-            new_route.compute_covered_connections()
-            
-            # add the route and the unique connections to the network 
-            rail_net.add_route(new_route, new_route.connection_set)
-
-        # identify all unique connections in the network 
-        rail_net.calculate_unique_connections()
-
-        # calculate the quality of the network 
-        quality = rail_net.quality()
-
-        k_values.append(quality)
-
-        # save the best k and the corresponding Network instance 
-        if quality > best_k: 
-            best_k = quality 
-            best_network = copy.deepcopy(rail_net)
-    best_ks.append(f"With {i} route(s) the best K is: {best_k}")
-
-
-#----------------- EXPERIMENT VISUALISATION -----------------
-plt.hist(k_values, bins = 1000)
-plt.xlabel('Value for K')
-plt.ylabel('Ammount')
-plt.title('Values for K using the Randomized algorithm')
-plt.savefig('code/visualisation/plots/Histogram.png') # maar 1 keer gebruiken denk ik?
-plt.show
-
-#----------------- NETWORK VISUALISATION -----------------
-
-# ------------------- HOLLAND ----------------------------
-# Create list with stations
-# csv_file = 'data/StationsHolland.csv' 
-# station_list_holland = extract_stations(csv_file)
-
-# # Create list with connections
-# csv_file_connections = 'data/ConnectiesHolland.csv'
-# connections_holland = read_connections(csv_file_connections)
-
-# visualise(station_list_holland, connections_holland, best_network)
-
-# ------------------- NATIONAL ----------------------------
-
-
-# Create list with stations
-csv_file = 'data/StationsNationaal.csv' 
-station_list_national = extract_stations(csv_file)
-
-# Create list with connections
-csv_file_connections = 'data/ConnectiesNationaal.csv'
-connections_national = read_connections(csv_file_connections)
-
-visualise(station_list_national, connections_national, best_network)
+    run_random(all_stations, df_connections, ammount_of_routes=20,
+               hist_view=True)
