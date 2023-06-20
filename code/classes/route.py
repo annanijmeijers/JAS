@@ -11,6 +11,7 @@ class Route():
         self.duration = 0
         self.route = list()
         self.connection_set = set()
+        self.end_route = False
 
     def add_station(self, station_obj): 
         """

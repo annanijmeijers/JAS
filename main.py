@@ -1,14 +1,8 @@
 import pandas as pd 
-from tqdm import tqdm
-import copy 
 from code.classes import station 
 from code.classes import route 
 from code.classes import network 
 from code.algorithms.randomised import RandomRoute
-from code.visualisation.visualisation import *
-# from code.visualisation import extract_stations
-# from code.visualisation import read_connections
-import matplotlib.pyplot as plt
 from code.run.run import run_random
 
 if __name__ == "__main__":
