@@ -1,23 +1,38 @@
-from classes import route
+from code.classes import route
 from classes import network
 from visualisation.visualisation import *
 import copy
 import matplotlib.pyplot as plt
+from algorithms.randomised import RandomRoute
 from tqdm import tqdm
 
-def run_algorithm(algorithm, ammount_of_routes=7, runs=10000, all_stations=None, connections=None):
+def run_random(all_stations, connections, ammount_of_routes=7,
+                   runs=10000, hist_view=False, vis = False):
+    '''
+    IN: - all_stations: list of Station objects
+        - connections: connections DataFrame
+        - ammount_of_routes: maximum routes in a network
+        - runs: ammount of runs for the experiment
+        - hist_view: Boolean to show a histogram
+        - vis: Boolean to show the map visualisation
+    ammount_of_routes choices:
+        - 7
+        - 20
+    '''
 
 #----------------- EXPERIMENT: RANDOMIZED -----------------
     best_ks = list()
     unique_tracks = []
 
+    if ammount_of_routes == 7:
+        timeframe = 120
+    elif ammount_of_routes == 20:
+        timeframe = 180
 
     # initialising parameters for experiment 
-    runs = 100000
     k_values = []
     best_k = 0 
     best_network = None
-    heuristic = 'unique_based'
 
     for t in tqdm(range(runs)):
 
@@ -27,8 +42,8 @@ def run_algorithm(algorithm, ammount_of_routes=7, runs=10000, all_stations=None,
         for r in range(1,ammount_of_routes+1): 
 
             # initialise a route-object and computing the route 
-            new_route = route.Route(120, all_stations) 
-            algorithm(new_route, rail_net).build_route(heuristic)
+            new_route = route.Route(timeframe, all_stations) 
+            RandomRoute(new_route).build_route()
             new_route.compute_covered_connections()
             
             # add the route and the unique connections to the network 
@@ -55,21 +70,23 @@ def run_algorithm(algorithm, ammount_of_routes=7, runs=10000, all_stations=None,
     print(best_ks)
 
 
-#----------------- EXPERIMENT VISUALISATION -----------------
-plt.hist(k_values, bins = 1000)
-plt.xlabel('Value for K')
-plt.ylabel('Ammount')
-plt.title('Values for K using the Randomized algorithm')
-plt.savefig(f'code/visualisation/plots/Histogram_{heuristic}.png') # maar 1 keer gebruiken denk ik?
-plt.show
+    #----------------- EXPERIMENT VISUALISATION -----------------
+    if hist_view:
+        plt.hist(k_values, bins = 1000)
+        plt.xlabel('Value for K')
+        plt.ylabel('Ammount')
+        plt.title('Values for K using the Randomized algorithm')
+        plt.savefig(f'code/visualisation/plots/Histogram_{heuristic}.png') # maar 1 keer gebruiken denk ik?
+        plt.show
+    
+    if vis:
+        #----------------- NETWORK VISUALISATION -----------------
+        # Create list with stations
+        csv_file = 'data/StationsHolland.csv' 
+        station_list_holland = extract_stations(csv_file)
 
-#----------------- NETWORK VISUALISATION -----------------
-# Create list with stations
-csv_file = 'data/StationsHolland.csv' 
-station_list_holland = extract_stations(csv_file)
+        # Create list with connections
+        csv_file_connections = 'data/ConnectiesHolland.csv'
+        connections_holland = read_connections(csv_file_connections)
 
-# Create list with connections
-csv_file_connections = 'data/ConnectiesHolland.csv'
-connections_holland = read_connections(csv_file_connections)
-
-visualise(station_list_holland, connections_holland, best_network)
+        visualise(station_list_holland, connections_holland, best_network)
