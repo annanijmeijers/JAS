@@ -40,5 +40,6 @@ if __name__ == "__main__":
    # run_random(all_stations, df_connections, ammount_of_routes=20,
                #hist_view=True, vis=True)    
     
+#----------------- EXPERIMENT: GREEDY ----------------------
     greedy = Greedy(all_stations, df_connections)
     greedy.run()
