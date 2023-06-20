@@ -80,7 +80,7 @@ if __name__ == "__main__":
         if quality > best_k: 
             best_k = quality 
             best_network = copy.deepcopy(rail_net)
-    best_ks.append(f"With {i} route(s) the best K is: {best_k}")
+    best_ks.append(f"With {ammount_of_routes} route(s) the best K is: {best_k}")
 
 
 #----------------- EXPERIMENT VISUALISATION -----------------
