@@ -39,11 +39,12 @@ class Greedy():
             # check if station has already been begin station 
             if not station.begin_station:
 
-                count_connections.append(station.connections)
+                count_connections.append(station.connections_count)
 
         min_index = count_connections.index(min(count_connections))
 
         min_connections_station = self.station_list[min_index]
+        min_connections_station.begin_station = True
 
         return min_connections_station
     
@@ -70,21 +71,22 @@ class Greedy():
 
             for station in self.station_list: 
 
-                if key == station: 
-
-                    count_connections.append(station.connections)
+                if key == station.name: 
+                   
+                    count_connections.append(station.connections_count)
                     stations.append(station)
-
+                    
         max_index = count_connections.index(max(count_connections))
 
         max_connections_station = stations[max_index]
 
-        if (connection_options[max_connections_station] + route_object.duration) <= route_object.timeframe: 
+        if (connection_options[max_connections_station.name] + route_object.duration) <= route_object.timeframe: 
 
             return max_connections_station
         
-        else: 
-            route_object.end_route = True 
+        else:
+            route_object.end_route = True
+            return
 
 
     
@@ -112,16 +114,18 @@ class Greedy():
             new_route.add_station(first_station)
 
             # while time limit is not exceeded 
-            while new_route.duration <= timeframe: 
+            while new_route.duration <= timeframe and not new_route.end_route: 
 
                 next_station = self.get_next_station(new_route)
 
                 if not new_route.end_route: 
-                    new_route.add_station(next_station) 
+                    #new_route.add_station(next_station)
+                    new_route.add_connection(next_station.name, new_route.check_connection()) 
+
 
             # send to network how many connections there are
             new_route.compute_covered_connections()
-            
+            print(new_route.route)
             # add the route and the unique connections to the network 
             rail_net.add_route(new_route, new_route.connection_set)
             rail_net.calculate_unique_connections()
@@ -133,7 +137,8 @@ class Greedy():
 
         # identify all unique connections in the network 
         rail_net.calculate_unique_connections()
-
+        print(rail_net.routes)
         # calculate the quality of the network 
         quality = rail_net.quality()
+        print(quality)
 
