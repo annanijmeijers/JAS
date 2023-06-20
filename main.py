@@ -13,8 +13,23 @@ import matplotlib.pyplot as plt
 if __name__ == "__main__":
     
 #----------------- LOADING THE DATA -----------------
-    df_connections = pd.read_csv('data/ConnectiesHolland.csv')
-    df_stations = pd.read_csv('data/StationsHolland.csv')
+
+# ------------------- HOLLAND ------------------------
+    # df_connections = pd.read_csv('data/ConnectiesHolland.csv')
+    # df_stations = pd.read_csv('data/StationsHolland.csv')
+
+    # # instantiating a Station object for all stations
+    # all_stations = []
+    # for station_name in df_stations['station']:
+    #     new_station = station.Station(station_name) # naam voor de lijst via __str__?
+        
+    #     # storing available connections to each station 
+    #     new_station.find_connections(df_connections)
+    #     all_stations.append(new_station)
+
+# ------------------ NATIONAL ---------------------------------
+    df_connections = pd.read_csv('data/ConnectiesNationaal.csv')
+    df_stations = pd.read_csv('data/StationsNationaal.csv')
 
     # instantiating a Station object for all stations
     all_stations = []
@@ -79,12 +94,27 @@ plt.savefig('code/visualisation/plots/Histogram.png') # maar 1 keer gebruiken de
 plt.show
 
 #----------------- NETWORK VISUALISATION -----------------
+
+# ------------------- HOLLAND ----------------------------
 # Create list with stations
-csv_file = 'data/StationsHolland.csv' 
-station_list_holland = extract_stations(csv_file)
+# csv_file = 'data/StationsHolland.csv' 
+# station_list_holland = extract_stations(csv_file)
+
+# # Create list with connections
+# csv_file_connections = 'data/ConnectiesHolland.csv'
+# connections_holland = read_connections(csv_file_connections)
+
+# visualise(station_list_holland, connections_holland, best_network)
+
+# ------------------- NATIONAL ----------------------------
+
+
+# Create list with stations
+csv_file = 'data/StationsNationaal.csv' 
+station_list_national = extract_stations(csv_file)
 
 # Create list with connections
-csv_file_connections = 'data/ConnectiesHolland.csv'
-connections_holland = read_connections(csv_file_connections)
+csv_file_connections = 'data/ConnectiesNationaal.csv'
+connections_national = read_connections(csv_file_connections)
 
-visualise(station_list_holland, connections_holland, best_network)
+visualise(station_list_national, connections_national, best_network)
