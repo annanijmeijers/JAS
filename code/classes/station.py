@@ -5,6 +5,8 @@ class Station():
     def __init__(self, station_name): # what parameters when calling this object? 
         self.name = station_name
         self.connections = None 
+        self.begin_station = False
+        self.connections_count = 0
 
     def find_connections(self, df):
         """
@@ -22,9 +24,14 @@ class Station():
 
         connections = {}
         for index, row in destinations.iterrows():
+            self.connections_count += 1
             connections[row['station2']] = row['distance']
 
         self.connections = connections
+
+    def is_begin_station(self): 
+        self.begin_station = True 
+
 
     def __repr__(self):
         return self.name
