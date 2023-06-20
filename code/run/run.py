@@ -21,9 +21,6 @@ def run_random(all_stations, connections, ammount_of_routes=7,
     '''
 
 #----------------- EXPERIMENT: RANDOMIZED -----------------
-    best_ks = list()
-    unique_tracks = []
-
     if ammount_of_routes == 7:
         timeframe = 120
     elif ammount_of_routes == 20:
@@ -56,7 +53,7 @@ def run_random(all_stations, connections, ammount_of_routes=7,
 
         # identify all unique connections in the network 
         rail_net.calculate_unique_connections()
-        unique_tracks.append(len(rail_net.unique_tracks))
+
         # calculate the quality of the network 
         quality = rail_net.quality()
 
@@ -66,8 +63,7 @@ def run_random(all_stations, connections, ammount_of_routes=7,
         if quality > best_k: 
             best_k = quality 
             best_network = copy.deepcopy(rail_net)
-    best_ks.append(f"With {best_network.ammount_of_routes} route(s) the best K is: {best_k}")
-    print(best_ks)
+    print(f"With {best_network.ammount_of_routes} route(s) the best K is: {best_k}")
 
 
     #----------------- EXPERIMENT VISUALISATION -----------------
@@ -76,7 +72,7 @@ def run_random(all_stations, connections, ammount_of_routes=7,
         plt.xlabel('Value for K')
         plt.ylabel('Ammount')
         plt.title('Values for K using the Randomized algorithm')
-        plt.savefig(f'code/visualisation/plots/Histogram_{heuristic}.png') # maar 1 keer gebruiken denk ik?
+        plt.savefig(f'code/visualisation/plots/Histogram_{ammount_of_routes}.png') # maar 1 keer gebruiken denk ik?
         plt.show
     
     if vis:
