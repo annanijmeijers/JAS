@@ -9,6 +9,7 @@ from code.visualisation.visualisation import *
 # from code.visualisation import extract_stations
 # from code.visualisation import read_connections
 import matplotlib.pyplot as plt
+from code.run.run import run_random
 
 if __name__ == "__main__":
     
@@ -80,7 +81,7 @@ if __name__ == "__main__":
         if quality > best_k: 
             best_k = quality 
             best_network = copy.deepcopy(rail_net)
-    best_ks.append(f"With {ammount_of_routes} route(s) the best K is: {best_k}")
+    best_ks.append(f"With {i} route(s) the best K is: {best_k}")
 
 
 #----------------- EXPERIMENT VISUALISATION -----------------
