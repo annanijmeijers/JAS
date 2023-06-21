@@ -56,18 +56,26 @@ class Network():
      
         return target_function 
     
-    def replace_route(self, r, new_route):
+    def get_route(self, r): 
+        return self.routes[r+1]
+    
+    def replace_route(self, r, replace_route):
          """
-         IN: the number of the Route to delete, and the new Route to insert.
+         IN: the number of the Route (int) to delete, and the new Route to insert.
 
          Replaces a given Route in the Network
          """ 
-
+        
+        # loop over all Routes to find the corresponding Route 
          new_routes = copy.deepcopy(self.routes)
          for i in range(len(self.routes)): 
              if self.routes[i].number == r:
-                 new_routes[i] = new_route # gaat dit goed met de copy? 
-                 new_route.number = i
+
+                # give the number of the old route to the new route and replace it 
+                replace_route.number = self.routes[i].number
+                new_routes[i] = replace_route # gaat dit goed met de copy?
+         self.routes = new_routes 
+                 
                  
                  
 
