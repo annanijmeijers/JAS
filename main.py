@@ -26,6 +26,8 @@ if __name__ == "__main__":
     #     # storing available connections to each station 
     #     new_station.find_connections(df_connections)
     #     all_stations.append(new_station)
+    # ammount of routes per network 
+    # ammount_of_routes = 7
 
 # ------------------ NATIONAL ---------------------------------
     df_connections = pd.read_csv('data/ConnectiesNationaal.csv')
@@ -39,13 +41,13 @@ if __name__ == "__main__":
         # storing available connections to each station 
         new_station.find_connections(df_connections)
         all_stations.append(new_station)
-
+    # ammount of routes per network 
+    ammount_of_routes = 20
 #----------------- EXPERIMENT: RANDOMIZED -----------------
-    best_ks = list()
 
 
     # initialising parameters for experiment 
-    runs = 1000
+    runs = 10000
     k_values = []
     best_k = 0 
     best_network = None 
@@ -68,6 +70,10 @@ if __name__ == "__main__":
             # add the route and the unique connections to the network 
             rail_net.add_route(new_route, new_route.connection_set)
 
+            if len(rail_net.unique_tracks) == rail_net.total_tracks:
+                rail_net.ammount_of_routes = r
+                break
+
         # identify all unique connections in the network 
         rail_net.calculate_unique_connections()
 
@@ -80,7 +86,7 @@ if __name__ == "__main__":
         if quality > best_k: 
             best_k = quality 
             best_network = copy.deepcopy(rail_net)
-    best_ks.append(f"With {i} route(s) the best K is: {best_k}")
+    print(f"With {len(best_network.routes)} route(s) the best K is: {best_k}")
 
 
 #----------------- EXPERIMENT VISUALISATION -----------------

@@ -26,6 +26,7 @@ class RandomRoute():
         """
         connection_options = self.route_object.check_connection()
 
+        # end the route if there are no connection options left 
         if not connection_options:
             self.end_route = True 
             return 

@@ -3,7 +3,7 @@ from code.algorithms.randomised import RandomRoute
 
 class Route(): 
 
-    def __init__(self, timeframe, list_of_stations, number): 
+    def __init__(self, timeframe, list_of_stations, number=99): 
         self.list_of_stations = list_of_stations
         self.timeframe = timeframe
         self.number = number 
@@ -77,3 +77,5 @@ class Route():
         self.route = new_route
 
 
+    def __repr__(self): 
+        return str(self.number)
