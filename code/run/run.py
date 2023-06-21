@@ -90,7 +90,6 @@ def run_random(all_stations, connections, ammount_of_routes=7,
         visualise(stations_list, connections_list, best_network)
 
 def run_greedy(algorithm, vis=False):
-    algorithm.run()
     network = copy.deepcopy(algorithm.rail_net)
 
     if network.ammount_of_routes == 7:
