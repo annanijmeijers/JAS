@@ -24,7 +24,7 @@ if __name__ == "__main__":
     #     all_stations.append(new_station)
 
 # ------------------ NATIONAL ---------------------------------
-    file = input("Which file do you want Holland or Nationaal?")
+    file = input("Which file do you want Holland or Nationaal? ")
     if file == 'Holland':
         df_connections = pd.read_csv('data/ConnectiesHolland.csv')
         df_stations = pd.read_csv('data/StationsHolland.csv')  
@@ -48,6 +48,6 @@ if __name__ == "__main__":
 
 #----------------- EXPERIMENT: RANDOMIZED -----------------    
     greedy = Greedy(all_stations, df_connections)
-    #greedy.run()
-    #print(greedy.rail_net.routes[-1].route)
+    greedy.run()
+
     run_greedy(greedy, vis=True)
