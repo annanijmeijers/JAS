@@ -1,14 +1,10 @@
 import pandas as pd 
-from tqdm import tqdm
-import copy 
 from code.classes import station 
 from code.classes import route 
 from code.classes import network 
 from code.algorithms.randomised import RandomRoute
-from code.visualisation.visualisation import *
-# from code.visualisation import extract_stations
-# from code.visualisation import read_connections
-import matplotlib.pyplot as plt
+from code.algorithms.greedy import Greedy
+from code.run.run import run_random
 
 if __name__ == "__main__":
     
@@ -122,3 +118,10 @@ csv_file_connections = 'data/ConnectiesNationaal.csv'
 connections_national = read_connections(csv_file_connections)
 
 visualise(station_list_national, connections_national, best_network)
+
+   # run_random(all_stations, df_connections, ammount_of_routes=20,
+               #hist_view=True, vis=True)    
+    
+#----------------- EXPERIMENT: GREEDY ----------------------
+    greedy = Greedy(all_stations, df_connections)
+    greedy.run()
