@@ -1,9 +1,9 @@
 import copy 
 import random 
-from code.classes import station 
+#from code.classes import station 
 from code.classes import route 
 from code.classes import network 
-from code.algorithms.heuristics.heuristics import connection_heuristic
+
 
 class Greedy(): 
     """ 
@@ -31,12 +31,12 @@ class Greedy():
 
         for station in self.station_list: 
 
-            # check if station has already been begin station 
+            # check if station has already been a begin station 
             if not station.begin_station:
                 stations.append(station)
                 count_connections.append(station.connections_count)
 
-
+        # get the index of the station with least connections
         min_index = count_connections.index(min(count_connections))
 
         min_connections_station = stations[min_index]
@@ -59,7 +59,7 @@ class Greedy():
         # this gives a dictionary with connection options 
         connection_options = route_object.check_connection()
 
-        next_station = heuristic
+        next_station = heuristic(connection_options, self.station_list)
         if not next_station:
             route_object.end_route = True
             return
@@ -72,7 +72,7 @@ class Greedy():
             route_object.end_route = True
             return
 
-    def build_route(self, r):
+    def build_route(self, r, heuristic):
         # initialise a route-object and computing the route 
         new_route = route.Route(self.timeframe, self.station_list, r) 
         first_station = self.find_begin_station()
@@ -83,14 +83,14 @@ class Greedy():
         # while time limit is not exceeded 
         while new_route.duration <= self.timeframe and not new_route.end_route: 
 
-            next_station = self.get_next_station(new_route, connection_heuristic(new_route, self.station_list))
+            next_station = self.get_next_station(new_route, heuristic)
 
             if not new_route.end_route: 
                 #new_route.add_station(next_station)
                 new_route.add_connection(next_station.name, new_route.check_connection()) 
         return new_route
 
-    def run(self): 
+    def run(self, heuristic): 
         """ 
         Greedily assigns the station with the highest number of connections 
         to the route. It repeats until the time limit is reached. 
@@ -107,10 +107,10 @@ class Greedy():
 
         for r in range(1, amount_of_routes+1): 
 
-            new_route = self.build_route(r)
+            new_route = self.build_route(r, heuristic)
             # send to network how many connections there are
             new_route.compute_covered_connections()
-            print(new_route.route) #CHECKS
+            #print(new_route.route) #CHECKS
             # add the route and the unique connections to the network 
             self.rail_net.add_route(new_route)
             self.rail_net.calculate_network()
@@ -122,10 +122,6 @@ class Greedy():
 
         # identify all unique connections in the network 
         self.rail_net.calculate_network()
-
-        # calculate the quality of the network 
-        quality = self.rail_net.quality()
-        #print(quality) #CHECKS
 
 class RandomGreedy(Greedy):
 
