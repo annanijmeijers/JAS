@@ -1,4 +1,7 @@
 import random
+import copy 
+from ..classes.network import Network
+from ..classes.route import Route 
 
 class RandomRoute(): 
 
@@ -52,4 +55,37 @@ class RandomRoute():
         while self.route_object.duration < self.route_object.timeframe and self.end_route == False:
             self.random_connection()
 
-        return  
+class RandomNet(): 
+
+    def __init__(self, network_obj, connections, all_stations, ammount_of_routes=20, route_time=180): 
+        self.connections = connections
+        self.all_stations = all_stations
+        self.ammount_of_routes = ammount_of_routes
+        self.route_time = route_time
+        self.network = copy.deepcopy(network_obj) 
+    
+    def run(self):
+
+        for r in range(1, self.ammount_of_routes+1): 
+
+            # initialise a Route-object and build it  
+            new_route = Route(self.route_time, self.all_stations, r) 
+            RandomRoute(new_route).build_route()
+            new_route.compute_covered_connections()
+            
+            # add the route and the unique connections to the network 
+            self.network.add_route(new_route)
+            self.network.calculate_network()
+        
+            if len(self.network.unique_tracks) == self.network.total_tracks:
+                self.network.ammount_of_routes = r
+                break
+
+        # identify all unique connections in the network 
+        self.network.calculate_network()
+
+        self.random_network = self.network
+    
+    def return_network(self): 
+        return self.network
+

@@ -1,5 +1,5 @@
 import copy
-from code.algorithms.randomised import RandomRoute 
+ 
 
 class Route(): 
 
