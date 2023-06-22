@@ -3,6 +3,7 @@ import random
 from code.classes import station 
 from code.classes import route 
 from code.classes import network 
+from code.algorithms.heuristics.heuristics import connection_heuristic
 
 class Greedy(): 
     """ 
@@ -24,7 +25,6 @@ class Greedy():
     def find_begin_station(self): 
         """ 
         picks begin station from station list with station objects. 
-
         """
         count_connections = []
         stations = []
@@ -46,7 +46,7 @@ class Greedy():
     
 
 
-    def get_next_station(self, route_object): 
+    def get_next_station(self, route_object, heuristic): 
         """ 
         IN: route object
 
@@ -56,43 +56,39 @@ class Greedy():
         OUT: station object (next station)
         """
 
-        count_connections =[]
-        stations = []
-
         # this gives a dictionary with connection options 
         connection_options = route_object.check_connection()
 
-        # for every key in dict
-        for key in connection_options.keys(): 
-
-            # loop through each station in the station objects list
-            for station in self.station_list: 
-
-                # checks if a station in connections is equal to a station in station objects list
-                if key == station.name: 
-
-                    # appends stations object and station connnection count to seperate lists
-                    count_connections.append(station.connections_count)
-                    stations.append(station)
-
-            # picks the index of the station with most connections
-        if count_connections:
-            max_index = count_connections.index(max(count_connections))
-            max_connections_station = stations[max_index]
-        else:
+        next_station = heuristic
+        if not next_station:
             route_object.end_route = True
             return
+        
+        if (connection_options[next_station.name] + route_object.duration) <= route_object.timeframe: 
 
-        if (connection_options[max_connections_station.name] + route_object.duration) <= route_object.timeframe: 
-
-            return max_connections_station
+            return next_station
         
         else:
             route_object.end_route = True
             return
 
+    def build_route(self, r):
+        # initialise a route-object and computing the route 
+        new_route = route.Route(self.timeframe, self.station_list, r) 
+        first_station = self.find_begin_station()
 
-    
+        # add station to current route
+        new_route.add_station(first_station)
+
+        # while time limit is not exceeded 
+        while new_route.duration <= self.timeframe and not new_route.end_route: 
+
+            next_station = self.get_next_station(new_route, connection_heuristic(new_route, self.station_list))
+
+            if not new_route.end_route: 
+                #new_route.add_station(next_station)
+                new_route.add_connection(next_station.name, new_route.check_connection()) 
+        return new_route
 
     def run(self): 
         """ 
@@ -101,39 +97,23 @@ class Greedy():
         """
         if len(self.connection_list) == 28:
             amount_of_routes = 7
-            timeframe = 120
+            self.timeframe = 120
         elif len(self.connection_list) == 89:
             amount_of_routes = 20
-            timeframe = 180
-
+            self.timeframe = 180
+        
         # initialise a network, give it the total ammount of connections  
         self.rail_net = network.Network(len(self.connection_list), amount_of_routes)
 
         for r in range(1, amount_of_routes+1): 
 
-            # initialise a route-object and computing the route 
-            new_route = route.Route(timeframe, self.station_list, r) 
-            first_station = self.find_begin_station()
-
-            # add station to current route
-            new_route.add_station(first_station)
-
-            # while time limit is not exceeded 
-            while new_route.duration <= timeframe and not new_route.end_route: 
-
-                next_station = self.get_next_station(new_route)
-
-                if not new_route.end_route: 
-                    #new_route.add_station(next_station)
-                    new_route.add_connection(next_station.name, new_route.check_connection()) 
-
-
+            new_route = self.build_route(r)
             # send to network how many connections there are
             new_route.compute_covered_connections()
             print(new_route.route) #CHECKS
             # add the route and the unique connections to the network 
-            self.rail_net.add_route(new_route, new_route.connection_set)
-            self.rail_net.calculate_unique_connections()
+            self.rail_net.add_route(new_route)
+            self.rail_net.calculate_network()
         
             # compute unique connections
             if len(self.rail_net.unique_tracks) == self.rail_net.total_tracks:
@@ -141,9 +121,20 @@ class Greedy():
                 break
 
         # identify all unique connections in the network 
-        self.rail_net.calculate_unique_connections()
+        self.rail_net.calculate_network()
 
         # calculate the quality of the network 
         quality = self.rail_net.quality()
         #print(quality) #CHECKS
 
+class RandomGreedy(Greedy):
+
+    def find_begin_station(self):
+        """ 
+        picks random begin station from station list with station objects. 
+        """
+        
+        begin_station = random.choice(self.station_list)
+        begin_station.begin_station = True
+
+        return begin_station                 

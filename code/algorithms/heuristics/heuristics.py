@@ -27,3 +27,31 @@ def choice_heuristic(dictionary, heuristic, route_obj, network_obj):
         return False
 
     return choices
+
+def connection_heuristic(route_obj, station_list):
+
+    count_connections =[]
+    stations = []
+
+    # this gives a dictionary with connection options 
+    connection_options = route_obj.check_connection()
+
+    # for every key in dict
+    for key in connection_options.keys(): 
+
+        # loop through each station in the station objects list
+        for station in station_list: 
+
+            # checks if a station in connections is equal to a station in station objects list
+            if key == station.name: 
+
+                # appends stations object and station connnection count to seperate lists
+                count_connections.append(station.connections_count)
+                stations.append(station)
+
+    if count_connections:
+            max_index = count_connections.index(max(count_connections))
+            max_connections_station = stations[max_index]
+            return max_connections_station
+    else:
+        return 
