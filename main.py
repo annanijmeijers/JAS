@@ -3,8 +3,9 @@ from code.classes import station
 from code.classes import route 
 from code.classes import network 
 from code.algorithms.randomised import RandomRoute
-from code.algorithms.greedy import Greedy
+from code.algorithms.greedy import Greedy, RandomGreedy
 from code.run.run import run_random, run_greedy
+from code.algorithms.heuristics.heuristics import max_connections_heuristic
 
 if __name__ == "__main__":
     
@@ -47,7 +48,7 @@ if __name__ == "__main__":
                #hist_view=True, vis=True)    
 
 #----------------- EXPERIMENT: RANDOMIZED -----------------    
-    greedy = Greedy(all_stations, df_connections)
-    greedy.run()
+    greedy = RandomGreedy(all_stations, df_connections)
+    greedy.run(max_connections_heuristic)
 
     run_greedy(greedy, vis=True)

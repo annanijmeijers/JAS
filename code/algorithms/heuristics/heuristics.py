@@ -27,3 +27,45 @@ def choice_heuristic(dictionary, heuristic, route_obj, network_obj):
         return False
 
     return choices
+
+def max_connections_heuristic(connection_list, station_list):
+    '''
+    IN: connection_list: connection dictionary {station: duration}
+        station_list: list of station objects
+    ##uitleg heuristiek
+    OUT: max_connections_station: station_object or None
+    '''
+
+    count_connections =[]
+    stations = []
+
+    # this gives a dictionary with connection options 
+    connection_options = connection_list
+
+    # for every key in dict
+    for key in connection_options.keys(): 
+
+        # loop through each station in the station objects list
+        for station in station_list: 
+
+            # checks if a station in connections is equal to a station in station objects list
+            if key == station.name: 
+
+                # appends stations object and station connnection count to seperate lists
+                count_connections.append(station.connections_count)
+                stations.append(station)
+
+    if count_connections:
+            max_index = count_connections.index(max(count_connections))
+            max_connections_station = stations[max_index]
+            return max_connections_station
+    else:
+        return 
+
+def unique_connections_heuristic():
+    '''
+    ##uitleg heuristiek
+    station object doorgeven op basis van unieke connecties
+    in route of netwerk.
+    '''
+    pass
