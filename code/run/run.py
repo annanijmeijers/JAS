@@ -89,14 +89,23 @@ def run_random(all_stations, connections, ammount_of_routes=7,
 
         visualise(stations_list, connections_list, best_network)
 
-def run_greedy(algorithm, vis=False):
-    network = copy.deepcopy(algorithm.rail_net)
+def run_greedy(algorithm, vis=False, iterations=1000):
+    best_network = None
+    best_quality = 0
+
+    for t in tqdm(range(iterations)):
+        network = copy.deepcopy(algorithm.rail_net)
+        if network.quality() > best_quality:
+            best_network = network
+            best_quality = network.quality()
+
+    print(best_quality, len(best_network.unique_tracks))
 
     if network.ammount_of_routes == 7:
         file = 'Holland'
     elif network.ammount_of_routes == 20:
         file = 'Nationaal'
-    print(network.quality())
+
     if vis:
             #----------------- NETWORK VISUALISATION -----------------
             # Create list with stations
@@ -107,4 +116,4 @@ def run_greedy(algorithm, vis=False):
             csv_file_connections = f'data/Connecties{file}.csv'
             connections_list = read_connections(csv_file_connections)
 
-            visualise(stations_list, connections_list, network)    
+            visualise(stations_list, connections_list, best_network)    
