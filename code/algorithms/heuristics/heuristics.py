@@ -28,13 +28,19 @@ def choice_heuristic(dictionary, heuristic, route_obj, network_obj):
 
     return choices
 
-def connection_heuristic(route_obj, station_list):
+def max_connections_heuristic(connection_list, station_list):
+    '''
+    IN: connection_list: connection dictionary {station: duration}
+        station_list: list of station objects
+    ##uitleg heuristiek
+    OUT: max_connections_station: station_object or None
+    '''
 
     count_connections =[]
     stations = []
 
     # this gives a dictionary with connection options 
-    connection_options = route_obj.check_connection()
+    connection_options = connection_list
 
     # for every key in dict
     for key in connection_options.keys(): 
@@ -55,3 +61,11 @@ def connection_heuristic(route_obj, station_list):
             return max_connections_station
     else:
         return 
+
+def unique_connections_heuristic():
+    '''
+    ##uitleg heuristiek
+    station object doorgeven op basis van unieke connecties
+    in route of netwerk.
+    '''
+    pass
