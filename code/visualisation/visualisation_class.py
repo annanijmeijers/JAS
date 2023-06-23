@@ -5,6 +5,11 @@ import pandas as pd
 import numpy as np 
 import networkx as nx
 import csv
+ 
+
+# from classes import network
+from code.classes import network
+
 
 
 
@@ -77,21 +82,22 @@ class Visualisation():
         self.read_connections()
         
 
-    def visualise(self, network_object, label=True, title):
+    def visualise(self, network_object, label=True, title=True):
         """ 
         IN: station_list, connections list, network_object, label statement
         OUT: plot of routes in given network
         """
 
-        if not self.stations or self.connections: 
+        if not self.stations and not self.connections: 
             print('WARNING: NO DATA YET -- first load the data with extract_data()')
+            return 
 
         # Extract x, y coordinates, and station names
         x = []
         y = []
         self.station_names = []
 
-        for station in self.station_list:
+        for station in self.stations:
             name, lon, lat = station.split(',')
             x.append(float(lat))
             y.append(float(lon))
@@ -102,7 +108,7 @@ class Visualisation():
         ax = fig.add_subplot(111)
 
         # Set map of NL as background
-        map_nl = plt.imread("blank_map.jpg")
+        map_nl = plt.imread('cd..\..\data\blank_map.jpg')
 
         # Draw the stations as nodes
         ax.scatter(x, y, s=30, c='darkblue', marker='o', linewidths=5, zorder=5)
@@ -167,7 +173,7 @@ class Visualisation():
         ax.grid(True)
         
         # Save the plot
-        plt.savefig('code/visualisation/plots/{NETWORKNAME}.png')
+        # plt.savefig(f'code/visualisation/plots/{network_object}.png')
 
         # Show the plot
         plt.show()
@@ -175,4 +181,18 @@ class Visualisation():
 
 ########################### visualisation #################################### 
 
+# 'data/StationsHolland.csv'
+# 'data/ConnectiesHolland.csv'
 
+vis = Visualisation()
+
+# test visualisation
+vis.extract_data(station_list_csv='StationsHolland.csv', connection_list_csv='ConnectiesHolland.csv')
+
+
+# initialise a network, give it the total ammount of connections  
+rail_net = network.Network(28, 7)
+
+# visualisation 
+
+vis.visualise(rail_net)
