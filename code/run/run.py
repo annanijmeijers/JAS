@@ -3,13 +3,14 @@ from code.classes import network
 from code.visualisation.visualisation import *
 import copy
 import matplotlib.pyplot as plt
-from code.algorithms.randomised import RandomRoute
+from code.algorithms.randomised import RandomNet
 from tqdm import tqdm
 
-def run_random(all_stations, connections, ammount_of_routes=7,
+def run_random(network_obj, all_stations, connections, ammount_of_routes=7,
                    runs=10000, hist_view=False, vis=False):
     '''
-    IN: - all_stations: list of Station objects
+    IN: - network_obj: empty Network-Class object
+        - all_stations: list of Station objects
         - connections: connections DataFrame
         - ammount_of_routes: maximum routes in a network
         - runs: ammount of runs for the experiment
@@ -34,37 +35,15 @@ def run_random(all_stations, connections, ammount_of_routes=7,
     best_network = None
 
     for t in tqdm(range(runs)):
-
-        # initialise a network, give it the total ammount of connections  
-        rail_net = network.Network(len(connections), ammount_of_routes)
-
-        for r in range(1,ammount_of_routes+1): 
-
-            # initialise a route-object and computing the route 
-            new_route = route.Route(timeframe, all_stations, r) 
-            RandomRoute(new_route).build_route()
-            new_route.compute_covered_connections()
-            
-            # add the route and the unique connections to the network 
-            rail_net.add_route(new_route, new_route.connection_set)
-            rail_net.calculate_unique_connections()
-        
-            if len(rail_net.unique_tracks) == rail_net.total_tracks:
-                rail_net.ammount_of_routes = r
-                break
-
-        # identify all unique connections in the network 
-        rail_net.calculate_unique_connections()
-
-        # calculate the quality of the network 
-        quality = rail_net.quality()
-
+        random_net = RandomNet(network_obj,connections, all_stations, ammount_of_routes, timeframe)
+        random_net.run()
+        quality = random_net.network.quality()
         k_values.append(quality)
 
         # save the best k and the corresponding Network instance 
         if quality > best_k: 
             best_k = quality 
-            best_network = copy.deepcopy(rail_net)
+            best_network = copy.deepcopy(random_net)
     print(f"With {best_network.ammount_of_routes} route(s) the best K is: {best_k}")
 
 
