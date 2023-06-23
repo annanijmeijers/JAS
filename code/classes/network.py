@@ -6,6 +6,7 @@ class Network():
 
         self.total_tracks = total_tracks 
         self.ammount_of_routes = ammount_of_routes
+        self.name = 'network'
 
         #  store the different routes 
         self.routes = []
@@ -91,3 +92,5 @@ class Network():
         return target_function 
                  
 
+    def __repr__(self):
+        return self.name
