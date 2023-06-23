@@ -46,7 +46,7 @@ class Greedy():
     
 
 
-    def get_next_station(self, route_object, heuristic): 
+    def get_next_station(self, route_object):#, heuristic): 
         """ 
         IN: route object
 
@@ -59,12 +59,66 @@ class Greedy():
         # this gives a dictionary with connection options 
         connection_options = route_object.check_connection()
 
-        next_station = heuristic(connection_options, self.station_list)
+        #next_station = heuristic(connection_options, self.station_list)
+
+        connection_dict = dict()
+        current_station = route_object.route[-1]
+        next_station = False
+        cost = 0
+
+        if not self.rail_net.routes:
+            if len(route_object.route) < 2:
+                # picks first station with even connections
+                if not next_station:
+                    for connection in connection_options.keys():
+                        for station in self.station_list:
+                            if connection == station.name and station.connections_count % 2 == 0:
+                                next_station = station
+                if not next_station:
+                    for connection in connection_options.keys():
+                        for station in self.station_list:
+                            if connection == station.name:
+                                next_station = station
+            else:
+                route_object.compute_covered_connections()
+                for connection in connection_options.keys():
+                    if (current_station.name, connection) not in route_object.connection_set and (connection, current_station.name) not in route_object.connection_set:
+                        connection_dict[connection] = 1
+                    else:
+                        connection_dict[connection] = 10
+
+                # sort the dict from lowest value to highest value, grab first lowest value
+                next_station, cost = sorted(connection_dict.items(), key=lambda x:x[1])[0]
+                print(f'{next_station} is in {connection_dict}. Time left = {self.timeframe - route_object.duration} \n')
+                for station in self.station_list:
+                    if next_station == station.name:
+                        next_station = station
+        else:   
+            for connection in connection_options.keys():
+                if len(route_object.route) < 2:               
+                    if (current_station, connection) not in self.rail_net.covered_tracks:
+                        connection_dict[connection] = 1
+                    else:
+                        connection_dict[connection] = 10
+                else:
+                    route_object.compute_covered_connections()
+                    if (current_station, connection) not in self.rail_net.covered_tracks and (current_station.name, connection) not in route_object.connection_set or (connection, current_station.name) not in route_object.connection_set:
+                        connection_dict[connection] = 1
+                    else:
+                        connection_dict[connection] = 10                    
+                next_station, cost = sorted(connection_dict.items(), key=lambda x:x[1])[0]
+                print(f'{next_station} is in {connection_dict}. Time left = {self.timeframe - route_object.duration} \n')
+                for station in self.station_list:
+                    if next_station == station.name:
+                        next_station = station
+        if not connection_options:
+            print(next_station, route_object.duration)
         if not next_station:
             route_object.end_route = True
             return
         
         if (connection_options[next_station.name] + route_object.duration) <= route_object.timeframe: 
+            self.route_cost += cost
 
             return next_station
         
@@ -72,7 +126,7 @@ class Greedy():
             route_object.end_route = True
             return
 
-    def build_route(self, r, heuristic):
+    def build_route(self, r):#, heuristic):
         # initialise a route-object and computing the route 
         new_route = route.Route(self.timeframe, self.station_list, r) 
         first_station = self.find_begin_station()
@@ -83,14 +137,14 @@ class Greedy():
         # while time limit is not exceeded 
         while new_route.duration <= self.timeframe and not new_route.end_route: 
 
-            next_station = self.get_next_station(new_route, heuristic)
+            next_station = self.get_next_station(new_route)#, heuristic)
 
             if not new_route.end_route: 
                 #new_route.add_station(next_station)
                 new_route.add_connection(next_station.name, new_route.check_connection()) 
         return new_route
 
-    def run(self, heuristic): 
+    def run(self):#, heuristic): 
         """ 
         Greedily assigns the station with the highest number of connections 
         to the route. It repeats until the time limit is reached. 
@@ -106,11 +160,12 @@ class Greedy():
         self.rail_net = network.Network(len(self.connection_list), amount_of_routes)
 
         for r in range(1, amount_of_routes+1): 
-
-            new_route = self.build_route(r, heuristic)
+            self.route_cost = 0
+            new_route = self.build_route(r)#, heuristic)
+            print(f"The cost for this route is: {self.route_cost}")
             # send to network how many connections there are
             new_route.compute_covered_connections()
-            #print(new_route.route) #CHECKS
+            print(new_route.route) #CHECKS
             # add the route and the unique connections to the network 
             self.rail_net.add_route(new_route)
             self.rail_net.calculate_network()
@@ -122,6 +177,9 @@ class Greedy():
 
         # identify all unique connections in the network 
         self.rail_net.calculate_network()
+  #      print(f"\nAmount of unique tracks: {len(self.rail_net.unique_tracks)}")
+ #       print(f"\nThe unique tracks are: {self.rail_net.unique_tracks}")
+#        print(f"\nTotal duration is: {self.rail_net.total_duration}")
 
 class RandomGreedy(Greedy):
 
