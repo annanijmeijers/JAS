@@ -59,7 +59,7 @@ class StochasticClimber(RailClimber):
         old_score = self.network.quality()
         stop_trying = False
         cycle_count = 0 
-        self.improvements = []
+        self.deltas = []
         self.qualities_for_vis = []
         pbar = tqdm()
 
@@ -78,10 +78,10 @@ class StochasticClimber(RailClimber):
             new_score = self.network.quality()
             
 
-            improvement = new_score - old_score
-            self.improvements.append(improvement)
+            delta = old_score - new_score
+            self.deltas.append(delta)
 
-            if improvement < 0:
+            if delta > 0:
 
                 # put the original route back
                 self.network.replace_route(number_of_route, route_to_change)
@@ -97,7 +97,7 @@ class StochasticClimber(RailClimber):
             
             pbar.update(1)
 
-        pbar.close
+        pbar.close()
             
             
                 
