@@ -18,6 +18,7 @@ class Greedy():
         """
         self.station_list = copy.deepcopy(station_list)
         self.connection_list = connection_list
+        self.name = 'Greedy'
         
         
 
@@ -127,13 +128,17 @@ class Greedy():
         # identify all unique connections in the network 
         self.rail_net.calculate_network()
 
+
+    def __repr__(self):
+        return self.name
+
 class RandomGreedy(Greedy):
 
     def find_begin_station(self):
         """ 
         picks random begin station from station list with station objects. 
         """
-        
+        self.name = 'Random Greedy'
         begin_station = random.choice(self.station_list)
         begin_station.begin_station = True
 
