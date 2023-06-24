@@ -62,10 +62,76 @@ def max_connections_heuristic(connection_list, station_list):
     else:
         return 
 
-def unique_connections_heuristic():
+def unique_connections_heuristic(connection_options, station_list, route_object, network_object):
     '''
+    IN: connection_options: connection dictionary {station: duration}
+        station_list: list of station objects
+        route_object: Route-Class object
+        network_object: Network-Class object
     ##uitleg heuristiek
-    station object doorgeven op basis van unieke connecties
-    in route of netwerk.
+    OUT: next_station: station_object or None 
     '''
-    pass
+
+    connection_dict = dict()
+    current_station = route_object.route[-1]
+    next_station = False
+    cost = 0
+    if not connection_options:
+        route_object.end_route = True
+        return
+    
+    # compute next station for the first route
+    if not network_object.routes:
+        if len(route_object.route) < 2:
+            # picks first station with even connections
+            if not next_station:
+                for connection in connection_options.keys():
+                    for station in station_list:
+                        if connection == station.name and station.connections_count % 2 == 0:
+                            next_station = station
+                            cost = 1
+            if not next_station:
+                for connection in connection_options.keys():
+                    for station in station_list:
+                        if connection == station.name:
+                            next_station = station
+                            cost = 1
+        else:
+            route_object.compute_covered_connections()
+            for connection in connection_options.keys():
+                if (current_station.name, connection) not in route_object.connection_set and (connection, current_station.name) not in route_object.connection_set:
+                    connection_dict[connection] = 1
+                else:
+                    connection_dict[connection] = 10
+
+            # sort the dict from lowest value to highest value, grab first lowest value
+            next_station, cost = sorted(connection_dict.items(), key=lambda x:x[1])[0]
+
+            for station in station_list:
+                if next_station == station.name:
+                    next_station = station
+    
+    # compute next station when there are other existing routes
+    else:   
+        for connection in connection_options.keys():
+            if len(route_object.route) < 2:               
+                if (current_station.name, connection) not in network_object.covered_tracks:
+                    connection_dict[connection] = 1
+                else:
+                    connection_dict[connection] = 10
+            else:
+                route_object.compute_covered_connections()
+                if (current_station.name, connection) not in network_object.covered_tracks and (current_station.name, connection) not in route_object.connection_set and (connection, current_station.name) not in route_object.connection_set:
+                    connection_dict[connection] = 1
+                else:
+                    connection_dict[connection] = 10                    
+            
+            next_station, cost = sorted(connection_dict.items(), key=lambda x:x[1])[0]
+
+            for station in station_list:
+                if next_station == station.name:
+                    next_station = station
+    
+    if next_station == False:
+        return
+    return next_station

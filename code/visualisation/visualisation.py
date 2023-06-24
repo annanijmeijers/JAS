@@ -277,7 +277,7 @@ def visualise(station_list, connections, network_object, label=True):
     fig = plt.figure()
     ax = fig.add_subplot(111)
 
-    map_nl = plt.imread("blank_map.jpg")
+    map_nl = plt.imread("data/blank_map.jpg")
 
     # Draw the stations as nodes
     ax.scatter(x, y, s=30, c='darkblue', marker='o', linewidths=5, zorder=5)
