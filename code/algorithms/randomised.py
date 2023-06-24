@@ -63,6 +63,8 @@ class RandomNet():
         self.ammount_of_routes = ammount_of_routes
         self.route_time = route_time
         self.network = copy.deepcopy(network_obj) 
+        self.routes = []
+        self.name = 'Random'
     
     def run(self):
 
@@ -75,6 +77,10 @@ class RandomNet():
             
             # add the route and the unique connections to the network 
             self.network.add_route(new_route)
+
+            # append the route to the routes list
+            self.routes.append(new_route)
+
             self.network.calculate_network()
         
             if len(self.network.unique_tracks) == self.network.total_tracks:
@@ -89,3 +95,6 @@ class RandomNet():
     def return_network(self): 
         return self.network
 
+
+    def __repr__(self):
+        return self.name
