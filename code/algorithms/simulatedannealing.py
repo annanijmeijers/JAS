@@ -9,25 +9,25 @@ class SimulatedAnnealing():
     Implementation of simulated annealing 
     """
 
-    def __init__(self, network_object, all_stations, starting_temp, cooling_rate=0.99):
+    def __init__(self, network_object, all_stations, starting_temp):
         self.network = copy.deepcopy(network_object) 
         self.all_stations = all_stations 
         self.old_score = self.network.quality()
-        self.new_score = None 
+        self.new_score = None
+        self.starting_temp = starting_temp 
         self.temp = starting_temp
-        self.cooling_rate = cooling_rate
         self.route_to_replace = None 
         self.qualities_for_vis = []
 
 
-    def calculate_accept(self, delta, temp): 
+    def calculate_accept(self, delta): 
 
         # add a fail-safe to prevent overflow
         if delta > 1000:  
             return False 
 
-        # calculate the acceptance probability 
-        accept_prob = 2 ** (delta / temp)
+        # add a 1 to the denominator to prevent overlow 
+        accept_prob = 2 ** (delta / self.temp + 1)
 
         # decide to accept or not 
         if random.random() > accept_prob: 
@@ -35,10 +35,10 @@ class SimulatedAnnealing():
         else: 
             return False 
         
-    def lower_temp(self): 
+    def lower_temp(self, iterations): 
 
-        # lower the temperature 
-        self.temp = self.temp * self.cooling_rate 
+        # use a linear cooling scheme 
+        self.temp -=  self.starting_temp / iterations
 
     def replace_and_test(self, r): 
         # get the old route from the Network 
@@ -57,18 +57,15 @@ class SimulatedAnnealing():
         return delta 
     
     def run(self, iterations): 
-
-        pbar = tqdm()
-        run = True 
-        cycles = 0 
-        while run: 
+ 
+        for i in tqdm(range(iterations)): 
 
             # choose a random route to change 
             route_to_replace = random.choice(self.network.routes)
             number_of_route = route_to_replace.number
 
             delta = self.replace_and_test(number_of_route) 
-            accept = self.calculate_accept(delta, self.temp)
+            accept = self.calculate_accept(delta)
 
             # either accept or put the old route back 
             if accept:
@@ -76,19 +73,13 @@ class SimulatedAnnealing():
             else: 
                 self.network.replace_route(number_of_route, self.route_to_replace) 
             
-            self.qualities_for_vis.append(self.new_score)
+            self.qualities_for_vis.append(self.old_score)
 
-            self.lower_temp()
-            if self.temp < 1:
-                run = False 
-            cycles += 1
-            if cycles == iterations: 
-                run = False 
+            self.lower_temp(iterations)
             
-            pbar.update(1)
-
-        pbar.close()
-
+            
+            
+            
             
 
 
