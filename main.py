@@ -2,6 +2,7 @@ import pandas as pd
 from code.classes import station 
 from code.classes import route 
 from code.classes import network 
+from code.visualisation.visualisation import Visualisation
 from code.algorithms.randomised import RandomRoute
 from code.algorithms.greedy import Greedy, RandomGreedy
 from code.run.run import run_random, run_greedy
