@@ -1,6 +1,6 @@
 from code.classes import route
 from code.classes import network
-from code.visualisation.visualisation import *
+from code.visualisation.visualisation import Visualisation
 import copy
 import matplotlib.pyplot as plt
 from code.algorithms.randomised import RandomNet
@@ -59,14 +59,15 @@ def run_random(network_obj, all_stations, connections, ammount_of_routes=7,
     if vis:
         #----------------- NETWORK VISUALISATION -----------------
         # Create list with stations
-        csv_file = f'data/Stations{file}.csv' 
-        stations_list = extract_stations(csv_file)
+        csv_file_stations = f'data/Stations{file}.csv' 
 
         # Create list with connections
         csv_file_connections = f'data/Connecties{file}.csv'
-        connections_list = read_connections(csv_file_connections)
 
-        visualise(stations_list, connections_list, best_network)
+        vis = Visualisation()
+        vis.extract_data(csv_file_stations, csv_file_connections)
+
+        vis.visualise(best_network)
 
 def run_greedy(algorithm, vis=False, iterations=1000):
     best_network = None
@@ -88,11 +89,12 @@ def run_greedy(algorithm, vis=False, iterations=1000):
     if vis:
             #----------------- NETWORK VISUALISATION -----------------
             # Create list with stations
-            csv_file = f'data/Stations{file}.csv' 
-            stations_list = extract_stations(csv_file)
+            csv_file_stations = f'data/Stations{file}.csv' 
 
             # Create list with connections
             csv_file_connections = f'data/Connecties{file}.csv'
-            connections_list = read_connections(csv_file_connections)
 
-            visualise(stations_list, connections_list, best_network)    
+            vis = Visualisation()
+            vis.extract_data(csv_file_stations, csv_file_connections)
+
+            vis.visualise(best_network)
