@@ -26,8 +26,11 @@ class SimulatedAnnealing():
         if delta > 1000:  
             return False 
 
+        if self.temp < 1: 
+            self.temp = 1
+
         # add a 1 to the denominator to prevent overlow 
-        accept_prob = 2 ** (delta / self.temp + 1)
+        accept_prob = 2 ** (delta / self.temp)
 
         # decide to accept or not 
         if random.random() > accept_prob: 
