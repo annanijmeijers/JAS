@@ -13,7 +13,6 @@ from code.classes.route import Route
 
 
 
-
 class Visualisation(): 
     def __init__(self): 
         self.stations = None
@@ -112,16 +111,19 @@ class Visualisation():
         # Set map of NL as background
         map_nl = plt.imread('data/blank_map.jpg')
         
+        # Define the extent of the image to match the station coordinates 
+        extent = [min(x) - 0.05, max(x) + 0.05, min(y) - 1, max(y) + 1]
+
 
         # Draw the stations as nodes
         ax.scatter(x, y, s=30, c='darkblue', marker='o', linewidths=5, zorder=5)
 
         # Set the extent of the scatterplot to match the image
-        ax.set_xlim(min(x) - 0.05, max(x) + 0.05)
-        ax.set_ylim(min(y) - 1, max(y) + 1)
+        ax.set_xlim(extent[0], extent[1])
+        ax.set_ylim(extent[2], extent[3])
 
         # Show the map as the background
-        ax.imshow(map_nl, extent=[min(x) - 0.05, max(x) + 0.05, min(y) - 1, max(y) + 1], aspect='auto', alpha=0.5)
+        ax.imshow(map_nl, extent=extent, aspect='auto', alpha=0.5)
 
         # Obtain all routes s
         all_routes = network_object.routes
@@ -176,26 +178,11 @@ class Visualisation():
         ax.grid(True)
         
         # Save the plot
-        # plt.savefig(f'code/visualisation/plots/{network_object}.png')
+        plt.savefig(f'code/visualisation/plots/{network_object}.png')
 
         # Show the plot
         plt.show()
 
 
-########################### visualisation #################################### 
-
-# 'data/StationsHolland.csv'
-# 'data/ConnectiesHolland.csv'
-
-# vis = Visualisation()
-
-# # test visualisation
-# vis.extract_data(station_list_csv='StationsHolland.csv', connection_list_csv='ConnectiesHolland.csv')
 
 
-# # initialise a network, give it the total ammount of connections  
-# rail_net = network.Network(28, 7)
-
-# # visualisation 
-
-# vis.visualise(rail_net)
