@@ -56,6 +56,8 @@ class Greedy():
 
         OUT: station object (next station)
         """
+        # initialize next station with None 
+        next_station = None
 
         # this gives a dictionary with connection options 
         connection_options = route_object.check_connection()
