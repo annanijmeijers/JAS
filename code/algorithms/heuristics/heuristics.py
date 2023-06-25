@@ -1,3 +1,5 @@
+import math
+
 def choice_heuristic(dictionary, heuristic, route_obj, network_obj):
     """
     IN: - dictionary: Dictionary object that contains the destinations
@@ -22,6 +24,16 @@ def choice_heuristic(dictionary, heuristic, route_obj, network_obj):
         for station_name in dictionary.keys():
             if ((station_name, route_obj.route[-1].name) not in network_obj.unique_tracks) or ((route_obj.route[-1].name, station_name) not in network_obj.unique_tracks):
                 choices.append(station_name)
+
+    if heuristic == 'distance_based': 
+        # current_station = route_obj.route[-1]
+        # connection_options = current_station.connections
+        
+        # choices = distance_based_heuristic(dictionary, connection_options, route_obj)
+
+        for station in dictionary.keys():
+            if station not in route_obj.route:
+                choices.append(station)
 
     if not choices:
         return False
@@ -135,3 +147,34 @@ def unique_connections_heuristic(connection_options, station_list, route_object,
     if next_station == False:
         return
     return next_station
+
+
+
+def distance_based_heuristic(connection_options, station_list, route_object): 
+
+    """
+    This heuristic selects the next station based on the shortest 
+    distance from the current station. It prioritizes stations that 
+    are closer in terms of travel distance. 
+
+    """
+
+    current_station = route_object.route[-1]
+    min_distance = float('inf')
+    next_station = False 
+
+    for connection in connection_options.keys():
+        for station in station_list: 
+            if connection == station.name and station != current_station: 
+                distance = connection_options[connection]
+                
+                if distance < min_distance: 
+                    min_distance = distance 
+                    next_station = station 
+
+    if next_station is False: 
+        return  
+    return next_station
+
+
+
