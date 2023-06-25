@@ -6,7 +6,7 @@ from code.visualisation.visualisation import Visualisation
 from code.algorithms.randomised import RandomRoute
 from code.algorithms.greedy import Greedy, RandomGreedy
 from code.run.run import run_random, run_greedy
-from code.algorithms.heuristics.heuristics import max_connections_heuristic, unique_connections_heuristic
+from code.algorithms.heuristics.heuristics import max_connections_heuristic, unique_connections_heuristic, distance_based_heuristic
 
 if __name__ == "__main__":
     
@@ -66,3 +66,10 @@ if __name__ == "__main__":
         random_greedy = RandomGreedy(all_stations, df_connections)
         random_greedy.run(unique_connections_heuristic)
         run_greedy(random_greedy, vis=True)
+
+#----------------- EXPERIMENT: GREEDY ---------------------    
+    greedy_distance = input("Do you want to run the Greedy algorithm with the distance heuristic? (y/n)? ")
+    if greedy_distance == 'y':
+        greedy_distance = Greedy(all_stations, df_connections)
+        greedy_distance.run(distance_based_heuristic)
+        run_greedy(greedy_distance, vis=True, iterations=1)
