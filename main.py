@@ -24,7 +24,7 @@ if __name__ == "__main__":
         df_connections = pd.read_csv('data/ConnectiesNationaal.csv')
         df_stations = pd.read_csv('data/StationsNationaal.csv')
         amount_of_connections = 89
-        amount_of_routes = 28
+        amount_of_routes = 20
 
     # instantiating a Station object for all stations
     all_stations = []
