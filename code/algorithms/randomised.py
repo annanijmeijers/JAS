@@ -57,12 +57,12 @@ class RandomRoute():
 
 class RandomNet(): 
 
-    def __init__(self, network_obj, connections, all_stations, ammount_of_routes=20, route_time=180): 
-        self.connections = connections
+    def __init__(self, network_obj, all_stations, ammount_of_routes=20, route_time=180): 
+
         self.all_stations = all_stations
         self.ammount_of_routes = ammount_of_routes
         self.route_time = route_time
-        self.network = copy.deepcopy(network_obj) 
+        self.rail_net = copy.deepcopy(network_obj) 
         self.routes = []
         self.name = 'Random'
     
@@ -76,24 +76,24 @@ class RandomNet():
             new_route.compute_covered_connections()
             
             # add the route and the unique connections to the network 
-            self.network.add_route(new_route)
+            self.rail_net.add_route(new_route)
 
             # append the route to the routes list
             self.routes.append(new_route)
 
-            self.network.calculate_network()
+            self.rail_net.calculate_network()
         
-            if len(self.network.unique_tracks) == self.network.total_tracks:
-                self.network.ammount_of_routes = r
+            if len(self.rail_net.unique_tracks) == self.rail_net.total_tracks:
+                self.rail_net.ammount_of_routes = r
                 break
 
         # identify all unique connections in the network 
-        self.network.calculate_network()
+        self.rail_net.calculate_network()
 
-        self.random_network = self.network
+        self.random_network = self.rail_net
     
     def return_network(self): 
-        return self.network
+        return self.rail_net
 
 
     def __repr__(self):

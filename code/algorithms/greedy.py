@@ -18,7 +18,7 @@ class Greedy():
         """
         self.station_list = copy.deepcopy(station_list)
         self.amount_of_connections = amount_of_connections
-        self.rail_net = network_object
+        self.rail_net = copy.deepcopy(network_object)
         self.name = 'Greedy'
         
 
@@ -113,7 +113,6 @@ class Greedy():
           
             # send to network how many connections there are
             new_route.compute_covered_connections()
-            print(new_route.route) #CHECKS
           
             # add the route and the unique connections to the network 
             self.rail_net.add_route(new_route)

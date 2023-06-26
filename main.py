@@ -55,7 +55,7 @@ if __name__ == "__main__":
     random = input("Do you want to run the Random algorithm (y/n)? ")
     if random == 'y':
 
-        run_random(network_object, all_stations, df_connections, ammount_of_routes=20,
+        run_random(network_object, all_stations, ammount_of_routes=amount_of_routes,
                hist_view=True, vis=True)    
 
 #----------------- EXPERIMENT: GREEDY ---------------------
@@ -72,9 +72,8 @@ if __name__ == "__main__":
 #----------------- EXPERIMENT: GREEDY ---------------------    
     random_greedy = input("Do you want to run the RandomGreedy algorithm (y/n)?")
     if random_greedy == 'y':
-        random_greedy = RandomGreedy(all_stations, df_connections)
-        random_greedy.run(unique_connections_heuristic)
-        run_greedy(random_greedy, vis=True)
+        run_random(network_object, all_stations, greedy=True, ammount_of_routes=20,
+               hist_view=True, vis=True)
 
 #----------------- EXPERIMENT: GREEDY ---------------------    
     greedy_distance = input("Do you want to run the Greedy algorithm with the distance heuristic? (y/n)? ")
