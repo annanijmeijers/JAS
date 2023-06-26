@@ -11,12 +11,36 @@ class RailClimber():
     """
 
     def __init__(self, network_object, all_stations):
-        self.all_stations = all_stations 
         self.network = copy.deepcopy(network_object) 
-        self.qualities_for_vis = None
-        self.improvements = None 
-    
-    def run(self, tries_per_route=100):
+        self.all_stations = all_stations 
+        self.old_score = self.network.quality()
+        self.new_score = None
+        self.route_to_replace = None 
+        self.qualities_for_vis = []
+
+    def replace_and_test(self, r): 
+        # get the old route from the Network 
+        self.route_to_replace = self.network.get_route(r)
+
+        # create a new random Route 
+        new_route = Route(180, self.all_stations) 
+        RandomRoute(new_route).build_route()
+
+        # replace the route and calculate the new quality 
+        self.network.replace_route(r, new_route)
+        self.new_score = self.network.quality()
+
+        # check if the quality is better 
+        if self.new_score >= self.old_score:
+            self.old_score = self.new_score 
+            self.qualities_for_vis.append(self.old_score)
+
+        # put back the old route if the quality is not better or the same  
+        else: 
+            self.network.replace_route(r, self.route_to_replace)
+
+
+    def run(self, iterations=100):
 
         self.qualities_for_vis = []
 
@@ -25,83 +49,31 @@ class RailClimber():
         random.shuffle(random_list)
         for r in tqdm(random_list): 
 
-            best_quality = self.network.quality()
-
             # try to find a better route 
-            for t in tqdm(range(tries_per_route), desc='Tries', leave=False): 
+            for t in tqdm(range(iterations), desc='Tries', leave=False): 
 
-                # get the old route from the Network 
-                old_route = self.network.get_route(r)
+                self.replace_and_test(r)
 
-                # create a new random Route 
-                new_route = Route(180, self.all_stations) 
-                RandomRoute(new_route).build_route()
-
-                # replace the route and calculate the new quality 
-                self.network.replace_route(r, new_route)
-                new_quality = self.network.quality()
-                self.qualities_for_vis.append(best_quality)
-
-                # check if the quality is better 
-                if new_quality >= best_quality:
-                    best_quality = new_quality 
-
-                # put back the old route if the quality is not better or the same  
-                else: 
-                    self.network.replace_route(r, old_route)
-
-        return self.network
+        return 
 
 class StochasticClimber(RailClimber): 
 
-    def run(self, max_cycles): 
+    def run(self, iterations): 
 
-        old_score = self.network.quality()
-        stop_trying = False
-        cycle_count = 0 
-        self.deltas = []
         self.qualities_for_vis = []
-        pbar = tqdm()
 
-        while not stop_trying: 
+        for i in tqdm(range(iterations)): 
 
             # choose a random route to change 
-            route_to_change = random.choice(self.network.routes)
-            number_of_route = route_to_change.number 
+            route_to_replace = random.choice(self.network.routes)
+            number_of_route = route_to_replace.number
 
-            # create a new route to swap 
-            new_route = Route(180, self.all_stations) 
-            RandomRoute(new_route).build_route()
-
-            # replace the route and calculate the new quality 
-            self.network.replace_route(number_of_route, new_route)
-            new_score = self.network.quality()
-            
-
-            delta = old_score - new_score
-            self.deltas.append(delta)
-
-            if delta > 0:
-
-                # put the original route back
-                self.network.replace_route(number_of_route, route_to_change)
-
-            else: 
-                old_score = new_score
-
-            self.qualities_for_vis.append(old_score)   
-                
-            cycle_count += 1 
-            if cycle_count == max_cycles: 
-                stop_trying = True 
-            
-            pbar.update(1)
-
-        pbar.close()
-            
+            self.replace_and_test(number_of_route) 
+        
             
                 
-            
+                    
+                
 
 
 
