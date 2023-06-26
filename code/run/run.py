@@ -1,17 +1,19 @@
 from code.classes import route
 from code.classes import network
+from code.algorithms.greedy import RandomGreedy
 from code.visualisation.visualisation import Visualisation
 import copy
 import matplotlib.pyplot as plt
 from code.algorithms.randomised import RandomNet
 from tqdm import tqdm
+from code.algorithms.heuristics.heuristics import max_connections_heuristic, unique_connections_heuristic, distance_based_heuristic
 
-def run_random(network_obj, all_stations, connections, ammount_of_routes=7,
+def run_random(network_obj, all_stations, greedy=False, ammount_of_routes=7,
                    runs=10000, hist_view=False, vis=False):
     '''
     IN: - network_obj: empty Network-Class object
         - all_stations: list of Station objects
-        - connections: connections DataFrame
+        - greedy: if True compute RandomGreedy
         - ammount_of_routes: maximum routes in a network
         - runs: ammount of runs for the experiment
         - hist_view: Boolean to show a histogram
@@ -35,16 +37,20 @@ def run_random(network_obj, all_stations, connections, ammount_of_routes=7,
     best_network = None
 
     for t in tqdm(range(runs)):
-        random_net = RandomNet(network_obj,connections, all_stations, ammount_of_routes, timeframe)
-        random_net.run()
-        quality = random_net.network.quality()
+        if greedy:
+            random_net = RandomGreedy(all_stations, network_obj.total_tracks, network_obj)
+            random_net.run(unique_connections_heuristic)
+        else:
+            random_net = RandomNet(network_obj, all_stations, ammount_of_routes, timeframe)
+            random_net.run()
+        quality = random_net.rail_net.quality()
         k_values.append(quality)
 
         # save the best k and the corresponding Network instance 
         if quality > best_k: 
             best_k = quality 
             best_network = copy.deepcopy(random_net)
-    print(f"With {best_network.ammount_of_routes} route(s) the best K is: {best_k}")
+    print(f"With {best_network.rail_net.ammount_of_routes} route(s) the best K is: {best_k}")
 
 
     #----------------- EXPERIMENT VISUALISATION -----------------

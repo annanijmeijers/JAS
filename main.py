@@ -30,13 +30,15 @@ if __name__ == "__main__":
     if file == 'Holland':
         df_connections = pd.read_csv('data/ConnectiesHolland.csv')
         df_stations = pd.read_csv('data/StationsHolland.csv')  
-        total_connections = 28
+        amount_of_connections = 28
+        amount_of_routes = 7
 
 
     elif file == 'Nationaal':
         df_connections = pd.read_csv('data/ConnectiesNationaal.csv')
         df_stations = pd.read_csv('data/StationsNationaal.csv')
-        total_connections = 89
+        amount_of_connections = 89
+        amount_of_routes = 28
 
     # instantiating a Station object for all stations
     all_stations = []
@@ -53,22 +55,25 @@ if __name__ == "__main__":
     random = input("Do you want to run the Random algorithm (y/n)? ")
     if random == 'y':
 
-        run_random(network_object, all_stations, df_connections, ammount_of_routes=20,
+        run_random(network_object, all_stations, ammount_of_routes=amount_of_routes,
                hist_view=True, vis=True)    
 
 #----------------- EXPERIMENT: GREEDY ---------------------
     greedy = input("Do you want to run the Greedy algorithm (y/n)? ")
+
+    # initialise a network, give it the total ammount of connections  
+    new_network = network.Network(amount_of_connections, amount_of_routes)
+
     if greedy == 'y':
-        greedy = Greedy(all_stations, total_connections)
+        greedy = Greedy(all_stations, amount_of_connections, new_network)
         greedy.run(unique_connections_heuristic)
         run_greedy(greedy, vis=True, iterations=1)
 
 #----------------- EXPERIMENT: GREEDY ---------------------    
     random_greedy = input("Do you want to run the RandomGreedy algorithm (y/n)?")
     if random_greedy == 'y':
-        random_greedy = RandomGreedy(all_stations, total_connections)
-        random_greedy.run(unique_connections_heuristic)
-        run_greedy(random_greedy, vis=True)
+        run_random(network_object, all_stations, greedy=True, ammount_of_routes=20,
+               hist_view=True, vis=True)
 
 #----------------- EXPERIMENT: GREEDY ---------------------    
     greedy_distance = input("Do you want to run the Greedy algorithm with the distance heuristic? (y/n)? ")
