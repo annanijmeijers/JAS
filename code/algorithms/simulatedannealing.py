@@ -2,6 +2,7 @@ import copy
 import random 
 from ..classes.route import Route 
 from ..algorithms.randomised import RandomRoute
+from ..algorithms.greedy import Greedy, RandomGreedy
 from tqdm import tqdm
 
 class SimulatedAnnealing(): 
@@ -81,7 +82,39 @@ class SimulatedAnnealing():
             self.lower_temp(iterations)
             
             
-            
+class GreedyAnnealing(SimulatedAnnealing):
+
+    """
+    This class implements Simulated Annealing, but uses
+    a greedy algorithm to replace the routes
+    """
+    def __init__(self, network_object, all_stations, starting_temp, heuristic):
+        self.network = copy.deepcopy(network_object) 
+        self.all_stations = all_stations 
+        self.old_score = self.network.quality()
+        self.new_score = None
+        self.starting_temp = starting_temp 
+        self.temp = starting_temp
+        self.route_to_replace = None 
+        self.qualities_for_vis = []
+        self.heuristic = heuristic 
+
+    def replace_and_test(self, r): 
+        # get the old route from the Network 
+        self.route_to_replace = self.network.get_route(r)
+
+        # create a new random Route 
+        new_route = RandomGreedy(self.network, self.all_stations, 89).build_route(r, self.heuristic)
+
+        # replace the route and calculate the new quality 
+        self.network.replace_route(r, new_route)
+        self.new_score = self.network.quality()
+
+        delta = self.old_score - self.new_score 
+
+        return delta 
+
+
             
             
 
