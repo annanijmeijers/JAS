@@ -71,7 +71,8 @@ def run_random(network_obj, all_stations, connections, ammount_of_routes=7,
 
 def run_greedy(algorithm, vis=False, iterations=1000):
     best_network = None
-    best_quality = 0
+    best_quality = -10000
+
 
     for t in tqdm(range(iterations)):
         network = copy.deepcopy(algorithm.rail_net)
@@ -80,7 +81,7 @@ def run_greedy(algorithm, vis=False, iterations=1000):
             best_quality = network.quality()
 
     print(best_quality, len(best_network.unique_tracks))
-
+    
     if network.ammount_of_routes == 7:
         file = 'Holland'
     elif network.ammount_of_routes == 20:
