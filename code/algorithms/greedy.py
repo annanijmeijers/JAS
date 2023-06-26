@@ -11,15 +11,15 @@ class Greedy():
     one by one. 
     """
 
-    def __init__(self, station_list, amount_of_connections): 
+    def __init__(self, station_list, amount_of_connections, network_object): 
         """ 
         IN: - station_list: list of station objects
             - amount_of_connections: nr of connections (for Holland or National)
         """
         self.station_list = copy.deepcopy(station_list)
         self.amount_of_connections = amount_of_connections
+        self.rail_net = network_object
         self.name = 'Greedy'
-        
         
 
     def find_begin_station(self): 
@@ -106,9 +106,7 @@ class Greedy():
         elif self.amount_of_connections == 89:
             amount_of_routes = 20
             self.timeframe = 180
-        
-        # initialise a network, give it the total ammount of connections  
-        self.rail_net = network.Network(self.amount_of_connections, amount_of_routes)
+     
 
         for r in range(1, amount_of_routes+1): 
             new_route = self.build_route(r, heuristic)

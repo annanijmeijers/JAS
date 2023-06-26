@@ -31,12 +31,14 @@ if __name__ == "__main__":
         df_connections = pd.read_csv('data/ConnectiesHolland.csv')
         df_stations = pd.read_csv('data/StationsHolland.csv')  
         amount_of_connections = 28
+        amount_of_routes = 7
 
 
     elif file == 'Nationaal':
         df_connections = pd.read_csv('data/ConnectiesNationaal.csv')
         df_stations = pd.read_csv('data/StationsNationaal.csv')
         amount_of_connections = 89
+        amount_of_routes = 28
 
     # instantiating a Station object for all stations
     all_stations = []
@@ -58,8 +60,12 @@ if __name__ == "__main__":
 
 #----------------- EXPERIMENT: GREEDY ---------------------
     greedy = input("Do you want to run the Greedy algorithm (y/n)? ")
+
+    # initialise a network, give it the total ammount of connections  
+    new_network = network.Network(amount_of_connections, amount_of_routes)
+
     if greedy == 'y':
-        greedy = Greedy(all_stations, amount_of_connections)
+        greedy = Greedy(all_stations, amount_of_connections, new_network)
         greedy.run(unique_connections_heuristic)
         run_greedy(greedy, vis=True, iterations=1)
 
