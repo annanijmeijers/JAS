@@ -141,7 +141,7 @@ class Visualisation():
 
 
         # Draw the connections between stations 
-        for lines, color in zip(route_lines, mcolors.TABLEAU_COLORS):
+        for lines, color in zip(route_lines, mcolors.CSS4_COLORS):
 
             # keep count of lines, and move each line a little 
             # so that lines will not overlap exactly
