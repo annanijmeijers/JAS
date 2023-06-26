@@ -14,6 +14,7 @@ class Network():
         # storing all the covered tracks and unique connections 
         self.covered_tracks = None  
         self.unique_tracks  = None 
+        self.p = 0 
 
         # storing the total duration of all routes 
         self.total_duration = 0 
@@ -85,9 +86,9 @@ class Network():
 
         self.calculate_network()
 
-        p = len(self.unique_tracks) / self.total_tracks
+        self.p = len(self.unique_tracks) / self.total_tracks
 
-        target_function = p * 10000 - (self.ammount_of_routes*100 + self.total_duration) 
+        target_function = self.p * 10000 - (self.ammount_of_routes*100 + self.total_duration) 
      
         return target_function 
                  

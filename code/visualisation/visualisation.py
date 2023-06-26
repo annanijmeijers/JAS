@@ -116,7 +116,7 @@ class Visualisation():
 
 
         # Draw the stations as nodes
-        ax.scatter(x, y, s=30, c='darkblue', marker='o', linewidths=5, zorder=5)
+        ax.scatter(x, y, s=1, c='darkblue', marker='o', linewidths=5, zorder=5)
 
         # Set the extent of the scatterplot to match the image
         ax.set_xlim(extent[0], extent[1])
