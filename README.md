@@ -20,7 +20,7 @@ Het aanroepen van de code waarmee er oplossingen van de case worden gegeven is:
 ```python main.py```
 
 Dit geeft een menu met verschillende algoritmes waaruit gekozen kan worden. 
-Vervlogens word de kwaliteit van de lijnvoering met gebruik van het gekozen algoritmes weergegeven. Het is mogelijk om te kiezen voor de resultaten van een eerder uitgevoerd experiment of om het algoritme zelf te runnen. 
+Vervolgens word de kwaliteit van de lijnvoering met gebruik van het gekozen algoritme weergegeven.
 
 ### Structuur
 
