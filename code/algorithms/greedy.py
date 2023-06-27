@@ -68,6 +68,9 @@ class Greedy():
         elif heuristic.__name__ == 'unique_connections_heuristic':
             next_station = heuristic(connection_options, self.station_list, route_object, self.network)
         
+        elif heuristic.__name__ == 'distance_based_heuristic':
+            next_station = heuristic(connection_options, self.station_list, route_object)
+        
         if not next_station:
             route_object.end_route = True
             return
