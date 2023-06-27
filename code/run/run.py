@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 from code.algorithms.randomised import RandomNet
 from tqdm import tqdm
 from code.algorithms.heuristics.heuristics import max_connections_heuristic, unique_connections_heuristic, distance_based_heuristic
+import csv
 
 def run_random(network_obj, all_stations, greedy=False, ammount_of_routes=7,
                    runs=10000, hist_view=False, vis=False):
@@ -35,22 +36,26 @@ def run_random(network_obj, all_stations, greedy=False, ammount_of_routes=7,
     k_values = []
     best_k = 0 
     best_network = None
+    with open("code/run/run_rand.csv", 'w', newline='') as output_file:
+        result_writer = csv.writer(output_file, delimiter=',')    
+        for t in tqdm(range(runs)):
+            if greedy:
+                random_net = RandomGreedy(all_stations, network_obj.total_tracks, network_obj)
+                random_net.run(unique_connections_heuristic)
+            else:
+                random_net = RandomNet(network_obj, all_stations, ammount_of_routes, timeframe)
+                random_net.run()
+            quality = random_net.network.quality()
+            k_values.append(quality)
+            result_writer.writerow([int(quality)])
+            
 
-    for t in tqdm(range(runs)):
-        if greedy:
-            random_net = RandomGreedy(all_stations, network_obj.total_tracks, network_obj)
-            random_net.run(unique_connections_heuristic)
-        else:
-            random_net = RandomNet(network_obj, all_stations, ammount_of_routes, timeframe)
-            random_net.run()
-        quality = random_net.network.quality()
-        k_values.append(quality)
-
-        # save the best k and the corresponding Network instance 
-        if quality > best_k: 
-            best_k = quality 
-            best_network = copy.deepcopy(random_net)
+            # save the best k and the corresponding Network instance 
+            if quality > best_k: 
+                best_k = quality 
+                best_network = copy.deepcopy(random_net)
     print(f"With {best_network.network.ammount_of_routes} route(s) the best K is: {best_k}")
+    
 
 
     #----------------- EXPERIMENT VISUALISATION -----------------
@@ -74,6 +79,20 @@ def run_random(network_obj, all_stations, greedy=False, ammount_of_routes=7,
         vis.extract_data(csv_file_stations, csv_file_connections)
 
         vis.visualise(best_network.network)
+
+def hist_plot():
+    results = []
+    with open("code/run/run_rand.csv", 'r') as input_file:
+        result_reader = csv.reader(input_file, delimiter=',')
+        for k_value in result_reader:
+            results.append(int(k_value[0]))
+
+    plt.hist(results, bins = 1000)
+    plt.xlabel('Value for K')
+    plt.ylabel('Ammount')
+    plt.title('Values for K using the Randomized algorithm') 
+    plt.show()
+
 
 def run_greedy(algorithm, vis=False, iterations=1000):
     best_network = None
