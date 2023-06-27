@@ -82,7 +82,7 @@ class Visualisation():
         self.read_connections()
         
 
-    def visualise(self, network_object, label=True, title=True):
+    def visualise(self, network_object, label=False, title=True):
         """ 
         IN: station_list, connections list, network_object, label statement
         OUT: plot of routes in given network
@@ -116,7 +116,7 @@ class Visualisation():
 
 
         # Draw the stations as nodes
-        ax.scatter(x, y, s=1, c='darkblue', marker='o', linewidths=5, zorder=5)
+        ax.scatter(x, y, s=3, c='darkblue', marker='o', linewidths=5, zorder=5)
 
         # Set the extent of the scatterplot to match the image
         ax.set_xlim(extent[0], extent[1])
@@ -141,7 +141,7 @@ class Visualisation():
 
 
         # Draw the connections between stations 
-        for lines, color in zip(route_lines, mcolors.CSS4_COLORS):
+        for lines, color in zip(route_lines, mcolors.XKCD_COLORS):
 
             # keep count of lines, and move each line a little 
             # so that lines will not overlap exactly
