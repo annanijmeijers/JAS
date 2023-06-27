@@ -8,8 +8,12 @@ Deze case gaat over het maken van een lijnvoering van intercitytreinen door Nede
 
 ### Vereisten
 Dit mooi maken
-- Python 3.9
+- Python 3.9.16
 - Matplotlib 3.6.3
+- Pandas 1.5.3
+- Numpy 1.24.2
+- tqdm 4.64.1
+- csv 1.0
 - via pip of conda requirements.txt installeren (eerst requirements.txt aanmaken)
 
 ### Gebruik
