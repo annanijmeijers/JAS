@@ -11,7 +11,7 @@ class Greedy():
     one by one. 
     """
 
-    def __init__(self, station_list, amount_of_connections, network_object): 
+    def __init__(self, station_list, amount_of_connections, network_object, timeframe=180): 
         """ 
         IN: - station_list: list of station objects
             - amount_of_connections: nr of connections (for Holland or National)
@@ -19,6 +19,7 @@ class Greedy():
         self.station_list = copy.deepcopy(station_list)
         self.amount_of_connections = amount_of_connections
         self.rail_net = copy.deepcopy(network_object)
+        self.timeframe = timeframe 
         self.name = 'Greedy'
         
 
@@ -141,3 +142,23 @@ class RandomGreedy(Greedy):
         begin_station.begin_station = True
 
         return begin_station                 
+
+class SemiRandomGreedy(Greedy): 
+    """
+    Chooses a semi-random begin station, but limited to 
+    stations that have uneven connections and are not used as a 
+    beginstation yet
+    """
+
+    def find_begin_station(self):
+        
+        self.name = 'SemiRandomGreedy'
+
+        options = []
+        for station in self.station_list: 
+            if station.connections_count % 2 != 0 and station.begin_station == False: 
+                options.append(station)
+        
+        begin_station = random.choice(options)
+        begin_station.begin_station = True 
+        return begin_station
