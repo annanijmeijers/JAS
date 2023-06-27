@@ -1,17 +1,28 @@
 from code.classes import route
 from code.classes import network
-from code.algorithms.greedy import RandomGreedy
 from code.visualisation.visualisation import Visualisation
 import copy
 import matplotlib.pyplot as plt
 from code.algorithms.randomised import RandomNet
 from tqdm import tqdm
-from code.algorithms.heuristics.heuristics import max_connections_heuristic, unique_connections_heuristic, distance_based_heuristic
 import csv 
 import pickle 
+import random
 
-def random(network_obj, all_stations, ammount_of_routes, runs=10000):
-        
+def random_net(network_obj, all_stations, ammount_of_routes, runs=10000):
+    '''
+    IN: - network_obj: empty Network-Class object
+        - all_stations: list of Station objects
+        - greedy: if True compute RandomGreedy
+        - ammount_of_routes: maximum routes in a network
+        - runs: ammount of runs for the experiment
+        - hist_view: Boolean to show a histogram
+        - vis: Boolean to show the map visualisation
+    ammount_of_routes choices:
+        - 7
+        - 20
+    '''    
+
     # initialising parameters for experiment 
     best_k = 0 
     best_network = None
@@ -25,6 +36,7 @@ def random(network_obj, all_stations, ammount_of_routes, runs=10000):
         result_writer = csv.writer(output_file, delimiter=',')    
 
         for t in tqdm(range(runs)):
+            random.seed(t)
             random_net = RandomNet(network_obj, all_stations, ammount_of_routes, timeframe)
             random_net.run()
             quality = random_net.network.quality()
@@ -63,6 +75,7 @@ def random_vis(file):
     network_data = open('results/random/network_data', 'rb')
     data = pickle.load(network_data) 
     network_data.close()
+    print(data.network.quality())
 
     vis = Visualisation()
     vis.extract_data(f'data/Stations{file}.csv', f'data/Connecties{file}.csv')
