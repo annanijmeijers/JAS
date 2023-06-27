@@ -12,20 +12,6 @@ if __name__ == "__main__":
     
 #----------------- LOADING THE DATA -----------------
 
-# ------------------- HOLLAND ------------------------
-    # df_connections = pd.read_csv('data/ConnectiesHolland.csv')
-    # df_stations = pd.read_csv('data/StationsHolland.csv')
-
-    # # instantiating a Station object for all stations
-    # all_stations = []
-    # for station_name in df_stations['station']:
-    #     new_station = station.Station(station_name) # naam voor de lijst via __str__?
-        
-    #     # storing available connections to each station 
-    #     new_station.find_connections(df_connections)
-    #     all_stations.append(new_station)
-
-# ------------------ NATIONAL ---------------------------------
     file = input("Which file do you want Holland or Nationaal? ")
     if file == 'Holland':
         df_connections = pd.read_csv('data/ConnectiesHolland.csv')
@@ -38,7 +24,7 @@ if __name__ == "__main__":
         df_connections = pd.read_csv('data/ConnectiesNationaal.csv')
         df_stations = pd.read_csv('data/StationsNationaal.csv')
         amount_of_connections = 89
-        amount_of_routes = 28
+        amount_of_routes = 20
 
     # instantiating a Station object for all stations
     all_stations = []
@@ -51,33 +37,118 @@ if __name__ == "__main__":
 
     # empty network object
     network_object = network.Network(len(df_connections), 20)
-#----------------- EXPERIMENT: RANDOMIZED -----------------
-    random = input("Do you want to run the Random algorithm (y/n)? ")
-    if random == 'y':
+
+# ---------------- PROVIDE MENU CHOICES ------------------------
+
+def menu(): 
+    """ 
+    Prints a menu of algorithm options from which 
+    the user can choose which experiment they would 
+    like to run. 
+    """
+    print('___________ MENU __________')
+    print('[1] Randomised')
+    print('[2] Greedy')
+    print('[3] RandomGreedy')
+    print('[4] Railclimber')
+    print('[5] Simulated Annealing')
+    print('[0] Exit Menu')
+
+
+def heuristic_menu(): 
+    """ 
+    Prints a menu of heuristic options from which 
+    the user can choose which experiment they would 
+    like to run.
+    """ 
+    print('The options are sorted from the highest score to the lowest score')
+    print('__________________________________________________________________')
+    print('[1] Unique Connections Heuristic')
+    print('[2] Maximum Connections Heuristic')
+    print('[3] Closest Distance Based Heuristic')
+    print('[0] Exit Heuristic Menu')
+
+
+menu()
+
+option = int(input('Please enter your algorithm of choice by entering the number before the algorithm: '))
+print('')
+
+
+while option != 0: 
+
+    # option 1: Random 
+    if option == 1: 
 
         run_random(network_object, all_stations, ammount_of_routes=amount_of_routes,
-               hist_view=True, vis=True)    
+            hist_view=True, vis=True)   
 
-#----------------- EXPERIMENT: GREEDY ---------------------
-    greedy = input("Do you want to run the Greedy algorithm (y/n)? ")
+    # option 2: Greedy  
+    elif option == 2: 
 
-    # initialise a network, give it the total ammount of connections  
-    new_network = network.Network(amount_of_connections, amount_of_routes)
+        heuristic_menu()
 
-    if greedy == 'y':
-        greedy = Greedy(all_stations, amount_of_connections, new_network)
-        greedy.run(unique_connections_heuristic)
-        run_greedy(greedy, vis=True, iterations=1)
+        heuristic_option = int(input('Please enter your heuristic of choice by entering the number before the heuristic: '))
 
-#----------------- EXPERIMENT: GREEDY ---------------------    
-    random_greedy = input("Do you want to run the RandomGreedy algorithm (y/n)?")
-    if random_greedy == 'y':
+        while heuristic_option != 0: 
+
+            # option 1: unique_connections_heuristic
+            if heuristic_option == 1: 
+
+                # initialise a network, give it the total ammount of connections  
+                new_network = network.Network(amount_of_connections, amount_of_routes)
+
+                greedy = Greedy(all_stations, amount_of_connections, new_network)
+                greedy.run(unique_connections_heuristic)
+                run_greedy(greedy, vis=True, iterations=1)
+                break 
+
+            # option 2: max_connections_heuristic
+            if heuristic_option == 2: 
+
+                # initialise a network, give it the total ammount of connections  
+                new_network = network.Network(amount_of_connections, amount_of_routes)
+
+                greedy = Greedy(all_stations, amount_of_connections, new_network)
+                greedy.run(max_connections_heuristic)
+                run_greedy(greedy, vis=True, iterations=1)
+                break
+
+            # option 3: distance_based_heuristic
+            if heuristic_option == 3: 
+
+                # initialise a network, give it the total ammount of connections  
+                new_network = network.Network(amount_of_connections, amount_of_routes)
+
+                greedy = Greedy(all_stations, amount_of_connections, new_network)
+                greedy.run(distance_based_heuristic)
+                run_greedy(greedy, vis=True, iterations=1)
+                break
+
+    # option 3: RandomGreedy
+    elif option == 3: 
+
+        # run RandomGreedy 
         run_random(network_object, all_stations, greedy=True, ammount_of_routes=20,
                hist_view=True, vis=True)
+ 
+    # option 4: Railclimber
+    elif option == 4: 
 
-#----------------- EXPERIMENT: GREEDY ---------------------    
-    greedy_distance = input("Do you want to run the Greedy algorithm with the distance heuristic? (y/n)? ")
-    if greedy_distance == 'y':
-        greedy_distance = Greedy(all_stations, df_connections)
-        greedy_distance.run(distance_based_heuristic)
-        run_greedy(greedy_distance, vis=True, iterations=1)
+        # run Railclimber
+        print(f'this is Railclimber') 
+
+    elif option == 5: 
+
+        # run simulated annealing 
+        print(f'this is Simulated Annealing') 
+
+
+    else: 
+        print('Invalid choice, please choose again: ')
+
+    menu()
+    option = int(input('Please enter your algorithm of choice by entering the number before the algorithm: '))
+
+print('Thankyou for trying our experiments! Have a nice day!')
+

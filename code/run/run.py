@@ -73,7 +73,7 @@ def run_random(network_obj, all_stations, greedy=False, ammount_of_routes=7,
         vis = Visualisation()
         vis.extract_data(csv_file_stations, csv_file_connections)
 
-        vis.visualise(best_network)
+        vis.visualise(best_network.rail_net)
 
 def run_greedy(algorithm, vis=False, iterations=1000):
     best_network = None
