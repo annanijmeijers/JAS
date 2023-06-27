@@ -18,6 +18,10 @@ class RailClimber():
         self.route_to_replace = None 
         self.qualities_for_vis = []
 
+        # shuffle the iterations to choose the route to change randomly 
+        self.random_list = list(range(1, len(self.network.routes)+1))
+        random.shuffle(self.random_list)
+
     def replace_and_test(self, r): 
         # get the old route from the Network 
         self.route_to_replace = self.network.get_route(r)
@@ -40,19 +44,18 @@ class RailClimber():
             self.network.replace_route(r, self.route_to_replace)
 
 
-    def run(self, iterations=100):
+    def run(self, iterations):
 
         self.qualities_for_vis = []
-
-        # shuffle the iterations to choose the route to change randomly 
-        random_list = list(range(1, len(self.network.routes)+1))
-        random.shuffle(random_list)
-        for r in tqdm(random_list): 
+        
+        for r in tqdm(self.random_list): 
 
             # try to find a better route 
             for t in tqdm(range(iterations), desc='Tries', leave=False): 
 
                 self.replace_and_test(r)
+
+            self.qualities_for_vis.append(self.network.quality())
 
         return 
 
@@ -62,7 +65,7 @@ class StochasticClimber(RailClimber):
 
         self.qualities_for_vis = []
 
-        for i in tqdm(range(iterations)): 
+        for _ in tqdm(range(iterations), leave=False): 
 
             # choose a random route to change 
             route_to_replace = random.choice(self.network.routes)

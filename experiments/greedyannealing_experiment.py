@@ -4,12 +4,7 @@ from code.algorithms.randomised import RandomNet
 from code.algorithms.simulatedannealing import GreedyAnnealing
 import matplotlib.pyplot as plt 
 
-def greedy_annealing(network_object, all_stations, ammount_of_routes, heuristic, iterations=1000): 
-
-    random_algorithm = RandomNet(network_object, all_stations, ammount_of_routes, route_time=180)
-    random_algorithm.run()
-    random_network = random_algorithm.network 
-    temperature = 1000
+def greedy_annealing(random_network, all_stations, heuristic, iterations=1000, temperature=1000): 
 
     ga = GreedyAnnealing(random_network, all_stations, temperature, heuristic)
 
@@ -22,7 +17,7 @@ def greedy_annealing(network_object, all_stations, ammount_of_routes, heuristic,
 
     return ga.network
 
-def greedy_anneal_compare_routes(network_object, all_stations, ammount_of_routes, heuristic, iterations=1000):
+def greedy_anneal_compare_routes(network_object, all_stations, ammount_of_routes, heuristic, iterations=1000, temperature=1000):
 
     for r in range(1, ammount_of_routes+1): 
 
@@ -30,7 +25,6 @@ def greedy_anneal_compare_routes(network_object, all_stations, ammount_of_routes
         random_algorithm.run()
         random_network = random_algorithm.network 
 
-        temperature = 1000
         ga = GreedyAnnealing(random_network, all_stations, temperature, heuristic)
 
         with open(f'results/greedyannealing/compare_routes/ga_{r}_routes.csv', 'w', newline='') as f:
