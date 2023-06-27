@@ -5,7 +5,7 @@ from code.classes import network
 from code.visualisation.visualisation import Visualisation
 from code.algorithms.randomised import RandomRoute
 from code.algorithms.greedy import Greedy, RandomGreedy
-from experiments.greedy_annealing_experiment import greedy_annealing
+from experiments.greedy_annealing_experiment import greedy_annealing, greedy_anneal_compare_routes, plot_ga_compare_routes
 from code.run.run import run_random, run_greedy
 from code.algorithms.heuristics.heuristics import max_connections_heuristic, unique_connections_heuristic, distance_based_heuristic
 
@@ -205,20 +205,12 @@ while option != 0:
                 break
 
             if sim_ann_choice == 2: 
-
-                # run simulated annealing with choice 2
-                ga = greedy_annealing(network_object, all_stations, amount_of_routes, unique_connections_heuristic)
-                print('Quality of the network after Greedy Annealing:', ga)
-                break
+                # greedy_anneal_compare_routes(network_object, all_stations, amount_of_routes, unique_connections_heuristic)
+                
+                plot_ga_compare_routes(amount_of_routes)
 
             if sim_ann_choice == 3: 
-
-                # run simulated annealing with choice 3
-                ga = greedy_annealing(network_object, all_stations, amount_of_routes, unique_connections_heuristic)
-                print('Quality of the network after Greedy Annealing:', ga)
-                break
-
-
+                pass
     else: 
         print('Invalid choice, please choose again: ')
 
