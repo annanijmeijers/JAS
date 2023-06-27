@@ -73,7 +73,7 @@ def run_random(network_obj, all_stations, greedy=False, ammount_of_routes=7,
         vis = Visualisation()
         vis.extract_data(csv_file_stations, csv_file_connections)
 
-        vis.visualise(best_network.rail_net)
+        vis.visualise(best_network.network)
 
 def run_greedy(algorithm, vis=False, iterations=1000):
     best_network = None
@@ -81,7 +81,7 @@ def run_greedy(algorithm, vis=False, iterations=1000):
 
 
     for t in tqdm(range(iterations)):
-        network = copy.deepcopy(algorithm.rail_net)
+        network = copy.deepcopy(algorithm.network)
         if network.quality() > best_quality:
             best_network = network
             best_quality = network.quality()
