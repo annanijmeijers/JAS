@@ -1,31 +1,26 @@
 # RailNL
 Deze case gaat over het maken van een lijnvoering van intercitytreinen door Nederland met als doel de hoogste kwaliteit verkrijgen. De lijnvoering mag uit maximaal 20 trajecten bestaan binnen een tijdsframe van 3 uur. Om tot een optimale oplossing te komen is er eerst gebruik gemaakt van de treinvoering door Noord-Holland en Zuid-Holland.
 
-### Team: JAS
-* Jens van der Weide
-* Anna Nijmeijers
-* Sebastiaan Smit
+
 
 ## Aan de slag 
-________________________________________________________________________________________________
 
 ### Vereisten
-Deze codebase is vollgedig geschreven in Python 3.7. In requirements.txt staan alle benodigde packages om de code succesvol te draaien. Deze zijn gemakkelijk te installeren vis pip dmv. de volgende instructie: 
+Deze codebase is vollgedig geschreven in Python 3.7. In requirements.txt staan alle benodigde packages om de code succesvol te draaien. Deze zijn gemakkelijk te installeren vis pip dmv. de volgende instructie:
 
-- Python 3.9.16
-- Matplotlib 3.6.3
-- Pandas 1.5.3
-- Numpy 1.24.2
-- tqdm 4.64.1
-- csv 1.0
-- via pip of conda requirements.txt installeren (eerst requirements.txt aanmaken)
+```pip install -r requirements.txt``` 
+
+Of via conda: 
+
+```conda install --file requirements.txt```
 
 ### Gebruik
 Het aanroepen van de code waarmee er oplossingen van de case worden gegeven is:
 
 ```python main.py```
 
-Dit geeft de kwaliteit van de lijnvoering met gebruik verschillende algoritmes aan.
+Dit geeft een menu met verschillende algoritmes waaruit gekozen kan worden. 
+Vervlogens word de kwaliteit van de lijnvoering met gebruik van het gekozen algoritmes weergegeven. Het is mogelijk om te kizen voor de resultaten van een eerder uitgevoerd experiment of om het algoritme zelf te runnen. 
 
 ### Structuur
 
@@ -38,3 +33,9 @@ De hierop volgende lijst beschrijft de belangrijkste mappen en files in het proj
 - **/data**: bevat de verschillende databestanden die nodig zijn om de lijnvoering te maken en te visualiseren
 - **main.py**: hoofd code die alle modules importeert en als eerste gerund moet worden
 - **requirements.txt**: bevat alle benodigde packages om te code te laten draaien
+
+
+## Team: JAS
+* Jens van der Weide
+* Anna Nijmeijers
+* Sebastiaan Smit
