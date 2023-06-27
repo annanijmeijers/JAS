@@ -5,6 +5,7 @@ from code.classes import network
 from code.visualisation.visualisation import Visualisation
 from code.algorithms.randomised import RandomRoute
 from code.algorithms.greedy import Greedy, RandomGreedy
+from experiments.greedy_annealing_experiment import greedy_annealing
 from code.run.run import run_random, run_greedy
 from code.algorithms.heuristics.heuristics import max_connections_heuristic, unique_connections_heuristic, distance_based_heuristic
 
@@ -141,7 +142,8 @@ while option != 0:
     elif option == 5: 
 
         # run simulated annealing 
-        print(f'this is Simulated Annealing') 
+        ga = greedy_annealing(network_object, all_stations, amount_of_routes, unique_connections_heuristic)
+        print('Quality of the network after Greedy Annealing:', ga)
 
 
     else: 
