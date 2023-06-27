@@ -97,35 +97,23 @@ class Visualisation():
         y = []
         self.station_names = []
 
-
         for station in self.stations:
             name, lon, lat = station.split(',')
             x.append(float(lat))
             y.append(float(lon))
             self.station_names.append(name)
 
+
         # Create the map
-        fig = plt.figure()
-        ax = fig.add_subplot(111)
-
-        # Set map of NL as background
-        map_nl = plt.imread('data/blank_map.jpg')
-        
-        # Define the extent of the image to match the station coordinates 
-        extent = [min(x) - 0.05, max(x) + 0.05, min(y) - 1, max(y) + 1]
-
-
+        plt.figure()
+    
         # Draw the stations as nodes
-        ax.scatter(x, y, s=3, c='darkblue', marker='o', linewidths=5, zorder=5)
+        plt.scatter(x, y, s=3, c='darkblue', marker='o', linewidths=5, zorder=5)
+        plt.xlim(min(x) - 0.2, max(x) + 0.2)
+        plt.ylim(min(y) - 0.3, max(y) + 0.3)
 
-        # Set the extent of the scatterplot to match the image
-        ax.set_xlim(extent[0], extent[1])
-        ax.set_ylim(extent[2], extent[3])
-
-        # Show the map as the background
-        ax.imshow(map_nl, extent=extent, aspect='auto', alpha=0.5)
-
-        # Obtain all routes s
+    
+        # Obtain all routes
         all_routes = network_object.routes
 
         # Save lines between routes in list
@@ -153,13 +141,13 @@ class Visualisation():
                 move_count += 1 
 
                 if move_count == 1: 
-                    ax.plot([x1 + 0.01, x2], [y1, y2], color=color, linewidth=2)
+                    plt.plot([x1 + 0.01, x2], [y1, y2], color=color, linewidth=2)
                 if move_count == 2: 
-                    ax.plot([x1, x2 + 0.01], [y1, y2], color=color, linewidth=2)
+                    plt.plot([x1, x2 + 0.01], [y1, y2], color=color, linewidth=2)
                 if move_count == 3:
-                    ax.plot([x1, x2], [y1 + 0.01, y2], color=color, linewidth=2)
+                    plt.plot([x1, x2], [y1 + 0.01, y2], color=color, linewidth=2)
                 if move_count == 4: 
-                    ax.plot([x1, x2], [y1, y2 + 0.01], color=color, linewidth=2)
+                    plt.plot([x1, x2], [y1, y2 + 0.01], color=color, linewidth=2)
 
                 # reset counter after all coordinates have been changed
                 if move_count == 4: 
@@ -168,21 +156,17 @@ class Visualisation():
         # Add labels to the stations if asked for 
         if label: 
             for i, (x_val, y_val) in enumerate(zip(x, y)):
-                ax.text(x_val, y_val, self.station_names[i], fontsize=4, bbox=dict(facecolor='pink', alpha=0.8), zorder=10)
+                plt.text(x_val, y_val, self.station_names[i], fontsize=4, bbox=dict(facecolor='pink', alpha=0.8), zorder=10)
 
         # Add title if asked for 
         if title: 
-            ax.set_title(f'Railnet with {network_object}')
+            plt.title(f'Railnet with {network_object}')
 
         # Add gridlines and title
-        ax.grid(True)
+        plt.grid(True)
         
         # Save the plot
         plt.savefig(f'code/visualisation/plots/{network_object}.png')
 
         # Show the plot
         plt.show()
-
-
-
-
