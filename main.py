@@ -63,11 +63,42 @@ def heuristic_menu():
     like to run.
     """ 
     print('The options are sorted from the highest score to the lowest score')
-    print('__________________________________________________________________')
+    print('___________ MENU ____________________')
     print('[1] Unique Connections Heuristic')
     print('[2] Maximum Connections Heuristic')
     print('[3] Closest Distance Based Heuristic')
     print('[0] Exit Heuristic Menu')
+
+
+
+
+    
+def railclimber_menu(): 
+    """ 
+    Prints a menu of options from which 
+    the user can choose which version of the 
+    experiment they would like to run.
+    """
+    print('___________ MENU __________')
+    print('[1] option 1')
+    print('[2] option 2')
+    print('[0] Exit Menu')
+
+
+
+
+def simulated_annealing_menu(): 
+    """ 
+    Prints a menu of options from which 
+    the user can choose which version of the 
+    experiment they would like to run.
+    """
+    print('___________ MENU __________')
+    print('[1] option 1')
+    print('[2] option 2')
+    print('[3] option 3')
+    print('[0] Exit Menu')
+
 
 
 menu()
@@ -136,14 +167,56 @@ while option != 0:
     # option 4: Railclimber
     elif option == 4: 
 
-        # run Railclimber
-        print(f'this is Railclimber') 
+        railclimber_menu()
+
+        railclimber_choice = int(input('Please enter the number before your choice: '))
+
+        while railclimber_choice != 0: 
+
+            if railclimber_choice == 1: 
+
+                # run railclimber with choice 1
+                ga = greedy_annealing(network_object, all_stations, amount_of_routes, unique_connections_heuristic)
+                print('Quality of the network after Greedy Annealing:', ga)
+                break
+
+            if railclimber_choice == 2: 
+
+                # run railclimber with choice 2
+                ga = greedy_annealing(network_object, all_stations, amount_of_routes, unique_connections_heuristic)
+                print('Quality of the network after Greedy Annealing:', ga)
+                break
+
+
 
     elif option == 5: 
 
-        # run simulated annealing 
-        ga = greedy_annealing(network_object, all_stations, amount_of_routes, unique_connections_heuristic)
-        print('Quality of the network after Greedy Annealing:', ga)
+        simulated_annealing_menu()
+
+        sim_ann_choice = int(input('Please enter the number before your choice: '))
+
+        while sim_ann_choice != 0: 
+
+            if sim_ann_choice == 1: 
+
+                # run simulated annealing with choice 1
+                ga = greedy_annealing(network_object, all_stations, amount_of_routes, unique_connections_heuristic)
+                print('Quality of the network after Greedy Annealing:', ga)
+                break
+
+            if sim_ann_choice == 2: 
+
+                # run simulated annealing with choice 2
+                ga = greedy_annealing(network_object, all_stations, amount_of_routes, unique_connections_heuristic)
+                print('Quality of the network after Greedy Annealing:', ga)
+                break
+
+            if sim_ann_choice == 3: 
+
+                # run simulated annealing with choice 3
+                ga = greedy_annealing(network_object, all_stations, amount_of_routes, unique_connections_heuristic)
+                print('Quality of the network after Greedy Annealing:', ga)
+                break
 
 
     else: 
