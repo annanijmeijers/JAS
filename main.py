@@ -205,12 +205,13 @@ while option != 0:
                 break
 
             if sim_ann_choice == 2: 
-                # greedy_anneal_compare_routes(network_object, all_stations, amount_of_routes, unique_connections_heuristic)
+                # greedy_anneal_compare_routes(network_object, all_stations, amount_of_routes, unique_connections_heuristic, 1000)
                 
-                plot_ga_compare_routes(amount_of_routes)
+                plot_ga_compare_routes(amount_of_routes, highest_values_only=False)
+                break
 
             if sim_ann_choice == 3: 
-                pass
+                break 
     else: 
         print('Invalid choice, please choose again: ')
 
