@@ -6,6 +6,7 @@ from code.visualisation.visualisation import Visualisation
 from code.algorithms.randomised import RandomRoute
 from code.algorithms.greedy import Greedy, RandomGreedy
 from experiments.greedy_annealing_experiment import greedy_annealing, greedy_anneal_compare_routes, plot_ga_compare_routes
+from experiments.simulatedannealing import simulated_annealing, plot_sa_vs_ga
 from code.run.run import run_random, run_greedy
 from code.algorithms.heuristics.heuristics import max_connections_heuristic, unique_connections_heuristic, distance_based_heuristic
 
@@ -94,7 +95,7 @@ def simulated_annealing_menu():
     experiment they would like to run.
     """
     print('___________ MENU __________')
-    print('[1] option 1')
+    print('[1] Normal Simulated Annealing')
     print('[2] option 2')
     print('[3] option 3')
     print('[0] Exit Menu')
@@ -175,16 +176,10 @@ while option != 0:
 
             if railclimber_choice == 1: 
 
-                # run railclimber with choice 1
-                ga = greedy_annealing(network_object, all_stations, amount_of_routes, unique_connections_heuristic)
-                print('Quality of the network after Greedy Annealing:', ga)
                 break
 
             if railclimber_choice == 2: 
 
-                # run railclimber with choice 2
-                ga = greedy_annealing(network_object, all_stations, amount_of_routes, unique_connections_heuristic)
-                print('Quality of the network after Greedy Annealing:', ga)
                 break
 
 
@@ -200,8 +195,12 @@ while option != 0:
             if sim_ann_choice == 1: 
 
                 # run simulated annealing with choice 1
-                ga = greedy_annealing(network_object, all_stations, amount_of_routes, unique_connections_heuristic)
-                print('Quality of the network after Greedy Annealing:', ga)
+                # sa = simulated_annealing(network_object, all_stations, amount_of_routes, unique_connections_heuristic)
+                # print('Quality of the network after Greedy Annealing:', sa.quality())
+
+                plot_sa_vs_ga()
+
+
                 break
 
             if sim_ann_choice == 2: 
