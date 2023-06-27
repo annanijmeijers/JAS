@@ -6,8 +6,12 @@ Deze case gaat over het maken van een lijnvoering van intercitytreinen door Nede
 * Anna Nijmeijers
 * Sebastiaan Smit
 
+## Aan de slag 
+________________________________________________________________________________________________
+
 ### Vereisten
-Dit mooi maken
+Deze codebase is vollgedig geschreven in Python 3.7. In requirements.txt staan alle benodigde packages om de code succesvol te draaien. Deze zijn gemakkelijk te installeren vis pip dmv. de volgende instructie: 
+
 - Python 3.9.16
 - Matplotlib 3.6.3
 - Pandas 1.5.3
