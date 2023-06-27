@@ -20,10 +20,9 @@ def greedy_annealing(network_object, all_stations, ammount_of_routes, heuristic,
             ga.run(1)
             writer.writerow([ga.network.quality()])
 
-    return ga.network.quality()
+    return ga.network
 
 def greedy_anneal_compare_routes(network_object, all_stations, ammount_of_routes, heuristic, iterations=1000):
-
 
     for r in range(1, ammount_of_routes+1): 
 
