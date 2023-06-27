@@ -36,7 +36,7 @@ def random_greedy(network_obj, all_stations, heuristic, runs=10000):
         result_writer = csv.writer(output_file, delimiter=',')    
 
         for t in tqdm(range(runs)):
-            random.seed(t)
+            random.seed(t) # seed added
             random_net = RandomGreedy(all_stations, network_obj.total_tracks, network_obj)
             random_net.run(heuristic)
             quality = random_net.network.quality()

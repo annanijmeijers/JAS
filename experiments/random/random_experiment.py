@@ -36,7 +36,7 @@ def random_net(network_obj, all_stations, ammount_of_routes, runs=10000):
         result_writer = csv.writer(output_file, delimiter=',')    
 
         for t in tqdm(range(runs)):
-            random.seed(t)
+            random.seed(t) # seed added
             random_net = RandomNet(network_obj, all_stations, ammount_of_routes, timeframe)
             random_net.run()
             quality = random_net.network.quality()
