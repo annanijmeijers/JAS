@@ -43,14 +43,14 @@ def run_random(network_obj, all_stations, greedy=False, ammount_of_routes=7,
         else:
             random_net = RandomNet(network_obj, all_stations, ammount_of_routes, timeframe)
             random_net.run()
-        quality = random_net.rail_net.quality()
+        quality = random_net.network.quality()
         k_values.append(quality)
 
         # save the best k and the corresponding Network instance 
         if quality > best_k: 
             best_k = quality 
             best_network = copy.deepcopy(random_net)
-    print(f"With {best_network.rail_net.ammount_of_routes} route(s) the best K is: {best_k}")
+    print(f"With {best_network.network.ammount_of_routes} route(s) the best K is: {best_k}")
 
 
     #----------------- EXPERIMENT VISUALISATION -----------------
