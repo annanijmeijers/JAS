@@ -8,7 +8,8 @@ from code.algorithms.greedy import Greedy, RandomGreedy
 from experiments.greedyannealing_experiment import greedy_annealing, greedy_anneal_compare_routes, plot_ga_compare_routes, plot_ga_compare_temps, greedy_anneal_compare_temps
 from experiments.simulatedannealing_experiment import simulated_annealing, plot_sa_vs_ga_vs_hc
 from experiments.hillclimber_experiment import stochastic_railclimber
-from code.run.run import run_random, run_greedy
+from experiments.greedy.greedy_experiment import greedy, random_greedy, random_greedy_graph, greedy_vis
+from experiments.random.random_experiment import random_net, random_graph, random_vis
 from code.algorithms.heuristics.heuristics import max_connections_heuristic, unique_connections_heuristic, distance_based_heuristic
 
 if __name__ == "__main__":
@@ -41,7 +42,7 @@ if __name__ == "__main__":
         all_stations.append(new_station)
 
     # empty network object
-    network_object = network.Network(len(df_connections), 20)
+    network_object = network.Network(amount_of_connections, amount_of_routes)
 
     # initialising a randomly filled network for iterative algorithms later 
     random_algorithm = RandomNet(network_object, all_stations, amount_of_routes, route_time)
@@ -121,8 +122,9 @@ while option != 0:
     # option 1: Random 
     if option == 1: 
 
-        run_random(network_object, all_stations, ammount_of_routes=amount_of_routes,
-            hist_view=True, vis=True)   
+        random_net(network_object, all_stations, amount_of_routes) 
+        random_graph()
+        random_vis(file)  
 
     # option 2: Greedy  
     elif option == 2: 
@@ -136,43 +138,58 @@ while option != 0:
             # option 1: unique_connections_heuristic
             if heuristic_option == 1: 
 
-                # initialise a network, give it the total ammount of connections  
-                new_network = network.Network(amount_of_connections, amount_of_routes)
-
-                greedy = Greedy(all_stations, amount_of_connections, new_network)
-                greedy.run(unique_connections_heuristic)
-                run_greedy(greedy, vis=True, iterations=1)
+                greedy(all_stations, network_object, unique_connections_heuristic)
+                greedy_vis(file, unique_connections_heuristic)
                 break 
 
             # option 2: max_connections_heuristic
             if heuristic_option == 2: 
 
-                # initialise a network, give it the total ammount of connections  
-                new_network = network.Network(amount_of_connections, amount_of_routes)
-
-                greedy = Greedy(all_stations, amount_of_connections, new_network)
-                greedy.run(max_connections_heuristic)
-                run_greedy(greedy, vis=True, iterations=1)
+                greedy(all_stations, network_object, max_connections_heuristic)
+                greedy_vis(file, max_connections_heuristic)
                 break
 
             # option 3: distance_based_heuristic
             if heuristic_option == 3: 
 
-                # initialise a network, give it the total ammount of connections  
-                new_network = network.Network(amount_of_connections, amount_of_routes)
-
-                greedy = Greedy(all_stations, amount_of_connections, new_network)
-                greedy.run(distance_based_heuristic)
-                run_greedy(greedy, vis=True, iterations=1)
+                greedy(all_stations, network_object, distance_based_heuristic)
+                greedy_vis(file, distance_based_heuristic)
                 break
 
     # option 3: RandomGreedy
     elif option == 3: 
 
-        # run RandomGreedy 
-        run_random(network_object, all_stations, greedy=True, ammount_of_routes=20,
-               hist_view=True, vis=True)
- 
+        heuristic_menu()
+
+        heuristic_option = int(input('Please enter your heuristic of choice by entering the number before the heuristic: '))
+
+        while heuristic_option != 0: 
+
+            # option 1: unique_connections_heuristic
+            if heuristic_option == 1: 
+                # run RandomGreedy 
+                random_greedy(network_object, all_stations, unique_connections_heuristic)
+                random_greedy_graph()
+                greedy_vis(file, random=True)
+                break 
+
+            # option 2: max_connections_heuristic
+            if heuristic_option == 2: 
+                # run RandomGreedy 
+                random_greedy(network_object, all_stations, max_connections_heuristic)
+                random_greedy_graph()
+                greedy_vis(file, random=True)
+                break
+
+            # option 3: distance_based_heuristic
+            if heuristic_option == 3: 
+
+                # run RandomGreedy 
+                random_greedy(network_object, all_stations, distance_based_heuristic)
+                random_greedy_graph()
+                greedy_vis(file, random=True)
+                break
+            
     # option 4: Railclimber
     elif option == 4: 
 

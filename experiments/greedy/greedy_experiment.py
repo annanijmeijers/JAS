@@ -67,6 +67,7 @@ def random_greedy_graph():
     plt.xlim(0, 10000)
     plt.ylim(0, 200)
     plt.title('Values for K using the Randomized algorithm') 
+    plt.savefig(f'results/greedy/random_greedy/Histogram_Random_greedy.png')
     plt.show()
 
 
@@ -83,7 +84,7 @@ def greedy_vis(file, heuristic=None, random=False):
     
     data = pickle.load(network_data) 
     network_data.close()
-    print(data.network.quality())
+    print(f"The quality of this network is {data.network.quality()}")
 
     vis = Visualisation()
     vis.extract_data(f'data/Stations{file}.csv', f'data/Connecties{file}.csv')
