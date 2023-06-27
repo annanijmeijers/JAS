@@ -6,7 +6,7 @@ Deze case gaat over het maken van een lijnvoering van intercitytreinen door Nede
 ## Aan de slag 
 
 ### Vereisten
-Deze codebase is vollgedig geschreven in Python 3.7. In requirements.txt staan alle benodigde packages om de code succesvol te draaien. Deze zijn gemakkelijk te installeren vis pip dmv. de volgende instructie:
+Deze codebase is vollgedig geschreven in Python 3.9. In requirements.txt staan alle benodigde packages om de code succesvol te draaien. Deze zijn gemakkelijk te installeren vis pip dmv. de volgende instructie:
 
 ```pip install -r requirements.txt``` 
 
