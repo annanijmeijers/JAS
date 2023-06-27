@@ -13,20 +13,22 @@ def random_net(network_obj, all_stations, ammount_of_routes, runs=10000):
     '''
     IN: - network_obj: empty Network-Class object
         - all_stations: list of Station objects
-        - greedy: if True compute RandomGreedy
         - ammount_of_routes: maximum routes in a network
         - runs: ammount of runs for the experiment
-        - hist_view: Boolean to show a histogram
-        - vis: Boolean to show the map visualisation
     ammount_of_routes choices:
         - 7
         - 20
+    This function creates multiple random networks for a randomise experiment.
+    In this function the best network out of runs amount of networks will be
+    saved in a pickle file. Each networks quality value is written to a csv for
+    further investigation.
     '''    
 
     # initialising parameters for experiment 
     best_k = 0 
     best_network = None
 
+    # automatically choose the timeframe for the routes
     if ammount_of_routes == 7: 
         timeframe = 120 
     else: 
@@ -35,8 +37,11 @@ def random_net(network_obj, all_stations, ammount_of_routes, runs=10000):
     with open("results/random/random_data.csv", 'w', newline='') as output_file:
         result_writer = csv.writer(output_file, delimiter=',')    
 
+        # run the experiment runs amount of times
         for t in tqdm(range(runs)):
-            random.seed(t) # seed added
+
+            # use a random seed for validation of the experiment later on
+            random.seed(t)
             random_net = RandomNet(network_obj, all_stations, ammount_of_routes, timeframe)
             random_net.run()
             quality = random_net.network.quality()
@@ -46,15 +51,20 @@ def random_net(network_obj, all_stations, ammount_of_routes, runs=10000):
             if quality > best_k: 
                 best_k = quality 
                 best_network = copy.deepcopy(random_net)
-                network_data = open('results/random/network_data', 'wb')
-                pickle.dump(best_network, network_data)
-                network_data.close()
+
+    # put the best network instance in a pickle file    
+    network_data = open('results/random/network_data', 'wb')
+    pickle.dump(best_network, network_data)
+    network_data.close()
 
 
 
 def random_graph(): 
-
-
+    """
+    This function draws a histogram out of the qualities that have been
+    written into the csv in the random_net function. It saves the histogram
+    to a specific destination.  
+    """
     results = []
     with open("results/random/random_data.csv", 'r') as input_file:
         result_reader = csv.reader(input_file, delimiter=',')
@@ -67,12 +77,17 @@ def random_graph():
     plt.xlim(0, 10000)
     plt.ylim(0, 200)
     plt.title('Values for K using the Randomized algorithm') 
-    plt.savefig(f'results/randomHistogram_Random.png')
+    plt.savefig(f'results/random/Histogram_Random.png')
     plt.show()
 
 
 
 def random_vis(file): 
+    """
+    IN: - file: string that represents Holland or Nationaal
+    This function visualises the best network that was written
+    into the pickle file in the random_net function.
+    """
     network_data = open('results/random/network_data', 'rb')
     data = pickle.load(network_data) 
     network_data.close()

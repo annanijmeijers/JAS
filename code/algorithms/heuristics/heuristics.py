@@ -1,50 +1,9 @@
-import math
-
-def choice_heuristic(dictionary, heuristic, route_obj, network_obj):
-    """
-    IN: - dictionary: Dictionary object that contains the destinations
-        - heuristic: heuristic used for chosing destinations
-        - route_obj: Route object
-        - network_obj: Network object
-    heuristic choices: 
-        - station_based: choices based on stations in route
-        - unique_based: choices based on unique connections in network
-    This method uses a choice heuristic on the input dictionary to 
-    create a list of destination options.
-    OUT: - choices: List object that contains (updated)destination options
-    """
-    choices = list()
-    if heuristic == 'station_based':
-        for station in dictionary.keys():
-            if station not in route_obj.route:
-                choices.append(station)
-    
-    if heuristic == 'unique_based':
-        network_obj.calculate_unique_connections()
-        for station_name in dictionary.keys():
-            if ((station_name, route_obj.route[-1].name) not in network_obj.unique_tracks) or ((route_obj.route[-1].name, station_name) not in network_obj.unique_tracks):
-                choices.append(station_name)
-
-    if heuristic == 'distance_based': 
-        # current_station = route_obj.route[-1]
-        # connection_options = current_station.connections
-        
-        # choices = distance_based_heuristic(dictionary, connection_options, route_obj)
-
-        for station in dictionary.keys():
-            if station not in route_obj.route:
-                choices.append(station)
-
-    if not choices:
-        return False
-
-    return choices
-
 def max_connections_heuristic(connection_list, station_list):
     '''
     IN: connection_list: connection dictionary {station: duration}
         station_list: list of station objects
-    ##uitleg heuristiek
+    This heuristic is used for obtaining a new station object based
+    on the maximum amount of connections it has.
     OUT: max_connections_station: station_object or None
     '''
 
@@ -80,7 +39,8 @@ def unique_connections_heuristic(connection_options, station_list, route_object,
         station_list: list of station objects
         route_object: Route-Class object
         network_object: Network-Class object
-    ##uitleg heuristiek
+    This heuristic is used to obtain a station with using the least amount of cost.
+    It calculates these costs based on if connection have already been ridden on.
     OUT: next_station: station_object or None 
     '''
 
@@ -153,10 +113,13 @@ def unique_connections_heuristic(connection_options, station_list, route_object,
 def distance_based_heuristic(connection_options, station_list, route_object): 
 
     """
+    IN: connection_options: connection dictionary {station: duration}
+        station_list: list of station objects
+        route_object: Route-Class object
     This heuristic selects the next station based on the shortest 
     distance from the current station. It prioritizes stations that 
     are closer in terms of travel distance. 
-
+    OUT: next_station: station_object or None 
     """
 
     current_station = route_object.route[-1]
