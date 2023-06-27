@@ -18,7 +18,7 @@ class Greedy():
         """
         self.station_list = copy.deepcopy(station_list)
         self.amount_of_connections = amount_of_connections
-        self.rail_net = copy.deepcopy(network_object)
+        self.network = copy.deepcopy(network_object)
         self.timeframe = timeframe 
         self.name = 'Greedy'
         
@@ -66,7 +66,7 @@ class Greedy():
             next_station = heuristic(connection_options, self.station_list)
 
         elif heuristic.__name__ == 'unique_connections_heuristic':
-            next_station = heuristic(connection_options, self.station_list, route_object, self.rail_net)
+            next_station = heuristic(connection_options, self.station_list, route_object, self.network)
         
         if not next_station:
             route_object.end_route = True
@@ -116,16 +116,16 @@ class Greedy():
             new_route.compute_covered_connections()
           
             # add the route and the unique connections to the network 
-            self.rail_net.add_route(new_route)
-            self.rail_net.calculate_network()
+            self.network.add_route(new_route)
+            self.network.calculate_network()
         
             # compute unique connections
-            if len(self.rail_net.unique_tracks) == self.rail_net.total_tracks:
-                self.rail_net.ammount_of_routes = r
+            if len(self.network.unique_tracks) == self.network.total_tracks:
+                self.network.ammount_of_routes = r
                 break
 
         # identify all unique connections in the network 
-        self.rail_net.calculate_network()
+        self.network.calculate_network()
 
 
     def __repr__(self):

@@ -89,8 +89,6 @@ class RandomNet():
 
         # identify all unique connections in the network 
         self.network.calculate_network()
-
-        self.random_network = self.network
     
     def return_network(self): 
         return self.network
