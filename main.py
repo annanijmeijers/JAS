@@ -5,7 +5,7 @@ from code.classes import network
 from code.visualisation.visualisation import Visualisation
 from code.algorithms.randomised import RandomRoute, RandomNet
 from code.algorithms.greedy import Greedy, RandomGreedy
-from experiments.greedyannealing_experiment import greedy_annealing, greedy_anneal_compare_routes, plot_ga_compare_routes
+from experiments.greedyannealing_experiment import greedy_annealing, greedy_anneal_compare_routes, plot_ga_compare_routes, plot_ga_compare_temps, greedy_anneal_compare_temps
 from experiments.simulatedannealing_experiment import simulated_annealing, plot_sa_vs_ga_vs_hc
 from experiments.hillclimber_experiment import stochastic_railclimber
 from code.run.run import run_random, run_greedy
@@ -224,6 +224,10 @@ while option != 0:
                 break
 
             if sim_ann_choice == 3: 
+                temp = 1000
+                greedy_anneal_compare_temps(random_network, all_stations, unique_connections_heuristic, 100, temp)
+                plot_ga_compare_temps(temp)
+
                 break 
     else: 
         print('Invalid choice, please choose again: ')
