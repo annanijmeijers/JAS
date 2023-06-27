@@ -9,6 +9,7 @@ Deze case gaat over het maken van een lijnvoering van intercitytreinen door Nede
 ### Vereisten
 Dit mooi maken
 - Python 3.9
+- Matplotlib 3.6.3
 - via pip of conda requirements.txt installeren (eerst requirements.txt aanmaken)
 
 ### Gebruik
