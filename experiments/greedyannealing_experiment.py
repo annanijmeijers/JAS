@@ -1,4 +1,5 @@
-import csv 
+import csv
+import random
 from tqdm import tqdm 
 from code.algorithms.randomised import RandomNet
 from code.algorithms.simulatedannealing import GreedyAnnealing
@@ -22,6 +23,7 @@ def greedy_anneal_compare_routes(file, network_object, all_stations, ammount_of_
 
     for r in range(1, ammount_of_routes+1): 
 
+        random.seed(1)
         random_algorithm = RandomNet(network_object, all_stations, r, route_time=180)
         random_algorithm.run()
         random_network = random_algorithm.network 
@@ -40,7 +42,7 @@ def plot_ga_compare_routes(file, amount_of_routes, highest_values_only):
     fig, ax = plt.subplots()
 
     for r in range(1, amount_of_routes+1):
-        with open(f'results/greedyannealing/compare_routes/ga_{r}_route{file}.csv', 'r') as f:
+        with open(f'results/greedyannealing/compare_routes/ga_{r}_routes_{file}.csv', 'r') as f:
             reader = csv.reader(f, delimiter=',')
             values = list(reader)
             values = [float(k) for sublist in values for k in sublist]
@@ -66,7 +68,7 @@ def plot_ga_compare_routes(file, amount_of_routes, highest_values_only):
     ax.set_xlabel('Iterations')
     ax.set_ylabel('Quality of network')
     fig.set_size_inches(10.5, 7.5)
-    fig.savefig(f"results/greedyannealing/compare_routes/compare_routes_{name}.png")
+    fig.savefig(f"results/greedyannealing/compare_routes/compare_routes_{name}_{file}.png")
 
 # ====================== Comparing different temperatures ======================
 
@@ -101,7 +103,7 @@ def plot_ga_compare_temps(file, temperature):
     ax.set_xlabel('Iterations')
     ax.set_ylabel('Quality of network')
     fig.set_size_inches(10.5, 7.5)
-    fig.savefig(f"results/greedyannealing/compare_temps/compare_temps.png")
+    fig.savefig(f"results/greedyannealing/compare_temps/compare_temps_{file}.png")
 
 
 
