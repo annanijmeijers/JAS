@@ -49,7 +49,7 @@ def railclimber_menu():
     experiment they would like to run.
     """
     print('___________ RAILCLIMBER MENU __________')
-    print('[1] option 1')
+    print('[1] One experiment with Stochastic RailClimber')
     print('[2] option 2')
     print('[0] Exit Menu')
 
@@ -64,7 +64,7 @@ def simulated_annealing_menu():
     print('[1] Compare three iterative algorithms (StochasticHillClimber, SimulatedAnnealing, GreedyAnnealing)')
     print('[2] GreedyAnnealing: comparing different ammount of routes in network')
     print('[3] GreedyAnnealing: comparing different starting temperatures')
-    print('[4] option 4')
+    print('[4] Just one experiment with GreedyAnnealing')
     print('[5] option 5')
     print('[0] Exit Menu')
 

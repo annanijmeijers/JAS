@@ -4,7 +4,10 @@ from code.algorithms.randomised import RandomNet
 from code.algorithms.hillclimber import RailClimber, StochasticClimber
 import matplotlib.pyplot as plt 
 
-def stochastic_railclimber(file, random_network, all_stations, iterations=1000): 
+def stochastic_railclimber(file, random_network, all_stations, iterations=1000):
+    """
+    Runs Stochastic Hillclimber a given ammount of iterations, dumps the data into a csv file
+    """ 
 
     rc = StochasticClimber(random_network, all_stations)
 
