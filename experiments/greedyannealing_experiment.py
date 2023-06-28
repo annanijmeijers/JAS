@@ -141,3 +141,30 @@ def plot_ga_compare_temps(file, temperature):
 
 
 
+def many_greedy_annealing(file, network_object, all_stations, heuristic, runs, route_time, amount_of_routes, iterations=1000, temperature=1000): 
+    """
+    One run of greedy annealing, outputs a csv-files with quality of network at each iteration
+    """
+
+    best_quality = 0 
+    for run in tqdm(range(runs), desc='Runs', leave=False): 
+
+        random_algorithm = RandomNet(network_object, all_stations, amount_of_routes, route_time)
+        random_algorithm.run()
+        random_network = random_algorithm.network 
+
+        ga = GreedyAnnealing(random_network, all_stations, temperature, heuristic)
+
+        with open(f'results/greedyannealing/many_runs/greedyannealing_{file}_run{run}.csv', 'w', newline='') as f: 
+            writer = csv.writer(f, delimiter=',')
+
+            for i in tqdm(range(iterations), desc='Greedy Annealing:', leave=False): 
+                ga.run(1)
+                writer.writerow([ga.network.quality()])
+
+        # save the best network
+        if ga.network.quality() > best_quality: 
+            best_quality = ga.network.quality()
+            best_alg = ga 
+    
+    return best_alg 

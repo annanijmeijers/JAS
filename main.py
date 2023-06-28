@@ -8,7 +8,7 @@ from code.classes import network
 from code.visualisation.visualisation import Visualisation
 from code.algorithms.randomised import RandomRoute, RandomNet
 from code.algorithms.greedy import Greedy, RandomGreedy
-from experiments.greedyannealing_experiment import greedy_annealing, greedy_anneal_compare_routes, plot_ga_compare_routes, plot_ga_compare_temps, greedy_anneal_compare_temps
+from experiments.greedyannealing_experiment import greedy_annealing, greedy_anneal_compare_routes, plot_ga_compare_routes, plot_ga_compare_temps, greedy_anneal_compare_temps, many_greedy_annealing
 from experiments.simulatedannealing_experiment import simulated_annealing, plot_sa_vs_ga_vs_hc
 from experiments.hillclimber_experiment import stochastic_railclimber
 from experiments.greedy.greedy_experiment import greedy, random_greedy, random_greedy_graph, greedy_vis, heuristic_differences
@@ -222,7 +222,7 @@ if __name__ == "__main__":
                     best_network_for_vis = ga.network
                     vis = Visualisation()
                     vis.extract_data(f'data/Stations{file}.csv', f'data/Connecties{file}.csv')
-                    vis.visualise(best_network_for_vis, title=f'Best network with GreedyAnnealing (routes:{len(best_network_for_vis.routes)})')
+                    vis.visualise(best_network_for_vis, title=f'GreedyAnnealing (routes:{len(best_network_for_vis.routes)}, quality:{best_network_for_vis.quality()})')
 
 
 
@@ -250,6 +250,12 @@ if __name__ == "__main__":
                 if sim_ann_choice == 5: 
 
                     # choice 5 
+                    ga = many_greedy_annealing(file, network_object, all_stations, unique_connections_heuristic, 50, route_time, 9)
+                    best_network_for_vis = ga.network
+
+                    vis = Visualisation()
+                    vis.extract_data(f'data/Stations{file}.csv', f'data/Connecties{file}.csv')
+                    vis.visualise(best_network_for_vis, title=f'GreedyAnnealing (routes:{len(best_network_for_vis.routes)}, quality:{best_network_for_vis.quality()})')
                     break 
 
 
