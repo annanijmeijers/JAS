@@ -16,9 +16,10 @@ Het aanroepen van de code waarmee er oplossingen van de case worden gegeven is:
 
 ```python main.py```
 
-Dit geeft een menu met verschillende algoritmes waaruit gekozen kan worden. 
-Vervolgens wordt de kwaliteit van de lijnvoering met gebruik van het gekozen algoritme weergegeven.
+Dit geeft een menu met verschillende experimenten waaruit gekozen kan worden. Welk(e) algortime(n) gebruikt worden, hangt af van het experiment.
+De resultaten worden in csv-format gedumpt in resultaten. In hetzelfde mapje komt ook de visualisatie (plot) van de resultaten terecht.
 
+De visualisatie van het netwerk wordt alleen gedaan als er niet verschillende algoritmen in één experiment worden gebruikt. Deze is te vinden in ...
 ### Structuur
 
 De hierop volgende lijst beschrijft de belangrijkste mappen en files in het project, en waar je ze kan vinden:
