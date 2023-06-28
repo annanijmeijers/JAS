@@ -19,7 +19,7 @@ Het aanroepen van de code waarmee er oplossingen van de case worden gegeven is:
 Dit geeft een menu met verschillende experimenten waaruit gekozen kan worden. Welk(e) algortime(n) gebruikt worden, hangt af van het experiment.
 De resultaten worden in csv-format gedumpt in resultaten. In hetzelfde mapje komt ook de visualisatie (plot) van de resultaten terecht.
 
-De visualisatie van het netwerk wordt alleen gedaan als er niet verschillende algoritmen in één experiment worden gebruikt. Deze is te vinden in ...
+De visualisatie van het netwerk wordt alleen gedaan als er niet verschillende algoritmen in één experiment worden gebruikt. Deze is te vinden in **/visualisation/plots**.
 ### Structuur
 
 De hierop volgende lijst beschrijft de belangrijkste mappen en files in het project, en waar je ze kan vinden:
@@ -27,8 +27,10 @@ De hierop volgende lijst beschrijft de belangrijkste mappen en files in het proj
 - **/code**: bevat alle code van dit project
   - **/code/algorithms**: bevat de code voor algoritmes
   - **/code/classes**: bevat de drie benodigde classes voor deze case
-  - **/code/visualisation**: bevat de code voor de visualisatie
 - **/data**: bevat de verschillende databestanden die nodig zijn om de lijnvoering te maken en te visualiseren
+- **/experiments**: bevat de code voor de experimenten 
+- **/results**: bevat de resultaten van de experimenten
+- **/visualisation**: bevat de code voor de visualisatie
 - **main.py**: hoofd code die alle modules importeert en als eerste gerund moet worden
 - **requirements.txt**: bevat alle benodigde packages om te code te laten draaien
 
