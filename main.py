@@ -199,7 +199,7 @@ if __name__ == "__main__":
 
             while sim_ann_choice != 0: 
 
-                # sim_ann_choice 1: blabla
+                
                 if sim_ann_choice == 1: 
 
                     # run simulated annealing and greedy annealing 
@@ -212,7 +212,7 @@ if __name__ == "__main__":
 
                     break
 
-                # sim_ann_choice 2: blabla
+    
                 if sim_ann_choice == 2: 
 
                     # runs greedy anneal for all numbers of routes in a network 
@@ -224,32 +224,28 @@ if __name__ == "__main__":
                     vis.extract_data(f'data/Stations{file}.csv', f'data/Connecties{file}.csv')
                     vis.visualise(best_network_for_vis, title=f'GreedyAnnealing (routes:{len(best_network_for_vis.routes)}, quality:{best_network_for_vis.quality()})')
 
-
-
-
                     # plot the qualities for the different routes, put highest_values_only on True to zoom in in the plot 
                     plot_ga_compare_routes(file, amount_of_routes, highest_values_only=True)
                     break
 
-                # sim_ann_choice 3: blabla
                 if sim_ann_choice == 3: 
+
+                    # experiment to compare different starting temperatures 
                     temp = 1000
                     greedy_anneal_compare_temps(file, random_network, all_stations, unique_connections_heuristic)
                     plot_ga_compare_temps(file, temp)
 
                     break 
 
-                # sim_ann_choice 4: blabla
                 if sim_ann_choice == 4: 
 
-                    # choice 4 
+                    # one run of greedy annealing  
                     ga = greedy_annealing(file, random_network, all_stations, unique_connections_heuristic)
                     break 
 
-                # sim_ann_choice 5: blabla
                 if sim_ann_choice == 5: 
 
-                    # choice 5 
+                    # many tries to reach the theoretical optimum, using greedy annealing
                     ga = many_greedy_annealing(file, network_object, all_stations, unique_connections_heuristic, 50, route_time, 9)
                     best_network_for_vis = ga.network
 
