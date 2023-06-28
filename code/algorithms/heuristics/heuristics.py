@@ -138,28 +138,3 @@ def distance_based_heuristic(connection_options, station_list, route_object):
     if next_station is False: 
         return  
     return next_station
-
-
-##################### I want to make this working for picking a begin station #####################################
-
-
-def odd_connections_heuristic(connection_options, station_list):
-    """
-    This heuristic selects a start station with an odd number of connections.
-    """
-
-    odd_connections_stations = []
-    
-    for connection in connection_options.keys():
-        for station in station_list:
-            if connection == station.name and station.connections_count % 2 != 0:
-                odd_connections_stations.append(station)
-    
-    if odd_connections_stations:
-
-        # Choose the first station with odd connections
-        return odd_connections_stations[0]  
-    else:
-        # No station with odd connections found
-        return None  
-

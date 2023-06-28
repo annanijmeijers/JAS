@@ -124,6 +124,7 @@ if __name__ == "__main__":
 
                 # option 1: unique_connections_heuristic
                 if heuristic_option == 1: 
+
                     # run RandomGreedy 
                     random_greedy(network_object, all_stations, unique_connections_heuristic)
                     random_greedy_graph()
@@ -132,6 +133,7 @@ if __name__ == "__main__":
 
                 # option 2: max_connections_heuristic
                 if heuristic_option == 2: 
+
                     # run RandomGreedy 
                     random_greedy(network_object, all_stations, max_connections_heuristic)
                     random_greedy_graph()
@@ -154,8 +156,6 @@ if __name__ == "__main__":
         # option 4: Railclimber
         elif option == 4: 
             railclimber_menu()
-
-            ######## still need to add the right text and choice options #################
             railclimber_choice = int(input('Please enter the number before your choice: '))
 
             while railclimber_choice != 0: 
@@ -236,7 +236,6 @@ if __name__ == "__main__":
             print('Invalid choice, please choose again: ')
 
         algorithm_menu()
-
         option = int(input('Please enter your algorithm of choice by entering the number: '))
 
     # if user exits menu print goodbye message
