@@ -251,7 +251,7 @@ if __name__ == "__main__":
 
                     vis = Visualisation()
                     vis.extract_data(f'data/Stations{file}.csv', f'data/Connecties{file}.csv')
-                    vis.visualise(best_network_for_vis, title=f'GreedyAnnealing (routes:{len(best_network_for_vis.routes)}, quality:{best_network_for_vis.quality()})')
+                    vis.visualise(best_network_for_vis, title=f'GreedyAnnealing (routes_{len(best_network_for_vis.routes)}, quality_{best_network_for_vis.quality()})')
                     break 
 
 
