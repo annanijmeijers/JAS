@@ -11,7 +11,7 @@ from code.algorithms.greedy import Greedy, RandomGreedy
 from experiments.greedyannealing_experiment import greedy_annealing, greedy_anneal_compare_routes, plot_ga_compare_routes, plot_ga_compare_temps, greedy_anneal_compare_temps
 from experiments.simulatedannealing_experiment import simulated_annealing, plot_sa_vs_ga_vs_hc
 from experiments.hillclimber_experiment import stochastic_railclimber
-from experiments.greedy.greedy_experiment import greedy, random_greedy, random_greedy_graph, greedy_vis
+from experiments.greedy.greedy_experiment import greedy, random_greedy, random_greedy_graph, greedy_vis, heuristic_differences
 from experiments.random.random_experiment import random_net, random_graph, random_vis
 from code.algorithms.heuristics.heuristics import max_connections_heuristic, unique_connections_heuristic, distance_based_heuristic
 from code.user_interface.menus import holland_or_national, algorithm_menu, heuristic_menu, railclimber_menu, simulated_annealing_menu, heur_or_beginstation  
@@ -127,6 +127,11 @@ if __name__ == "__main__":
                     greedy_vis(file, distance_based_heuristic)
                     break
 
+                 # option 3: distance_based_heuristic
+                if heuristic_option == 4: 
+
+                    heuristic_differences()
+                    break
         # option 3: RandomGreedy
         elif option == 3: 
 

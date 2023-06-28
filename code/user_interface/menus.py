@@ -33,11 +33,11 @@ def heuristic_menu():
     the user can choose which experiment they would 
     like to run.
     """ 
-    print('The options are sorted from the highest score to the lowest score')
     print('___________ HEURISTICS MENU ____________________')
     print('[1] Unique Connections Heuristic')
     print('[2] Maximum Connections Heuristic')
     print('[3] Closest Distance Based Heuristic')
+    print('___________ EXPERIMENT ____________________')
     print('[0] Exit Heuristic Menu')
 
 
