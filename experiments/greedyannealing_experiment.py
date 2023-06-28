@@ -86,13 +86,15 @@ def greedy_anneal_compare_temps(random_network, all_stations, heuristic, iterati
 def plot_ga_compare_temps(temperature): 
 
     fig, ax = plt.subplots()
+    cmap = plt.colormaps["plasma"]
 
     for temp in range(100, temperature+100, 100):
         with open(f'results/greedyannealing/compare_temps/ga_temp{temp}.csv', 'r') as f:
             reader = csv.reader(f, delimiter=',')
             values = list(reader)
             values = [float(k) for sublist in values for k in sublist]
-            ax.plot(values, label=f'Temp: {temp}')
+            ax.plot(values, label=f'Temp: {temp}', color=cmap(temp))
+    
     
     ax.legend(loc='lower right')
     ax.set_title(f'Greedy Annealing: different temperatures')
