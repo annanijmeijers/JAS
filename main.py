@@ -6,8 +6,8 @@ from code.algorithms.randomised import RandomNet
 from experiments.greedyannealing_experiment import greedy_annealing, greedy_anneal_compare_routes, plot_ga_compare_routes, plot_ga_compare_temps, greedy_anneal_compare_temps, many_greedy_annealing
 from experiments.simulatedannealing_experiment import simulated_annealing, plot_sa_vs_ga_vs_hc
 from experiments.hillclimber_experiment import stochastic_railclimber
-from experiments.greedy.greedy_experiment import greedy, random_greedy, random_greedy_graph, greedy_vis, heuristic_differences
-from experiments.random.random_experiment import random_net, random_graph, random_vis
+from experiments.greedy_experiment import greedy, random_greedy, random_greedy_graph, greedy_vis, heuristic_differences
+from experiments.random_experiment import random_net, random_graph, random_vis
 from code.algorithms.heuristics.heuristics import max_connections_heuristic, unique_connections_heuristic, distance_based_heuristic
 from code.user_interface.menus import holland_or_national, algorithm_menu, greedy_menu, random_greedy_menu, railclimber_menu, simulated_annealing_menu
 
