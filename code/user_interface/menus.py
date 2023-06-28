@@ -78,7 +78,7 @@ def simulated_annealing_menu():
     print('[2] GreedyAnnealing: comparing different ammount of routes in network')
     print('[3] GreedyAnnealing: comparing different starting temperatures')
     print('[4] Just one experiment with GreedyAnnealing')
-    print('[5] option 5')
+    print('[5] Many tries of Greedy Annealing to (attempt to) reach the theoretical optimum 5')
     print('[0] Exit Menu')
 
 
