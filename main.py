@@ -14,23 +14,22 @@ from experiments.hillclimber_experiment import stochastic_railclimber
 from experiments.greedy.greedy_experiment import greedy, random_greedy, random_greedy_graph, greedy_vis
 from experiments.random.random_experiment import random_net, random_graph, random_vis
 from code.algorithms.heuristics.heuristics import max_connections_heuristic, unique_connections_heuristic, distance_based_heuristic
-
-
-
 from code.user_interface.menus import holland_or_national, algorithm_menu, heuristic_menu, railclimber_menu, simulated_annealing_menu, heur_or_beginstation  
+
 
 if __name__ == "__main__":
 
     # present with menu with all options
-    
- 
     print('Welcome to our RailNL Case!')
     print('Please enter which file you like to use.')
     holland_or_national()
 
+    # determine which file the user wants to use
     file = int(input('Holland or National: '))
 
     while file != 0: 
+
+        # file 1: Holland 
         if file == 1:
                 df_connections = pd.read_csv('data/ConnectiesHolland.csv')
                 df_stations = pd.read_csv('data/StationsHolland.csv')  
@@ -40,7 +39,7 @@ if __name__ == "__main__":
                 file = 'Holland'
                 break 
 
-
+        # file 2: National 
         elif file == 2:
             df_connections = pd.read_csv('data/ConnectiesNationaal.csv')
             df_stations = pd.read_csv('data/StationsNationaal.csv')
@@ -52,6 +51,7 @@ if __name__ == "__main__":
 
     # instantiating a Station object for all stations
     all_stations = []
+
     for station_name in df_stations['station']:
         new_station = station.Station(station_name) # naam voor de lijst via __str__?
         
@@ -59,7 +59,7 @@ if __name__ == "__main__":
         new_station.find_connections(df_connections)
         all_stations.append(new_station)
 
-    # empty network object
+    # create empty network object
     network_object = network.Network(amount_of_connections, amount_of_routes)
 
     # initialising a randomly filled network for iterative algorithms later 
@@ -68,6 +68,7 @@ if __name__ == "__main__":
     random_network = random_algorithm.network 
 
 
+    # present user with menu of algorithms
     algorithm_menu()
 
     option = int(input('Please enter your algorithm of choice by entering the number before the algorithm: '))
@@ -101,7 +102,7 @@ if __name__ == "__main__":
 
             heuristic_menu()
 
-            heuristic_option = int(input('Please enter your heuristic of choice by entering the number before the heuristic: '))
+            heuristic_option = int(input('Please enter the number of your heuristic of choice: '))
 
             while heuristic_option != 0: 
 
@@ -131,7 +132,7 @@ if __name__ == "__main__":
 
             heuristic_menu()
 
-            heuristic_option = int(input('Please enter your heuristic of choice by entering the number before the heuristic: '))
+            heuristic_option = int(input('Please enter the number of your heuristic of choice: '))
 
             while heuristic_option != 0: 
 
@@ -165,16 +166,18 @@ if __name__ == "__main__":
 
             railclimber_menu()
 
+            ######## still need to add the right text and choice options #################
             railclimber_choice = int(input('Please enter the number before your choice: '))
 
             while railclimber_choice != 0: 
 
+                # railclimber_choice 1: blabla
                 if railclimber_choice == 1: 
 
                     rc = stochastic_railclimber(random_network, all_stations)
-
                     break
 
+                # railclimber_choice 2: blabla
                 if railclimber_choice == 2: 
 
                     break   
@@ -185,10 +188,12 @@ if __name__ == "__main__":
 
             simulated_annealing_menu()
 
+            ######## still need to add the right text and choice options #################
             sim_ann_choice = int(input('Please enter the number before your choice: '))
 
             while sim_ann_choice != 0: 
 
+                # sim_ann_choice 1: blabla
                 if sim_ann_choice == 1: 
 
                     # run simulated annealing and greedy annealing 
@@ -197,10 +202,9 @@ if __name__ == "__main__":
                     hc = stochastic_railclimber(random_network, all_stations)
 
                     plot_sa_vs_ga_vs_hc()
-
-
                     break
 
+                # sim_ann_choice 2: blabla
                 if sim_ann_choice == 2: 
 
                     # runs greedy anneal for all numbers of routes in a network 
@@ -210,6 +214,7 @@ if __name__ == "__main__":
                     plot_ga_compare_routes(amount_of_routes, highest_values_only=False)
                     break
 
+                # sim_ann_choice 3: blabla
                 if sim_ann_choice == 3: 
                     temp = 1000
                     greedy_anneal_compare_temps(random_network, all_stations, unique_connections_heuristic, 100, temp)
@@ -217,12 +222,13 @@ if __name__ == "__main__":
 
                     break 
 
-
+                # sim_ann_choice 4: blabla
                 if sim_ann_choice == 4: 
 
                     # choice 4 
                     break 
 
+                # sim_ann_choice 5: blabla
                 if sim_ann_choice == 5: 
 
                     # choice 5 
@@ -236,4 +242,5 @@ if __name__ == "__main__":
 
         option = int(input('Please enter your algorithm of choice by entering the number: '))
 
+    # if user exits menu print goodbye message
     print('Thankyou for trying our experiments! Have a nice day!')

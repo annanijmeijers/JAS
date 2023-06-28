@@ -1,5 +1,4 @@
 # ---------------- PROVIDE MENUS CHOICES ------------------------
-
 def holland_or_national(): 
 
     """
@@ -68,7 +67,6 @@ def simulated_annealing_menu():
     print('[4] option 4')
     print('[5] option 5')
     print('[0] Exit Menu')
-
 
 
 def heur_or_beginstation(): 
