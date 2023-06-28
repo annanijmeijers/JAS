@@ -61,9 +61,9 @@ def simulated_annealing_menu():
     experiment they would like to run.
     """
     print('___________ SIMULATED ANNEALING MENU __________')
-    print('[1] Normal Simulated Annealing')
-    print('[2] option 2')
-    print('[3] option 3')
+    print('[1] Compare three iterative algorithms (StochasticHillClimber, SimulatedAnnealing, GreedyAnnealing)')
+    print('[2] GreedyAnnealing: comparing different ammount of routes in network')
+    print('[3] GreedyAnnealing: comparing different starting temperatures')
     print('[4] option 4')
     print('[5] option 5')
     print('[0] Exit Menu')

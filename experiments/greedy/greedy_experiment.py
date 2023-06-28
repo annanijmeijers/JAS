@@ -1,7 +1,7 @@
 from code.visualisation.visualisation import Visualisation
 import copy
 import matplotlib.pyplot as plt
-from code.algorithms.greedy import Greedy, RandomGreedy, SemiRandomGreedy
+from code.algorithms.greedy import Greedy, RandomGreedy
 from tqdm import tqdm
 import csv 
 import pickle 
@@ -25,7 +25,7 @@ def greedy(all_stations, network_obj, heuristic):
     else:
         file = 'Nationaal'
 
-    # create a greedy instance
+    # create a greedy instance   
     greedy_net = Greedy(all_stations, network_obj.total_tracks, network_obj)
     greedy_net.run(heuristic)
 
@@ -55,7 +55,8 @@ def random_greedy(network_obj, all_stations, heuristic, runs=10000):
     best_k = 0 
     best_network = None
 
-    with open("results/greedy/random_greedy_data.csv", 'w', newline='') as output_file:
+
+    with open("results/greedy/random_greedy/random_greedy_data.csv", 'w', newline='') as output_file:
         result_writer = csv.writer(output_file, delimiter=',')    
 
         # run the experiment runs amount of times
@@ -85,22 +86,26 @@ def heuristic_differences(file):
     unique_data = pickle.load(network_data)
     network_data.close()
     bars.append(unique_data.network.quality())
-    heuristics.append('unique_connections_heuristic')
+    heuristics.append('unique connections')
 
     network_data = open(f'results/greedy/network_data_{file}_max_connections_heuristic', 'rb')
     max_data = pickle.load(network_data)
     network_data.close()
     bars.append(max_data.network.quality())
-    heuristics.append('max_connections_heuristic')
+    heuristics.append('max connections')
 
     network_data = open(f'results/greedy/network_data_{file}_distance_based_heuristic', 'rb')
     distance_data = pickle.load(network_data)
     network_data.close()
     bars.append(distance_data.network.quality())
-    heuristics.append('distance_based_heuristic')
+    heuristics.append('distance based')
 
-    plt.bar(heuristics, bars) # give bars different colors change names so that it is readable(maybe in a legend?)
+    plt.bar(heuristics, bars, color=['beige', 'lightblue', 'lightpink'], edgecolor = 'dimgray') # give bars different colors change names so that it is readable(maybe in a legend?)
+    plt.title('Difference between heuristic choices')
+    plt.ylabel('K value')
+    plt.xlabel('Heuristics')
     plt.ylim(0, 10000)
+    plt.savefig("results/greedy/heuristic_bars.png")
     plt.show()
 
     
@@ -111,7 +116,7 @@ def random_greedy_graph():
     to a specific destination.  
     """
     results = []
-    with open("results/greedy/random_greedy_data.csv", 'r') as input_file:
+    with open("results/greedy/random_greedy/random_greedy_data.csv", 'r') as input_file:
         result_reader = csv.reader(input_file, delimiter=',')
         for k_value in result_reader:
             results.append(int(k_value[0]))
@@ -120,8 +125,8 @@ def random_greedy_graph():
     plt.xlabel('Value for K')
     plt.ylabel('Ammount')
     plt.xlim(0, 10000)
-    plt.ylim(0, 200)
-    plt.title('Values for K using the Randomized algorithm') 
+    plt.ylim(0, 120)
+    plt.title('Values for K using the RandomGreedy algorithm') 
     plt.savefig(f'results/greedy/random_greedy/Histogram_Random_greedy.png')
     plt.show()
 

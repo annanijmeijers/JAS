@@ -179,7 +179,8 @@ if __name__ == "__main__":
                 # railclimber_choice 1: blabla
                 if railclimber_choice == 1: 
 
-                    rc = stochastic_railclimber(random_network, all_stations)
+                    rc = stochastic_railclimber(file, random_network, all_stations)
+
                     break
 
                 # railclimber_choice 2: blabla
@@ -202,11 +203,13 @@ if __name__ == "__main__":
                 if sim_ann_choice == 1: 
 
                     # run simulated annealing and greedy annealing 
-                    sa = simulated_annealing(random_network, all_stations)
+                    sa = simulated_annealing(file, random_network, all_stations)
                     ga = greedy_annealing(file, random_network, all_stations, unique_connections_heuristic)
-                    hc = stochastic_railclimber(random_network, all_stations)
+                    hc = stochastic_railclimber(file, random_network, all_stations)
 
-                    plot_sa_vs_ga_vs_hc()
+                    plot_sa_vs_ga_vs_hc(file)
+
+
                     break
 
                 # sim_ann_choice 2: blabla
@@ -231,6 +234,7 @@ if __name__ == "__main__":
                 if sim_ann_choice == 4: 
 
                     # choice 4 
+                    ga = greedy_annealing(file, random_network, all_stations, unique_connections_heuristic)
                     break 
 
                 # sim_ann_choice 5: blabla
