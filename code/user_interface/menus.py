@@ -63,7 +63,6 @@ def railclimber_menu():
     """
     print('___________ RAILCLIMBER MENU __________')
     print('[1] One experiment with Stochastic RailClimber')
-    print('[2] option 2')
     print('[0] Exit Menu')
 
 

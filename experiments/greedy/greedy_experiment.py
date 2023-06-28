@@ -1,4 +1,4 @@
-from code.visualisation.visualisation import Visualisation
+from visualisation.visualisation import Visualisation
 import copy
 import matplotlib.pyplot as plt
 from code.algorithms.greedy import Greedy, RandomGreedy
@@ -146,7 +146,7 @@ def greedy_vis(file, heuristic=None, random=False):
 
     elif heuristic:
         network_data = open(f'results/greedy/network_data_{file}_{heuristic.__name__}', 'rb')
-        title = f'Greedy {heuristic.__name__}'
+        title = f'Greedy_{heuristic.__name__}'
 
     else:
         raise Warning("No network data available for a visualisation")

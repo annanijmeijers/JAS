@@ -1,6 +1,5 @@
 import random
 import copy 
-from ..classes.network import Network
 from ..classes.route import Route 
 
 class RandomRoute(): 

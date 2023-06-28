@@ -1,8 +1,6 @@
 import csv 
 from tqdm import tqdm 
-from code.algorithms.randomised import RandomNet
-from code.algorithms.hillclimber import RailClimber, StochasticClimber
-import matplotlib.pyplot as plt 
+from code.algorithms.hillclimber import StochasticClimber
 
 def stochastic_railclimber(file, random_network, all_stations, iterations=1000):
     """

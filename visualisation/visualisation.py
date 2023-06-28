@@ -2,8 +2,6 @@
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 import csv
-from code.classes.network import Network
-from code.classes.route import Route
 
 
 class Visualisation(): 
@@ -166,7 +164,7 @@ class Visualisation():
         plt.grid(True)
         
         # save the plot
-        plt.savefig(f'code/visualisation/plots/{title}.png')
+        plt.savefig(f'visualisation/plots/{title}.png')
 
         # show the plot
         plt.show()

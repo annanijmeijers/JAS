@@ -1,6 +1,6 @@
 from code.classes import route
 from code.classes import network
-from code.visualisation.visualisation import Visualisation
+from visualisation.visualisation import Visualisation
 import copy
 import matplotlib.pyplot as plt
 from code.algorithms.randomised import RandomNet
@@ -95,4 +95,4 @@ def random_vis(file):
 
     vis = Visualisation()
     vis.extract_data(f'data/Stations{file}.csv', f'data/Connecties{file}.csv')
-    vis.visualise(data.network)
+    vis.visualise(data.network, 'random')

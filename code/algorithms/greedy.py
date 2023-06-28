@@ -1,7 +1,6 @@
 import copy 
 import random 
 from code.classes import route 
-from code.classes import network 
 
 
 class Greedy(): 
