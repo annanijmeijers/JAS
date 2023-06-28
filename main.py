@@ -17,7 +17,7 @@ from code.algorithms.heuristics.heuristics import max_connections_heuristic, uni
 
 
 
-from menu import holland_or_national, algorithm_menu, heuristic_menu, railclimber_menu, simulated_annealing_menu, heur_or_beginstation  
+from code.user_interface.menus import holland_or_national, algorithm_menu, heuristic_menu, railclimber_menu, simulated_annealing_menu, heur_or_beginstation  
 
 if __name__ == "__main__":
 
