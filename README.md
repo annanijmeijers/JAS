@@ -24,15 +24,13 @@ De visualisatie van het netwerk wordt alleen gedaan als er niet verschillende al
 
 De hierop volgende lijst beschrijft de belangrijkste mappen en files in het project, en waar je ze kan vinden:
 
-- **/code**: bevat alle code van dit project
-  - **/code/algorithms**: bevat de code voor algoritmes
-  - **/code/classes**: bevat de drie benodigde classes voor deze case
-- **/data**: bevat de verschillende databestanden die nodig zijn om de lijnvoering te maken en te visualiseren
-- **/experiments**: bevat de code voor de experimenten 
-- **/results**: bevat de resultaten van de experimenten
-- **/visualisation**: bevat de code voor de visualisatie
-- **main.py**: hoofd code die alle modules importeert en als eerste gerund moet worden
-- **requirements.txt**: bevat alle benodigde packages om te code te laten draaien
+- **/code**: bevat alle code voor de datastructuur van dit project.
+- **/data**: bevat de verschillende databestanden die nodig zijn om de lijnvoering te maken en te visualiseren.
+- **/experiments**: bevat de code voor de experimenten.
+- **/results**: bevat de resultaten van de experimenten.
+- **/visualisation**: bevat de code voor de visualisatie en afbeeldingen van netwerken.
+- **main.py**: hoofd code die alle modules importeert en als eerste gerund moet worden.
+- **requirements.txt**: bevat alle benodigde packages om te code te laten draaien.
 
 
 ## Team: JAS
