@@ -2,7 +2,7 @@ import copy
 import random 
 from ..classes.route import Route 
 from ..algorithms.randomised import RandomRoute
-from ..algorithms.greedy import Greedy, RandomGreedy, SemiRandomGreedy
+from ..algorithms.greedy import RandomGreedy
 from tqdm import tqdm
 
 class SimulatedAnnealing(): 
