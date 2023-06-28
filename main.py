@@ -198,7 +198,7 @@ if __name__ == "__main__":
 
                     # run simulated annealing and greedy annealing 
                     sa = simulated_annealing(random_network, all_stations)
-                    ga = greedy_annealing(random_network, all_stations, unique_connections_heuristic)
+                    ga = greedy_annealing(file, random_network, all_stations, unique_connections_heuristic)
                     hc = stochastic_railclimber(random_network, all_stations)
 
                     plot_sa_vs_ga_vs_hc()
@@ -208,17 +208,17 @@ if __name__ == "__main__":
                 if sim_ann_choice == 2: 
 
                     # runs greedy anneal for all numbers of routes in a network 
-                    greedy_anneal_compare_routes(network_object, all_stations, amount_of_routes, unique_connections_heuristic)
+                    greedy_anneal_compare_routes(file, network_object, all_stations, amount_of_routes, unique_connections_heuristic)
 
                     # plot the qualities for the different routes, put highest_values_only on True to zoom in in the plot 
-                    plot_ga_compare_routes(amount_of_routes, highest_values_only=False)
+                    plot_ga_compare_routes(file, amount_of_routes, highest_values_only=False)
                     break
 
                 # sim_ann_choice 3: blabla
                 if sim_ann_choice == 3: 
                     temp = 1000
-                    greedy_anneal_compare_temps(random_network, all_stations, unique_connections_heuristic, 100, temp)
-                    plot_ga_compare_temps(temp)
+                    # greedy_anneal_compare_temps(random_network, all_stations, unique_connections_heuristic, 100, temp)
+                    plot_ga_compare_temps(file, temp)
 
                     break 
 
