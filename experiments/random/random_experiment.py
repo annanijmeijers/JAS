@@ -75,7 +75,7 @@ def random_graph():
     plt.xlabel('Value for K')
     plt.ylabel('Ammount')
     plt.xlim(0, 10000)
-    plt.ylim(0, 200)
+    plt.ylim(0, 120)
     plt.title('Values for K using the Randomized algorithm') 
     plt.savefig(f'results/random/Histogram_Random.png')
     plt.show()
