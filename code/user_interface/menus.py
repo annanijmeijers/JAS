@@ -1,6 +1,7 @@
 # ---------------- PROVIDE MENUS CHOICES ------------------------
 
 def holland_or_national(): 
+
     """
     Prints a menu of options from which 
     the user can choose which version of the 
@@ -64,6 +65,8 @@ def simulated_annealing_menu():
     print('[1] Normal Simulated Annealing')
     print('[2] option 2')
     print('[3] option 3')
+    print('[4] option 4')
+    print('[5] option 5')
     print('[0] Exit Menu')
 
 

@@ -177,7 +177,7 @@ if __name__ == "__main__":
 
                 if railclimber_choice == 2: 
 
-                    break
+                    break   
 
 
 
@@ -216,11 +216,24 @@ if __name__ == "__main__":
                     plot_ga_compare_temps(file, temp)
 
                     break 
+
+
+                if sim_ann_choice == 4: 
+
+                    # choice 4 
+                    break 
+
+                if sim_ann_choice == 5: 
+
+                    # choice 5 
+                    break 
+
+
         else: 
             print('Invalid choice, please choose again: ')
 
         algorithm_menu()
 
-        option = int(input('Please enter your algorithm of choice by entering the number before the algorithm: '))
+        option = int(input('Please enter your algorithm of choice by entering the number: '))
 
     print('Thankyou for trying our experiments! Have a nice day!')
