@@ -74,18 +74,3 @@ class StochasticClimber(RailClimber):
             self.replace_and_test(number_of_route) 
         
             
-                
-                    
-                
-
-
-
-
-
-
-
-
-
-
-
-    

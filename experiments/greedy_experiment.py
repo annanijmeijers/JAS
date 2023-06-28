@@ -41,7 +41,7 @@ def random_greedy(network_obj, all_stations, heuristic, runs=10000):
         - all_stations: list of Station objects
         - heuristic: heuristic choice for connections
         - runs: ammount of runs for the experiment
-        heuristic choices:
+          heuristic choices:
         - unique_connections_heuristic
         - maximum_connections_heuristic
         - distance_based_heuristic
@@ -100,7 +100,7 @@ def heuristic_differences(file):
     bars.append(distance_data.network.quality())
     heuristics.append('distance based')
 
-    plt.bar(heuristics, bars, color=['beige', 'lightblue', 'lightpink'], edgecolor = 'dimgray') # give bars different colors change names so that it is readable(maybe in a legend?)
+    plt.bar(heuristics, bars, color=['beige', 'lightblue', 'lightpink'], edgecolor = 'dimgray') 
     plt.title('Difference between heuristic choices')
     plt.ylabel('K value')
     plt.xlabel('Heuristics')

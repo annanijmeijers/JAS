@@ -11,7 +11,10 @@ class Station():
     def find_connections(self, df):
         """
         IN: dataframe 
-        OUT: dictionary containing all the destinations, including disitance
+        OUT: dictionary containing all the connections, including disitance
+        This function determines all the connections between stations 
+        from a given dataframe. It then gives a dictionrary of the connections
+        with the corresponding distances.
         """
 
         # swap columns of dataframe

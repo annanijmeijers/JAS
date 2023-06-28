@@ -1,6 +1,5 @@
 # ---------------- PROVIDE MENUS CHOICES ------------------------
 def holland_or_national(): 
-
     """
     Prints a menu of options from which 
     the user can choose which version of the 
@@ -79,13 +78,3 @@ def simulated_annealing_menu():
     print('[4] Just one experiment with GreedyAnnealing')
     print('[5] Many tries of Greedy Annealing to (attempt to) reach the theoretical optimum 5')
     print('[0] Exit Menu')
-
-
-def heur_or_beginstation(): 
-
-    print()
-    print('[1] Heuristic')
-    print('[2] Begin Station')
-    print('[0] Exit')
-
-

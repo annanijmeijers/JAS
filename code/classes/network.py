@@ -35,7 +35,7 @@ class Network():
         """ 
         return self.routes[r-1]
     
-    def replace_route(self, r, replace_route): # hier nog iets met unique_connections DONE (line84)
+    def replace_route(self, r, replace_route): 
          """
          IN: the number of the Route (int) to delete, and the new Route to insert.
 
@@ -49,7 +49,7 @@ class Network():
 
                 # give the number of the old route to the new route and replace it 
                 replace_route.number = self.routes[i].number
-                new_routes[i] = replace_route # gaat dit goed met de copy?
+                new_routes[i] = replace_route 
 
          self.routes = new_routes 
 

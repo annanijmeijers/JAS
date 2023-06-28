@@ -49,7 +49,6 @@ class BreadthFirst:
                 # stop if we find a solution (breadth first search)
                 break
                 
-                # continue looking for a better solution (best first search)
         self.route_obj = new_route
 
 class DepthFirst(BreadthFirst):

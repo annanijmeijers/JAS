@@ -70,7 +70,7 @@ if __name__ == "__main__":
 
     # present user with menu of algorithms
     algorithm_menu()
-    option = int(input('Please enter your algorithm of choice by entering the number before the algorithm: '))
+    option = int(input('Please enter the number of your algorithm of choice: '))
     print('')
 
     while option != 0: 
@@ -173,7 +173,7 @@ if __name__ == "__main__":
 
             simulated_annealing_menu()
 
-            sim_ann_choice = int(input('Please enter the number before your choice: '))
+            sim_ann_choice = int(input('Please enter the number of your choice: '))
 
             while sim_ann_choice != 0: 
              
@@ -236,7 +236,7 @@ if __name__ == "__main__":
             print('Invalid choice, please choose again: ')
 
         algorithm_menu()
-        option = int(input('Please enter your algorithm of choice by entering the number: '))
-
+        option = int(input('Please enter the number of your algorithm of choice:'))
+        
     # if user exits menu print goodbye message
     print('Thankyou for trying our experiments! Have a nice day!')
