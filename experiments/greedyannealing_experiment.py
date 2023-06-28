@@ -63,12 +63,16 @@ def plot_ga_compare_routes(file, amount_of_routes, highest_values_only):
                     ax.plot(values, c="#bfbfbf", label='_nolegend_')
                     name = 'all_values'
 
-    ax.legend(loc='lower right')
+    if highest_values_only == True:
+        ax.legend(loc='lower left')
+    else:
+        ax.legend(loc='lower right')
     ax.set_title(f'Greedy Annealing (Tstart: 1000)')
     ax.set_xlabel('Iterations')
     ax.set_ylabel('Quality of network')
     fig.set_size_inches(10.5, 7.5)
     fig.savefig(f"results/greedyannealing/compare_routes/compare_routes_{name}_{file}.png")
+
 
 # ====================== Comparing different temperatures ======================
 
