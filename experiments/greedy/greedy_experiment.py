@@ -142,9 +142,11 @@ def greedy_vis(file, heuristic=None, random=False):
     """    
     if random:
         network_data = open('results/greedy/random_greedy/network_data', 'rb')
+        title = 'Random Greedy'
 
     elif heuristic:
         network_data = open(f'results/greedy/network_data_{file}_{heuristic.__name__}', 'rb')
+        title = f'Greedy {heuristic.__name__}'
 
     else:
         raise Warning("No network data available for a visualisation")
@@ -155,4 +157,6 @@ def greedy_vis(file, heuristic=None, random=False):
 
     vis = Visualisation()
     vis.extract_data(f'data/Stations{file}.csv', f'data/Connecties{file}.csv')
-    vis.visualise(data.network)
+
+        
+    vis.visualise(data.network, title)

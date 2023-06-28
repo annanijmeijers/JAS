@@ -76,9 +76,9 @@ class Visualisation():
         self.read_connections()
         
 
-    def visualise(self, network_object, label=False, title=True):
+    def visualise(self, network_object, title, label=False):
         """ 
-        IN: network_object (optional bools: label, title)
+        IN: network_object, title (optional bools: label)
         OUT: plot of routes in given network
         """
 
@@ -159,15 +159,14 @@ class Visualisation():
             for i, (x_val, y_val) in enumerate(zip(x, y)):
                 plt.text(x_val, y_val, self.station_names[i], fontsize=4, bbox=dict(facecolor='pink', alpha=0.8), zorder=10)
 
-        # add title if asked for 
-        if title: 
-            plt.title(f'Railnet with {network_object}')
+        # add title 
+        plt.title(f'Railnet with {title}')
 
         # add gridlines and title
         plt.grid(True)
         
         # save the plot
-        plt.savefig(f'code/visualisation/plots/{network_object}.png')
+        plt.savefig(f'code/visualisation/plots/{title}.png')
 
         # show the plot
         plt.show()
