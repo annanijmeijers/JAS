@@ -2,7 +2,7 @@ import pandas as pd
 
 class Station(): 
 
-    def __init__(self, station_name): # what parameters when calling this object? 
+    def __init__(self, station_name):
         self.name = station_name
         self.connections = None 
         self.begin_station = False
@@ -10,9 +10,11 @@ class Station():
 
     def find_connections(self, df):
         """
-        Takes the name of a station and a general dataframe, returns a dictionary containing all
-        the destinations, including distance
+        IN: dataframe 
+        OUT: dictionary containing all the destinations, including disitance
         """
+
+        # swap columns of dataframe
         station_mask = df['station1'] == self.name
         station_df_left = df[station_mask]
         station_mask2 = df['station2'] == self.name
@@ -22,6 +24,7 @@ class Station():
 
         destinations = pd.concat([station_df_left, swapped_station]).drop('station1', axis=1).reset_index()
 
+        # create dictionary for the connections
         connections = {}
         for index, row in destinations.iterrows():
             self.connections_count += 1
@@ -29,7 +32,12 @@ class Station():
 
         self.connections = connections
 
+
     def is_begin_station(self): 
+        """ 
+        If called, status of station is set 
+        to begin station
+        """
         self.begin_station = True 
 
 
