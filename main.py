@@ -216,16 +216,25 @@ if __name__ == "__main__":
                 if sim_ann_choice == 2: 
 
                     # runs greedy anneal for all numbers of routes in a network 
-                    greedy_anneal_compare_routes(file, network_object, all_stations, amount_of_routes, unique_connections_heuristic)
+                    ga = greedy_anneal_compare_routes(file, network_object, all_stations, amount_of_routes, unique_connections_heuristic)
+                    
+                    # visualize best network 
+                    best_network_for_vis = ga.network
+                    vis = Visualisation()
+                    vis.extract_data(f'data/Stations{file}.csv', f'data/Connecties{file}.csv')
+                    vis.visualise(best_network_for_vis, title=f'Best network with GreedyAnnealing (routes:{len(best_network_for_vis.routes)})')
+
+
+
 
                     # plot the qualities for the different routes, put highest_values_only on True to zoom in in the plot 
-                    plot_ga_compare_routes(file, amount_of_routes, highest_values_only=False)
+                    plot_ga_compare_routes(file, amount_of_routes, highest_values_only=True)
                     break
 
                 # sim_ann_choice 3: blabla
                 if sim_ann_choice == 3: 
                     temp = 1000
-                    # greedy_anneal_compare_temps(random_network, all_stations, unique_connections_heuristic, 100, temp)
+                    greedy_anneal_compare_temps(file, random_network, all_stations, unique_connections_heuristic)
                     plot_ga_compare_temps(file, temp)
 
                     break 

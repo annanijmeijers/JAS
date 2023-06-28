@@ -1,12 +1,12 @@
 import csv 
 from tqdm import tqdm 
-from code.algorithms.randomised import RandomNet
-from code.algorithms.simulatedannealing import SimulatedAnnealing, GreedyAnnealing
+from code.algorithms.simulatedannealing import SimulatedAnnealing
 import matplotlib.pyplot as plt 
 
 def simulated_annealing(file, random_network, all_stations, iterations=1000, temperature=1000):
     """
-    This function runs the simulated annealing algorithm with a given number iterations
+    This function runs the simulated annealing algorithm with a given number iterations, dumps the data 
+    into a csv-file
     """
     ga = SimulatedAnnealing(random_network, all_stations, temperature)
 
@@ -21,8 +21,8 @@ def simulated_annealing(file, random_network, all_stations, iterations=1000, tem
 
 def plot_sa_vs_ga_vs_hc(file): 
     """
-    This function plots the results from simulated annealing, greedy annealing and stochastic hillclimber
-    to compare
+    Reads the csv data from Stochastic Hillclimber, SimulatedAnnealing, 
+    and GreedyAnnealing and plots the results to compare
     """
 
     fig, ax = plt.subplots()
