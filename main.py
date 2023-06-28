@@ -14,7 +14,7 @@ from experiments.hillclimber_experiment import stochastic_railclimber
 from experiments.greedy.greedy_experiment import greedy, random_greedy, random_greedy_graph, greedy_vis, heuristic_differences
 from experiments.random.random_experiment import random_net, random_graph, random_vis
 from code.algorithms.heuristics.heuristics import max_connections_heuristic, unique_connections_heuristic, distance_based_heuristic
-from code.user_interface.menus import holland_or_national, algorithm_menu, heuristic_menu, railclimber_menu, simulated_annealing_menu, heur_or_beginstation  
+from code.user_interface.menus import holland_or_national, algorithm_menu, greedy_menu, random_greedy_menu, railclimber_menu, simulated_annealing_menu, heur_or_beginstation  
 
 
 if __name__ == "__main__":
@@ -100,7 +100,7 @@ if __name__ == "__main__":
             #     if heur_or_stat == 2: 
 
 
-            heuristic_menu()
+            greedy_menu()
 
             heuristic_option = int(input('Please enter the number of your heuristic of choice: '))
 
@@ -130,12 +130,12 @@ if __name__ == "__main__":
                  # option 3: distance_based_heuristic
                 if heuristic_option == 4: 
 
-                    heuristic_differences()
+                    heuristic_differences(file)
                     break
         # option 3: RandomGreedy
         elif option == 3: 
 
-            heuristic_menu()
+            random_greedy_menu()
 
             heuristic_option = int(input('Please enter the number of your heuristic of choice: '))
 

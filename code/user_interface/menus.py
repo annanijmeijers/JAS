@@ -27,7 +27,19 @@ def algorithm_menu():
     print('[0] Exit Menu')
 
 
-def heuristic_menu(): 
+def random_greedy_menu(): 
+    """ 
+    Prints a menu of heuristic options from which 
+    the user can choose which experiment they would 
+    like to run.
+    """ 
+    print('___________ HEURISTICS MENU ____________________')
+    print('[1] Unique Connections Heuristic')
+    print('[2] Maximum Connections Heuristic')
+    print('[3] Closest Distance Based Heuristic')
+    print('[0] Exit Heuristic Menu')
+
+def greedy_menu(): 
     """ 
     Prints a menu of heuristic options from which 
     the user can choose which experiment they would 
@@ -38,8 +50,9 @@ def heuristic_menu():
     print('[2] Maximum Connections Heuristic')
     print('[3] Closest Distance Based Heuristic')
     print('___________ EXPERIMENT ____________________')
+    print('[4] Differences Between Heuristics')
+    print(' ')
     print('[0] Exit Heuristic Menu')
-
 
     
 def railclimber_menu(): 
