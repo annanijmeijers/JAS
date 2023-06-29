@@ -81,6 +81,12 @@ class Greedy():
             return
 
     def build_route(self, r, heuristic):
+
+        if self.amount_of_connections == 89:
+            self.timeframe = 180
+        else:
+            self.timeframe = 120
+        
         # initialise a route-object and computing the route 
         new_route = route.Route(self.timeframe, self.station_list, r) 
         first_station = self.find_begin_station()
